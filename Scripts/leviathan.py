@@ -16,7 +16,7 @@ f1 = 500
 ciclo = 1
 
 def prender():
-    p.start(ciclo)
+    p.changeDutyCycle(ciclo)
 
 def leviathan():
 
