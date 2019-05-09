@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 #Las librerias que se importan
 import rospy
+import RPi.GPIO as GPIO
 
 #Es la tasa en Hertz del nodo.
 h = 10
