@@ -13,7 +13,7 @@ pwm1 = 12
 f1 = 500
 
 #Ciclo util del pulso. Un numero entre 0 y 100.
-ciclo = 100
+ciclo = 10
 
 def prender():
     global p
