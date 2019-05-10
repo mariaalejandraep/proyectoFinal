@@ -13,12 +13,14 @@ pwm1 = 10
 f1 = 500
 
 #Ciclo útil del pulso. Un número entre 0 y 100.
-ciclo = 1
+ciclo = 0
 
 def prender():
+    rospy.loginfo("El ciclo útil es: {}".format(ciclo))
     p.changeDutyCycle(ciclo)
 
 def leviathan():
+    rospy.init_node('Raspberry_controller', anonymous=True)
 
     rate = rospy.Rate(h)
     p = GPIO.PWM(pwm1,f1)
