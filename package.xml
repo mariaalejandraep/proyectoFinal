@@ -58,6 +58,9 @@
   <exec_depend>roscpp</exec_depend>
   <exec_depend>rospy</exec_depend>
   <exec_depend>std_msgs</exec_depend>
+  <build_depend>master_msgs_iele3338</build_depend>
+  <build_export_depend>master_msgs_iele3338</build_export_depend>
+  <exec_depend>master_msgs_iele3338</exec_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->

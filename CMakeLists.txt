@@ -8,6 +8,7 @@ project(proyectoFinal)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  master_msgs_iele3338
   roscpp
   rospy
   std_msgs
