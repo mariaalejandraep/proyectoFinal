@@ -3,9 +3,6 @@
 import rospy
 import RPi.GPIO as GPIO
 
-#Es el pin de PWM.
-p = None
-
 #Es la tasa en Hertz (Hz) del nodo.
 h = 10
 
@@ -21,7 +18,7 @@ ciclo = 0
 def prender():
     global p
     rospy.loginfo("El ciclo util es: {}".format(ciclo))
-    p.changeDutyCycle(ciclo)
+    p.ChangeDutyCycle(ciclo)
 
 def leviathan():
     global p
