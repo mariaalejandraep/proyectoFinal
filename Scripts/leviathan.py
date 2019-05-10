@@ -3,6 +3,7 @@
 import rospy
 import RPi.GPIO as GPIO
 
+
 #Es la tasa en Hertz (Hz) del nodo.
 h = 10
 
@@ -21,6 +22,7 @@ def prender():
 
 def leviathan():
     rospy.init_node('Raspberry_controller', anonymous=True)
+    GPIO.setmode(GPIO.BOARD)
 
     rate = rospy.Rate(h)
     p = GPIO.PWM(pwm1,f1)
