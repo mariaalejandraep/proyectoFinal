@@ -8,7 +8,7 @@ import RPi.GPIO as GPIO
 h = 10
 
 #Variable con el pin que va al motor.
-pwm1 = 10
+pwm1 = 12
 
 #Frecuencia en Hertz (Hz) del pin que va al motor.
 f1 = 500
@@ -23,6 +23,7 @@ def prender():
 def leviathan():
     rospy.init_node('Raspberry_controller', anonymous=True)
     GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(pwm1,GPIO.OUT)
 
     rate = rospy.Rate(h)
     p = GPIO.PWM(pwm1,f1)
