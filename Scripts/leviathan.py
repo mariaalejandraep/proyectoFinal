@@ -3,6 +3,8 @@
 import rospy
 import RPi.GPIO as GPIO
 
+#Es el pin de PWM.
+p = None
 
 #Es la tasa en Hertz (Hz) del nodo.
 h = 10
@@ -17,10 +19,12 @@ f1 = 500
 ciclo = 0
 
 def prender():
+    global p
     rospy.loginfo("El ciclo util es: {}".format(ciclo))
     p.changeDutyCycle(ciclo)
 
 def leviathan():
+    global p
     rospy.init_node('Raspberry_controller', anonymous=True)
     GPIO.setmode(GPIO.BOARD)
     GPIO.setup(pwm1,GPIO.OUT)
