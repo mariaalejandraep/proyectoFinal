@@ -12,11 +12,11 @@ pwm1 = 10
 #Frecuencia en Hertz (Hz) del pin que va al motor.
 f1 = 500
 
-#Ciclo útil del pulso. Un número entre 0 y 100.
+#Ciclo util del pulso. Un numero entre 0 y 100.
 ciclo = 0
 
 def prender():
-    rospy.loginfo("El ciclo útil es: {}".format(ciclo))
+    rospy.loginfo("El ciclo util es: {}".format(ciclo))
     p.changeDutyCycle(ciclo)
 
 def leviathan():
