@@ -53,8 +53,8 @@ def prender():
 
     GPIO.output(pwmA1,1)
     GPIO.output(pwmB2,1)
-    p1.ChangeDutyCycle(cicloA)
-    p2.ChangeDutyCycle(cicloB)
+    #p1.ChangeDutyCycle(cicloA)
+    #p2.ChangeDutyCycle(cicloB)
 
     # eA1 = GPIO.input(encodA1)
     # eA2 = GPIO.input(encodA2)
@@ -103,11 +103,11 @@ def leviathan():
     GPIO.output(pwmB1,0)
     GPIO.output(pwmB2,0)
 
-    p1 = GPIO.PWM(pwmA2,f)
-    p2 = GPIO.PWM(pwmB1,f)
+    #p1 = GPIO.PWM(pwmA2,f)
+    #p2 = GPIO.PWM(pwmB1,f)
 
-    p1.start(0)
-    p2.start(0)
+    #p1.start(0)
+    #p2.start(0)
     # try:
          # service = rospy.ServicePr
     while not rospy.is_shutdown():
