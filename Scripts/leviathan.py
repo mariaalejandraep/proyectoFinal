@@ -19,7 +19,7 @@ pwmB1 = 15
 pwmB2 = 16
 
 
-#Frecuencia en Hertz (Hz) de la señal de pulso que controla el motor.
+#Frecuencia en Hertz (Hz) de la senal de pulso que controla el motor.
 f = 500
 
 #Ciclo util del pulso para el motor A. Un numero entre 0 y 100.
