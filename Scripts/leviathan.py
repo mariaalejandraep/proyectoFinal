@@ -49,16 +49,18 @@ def prender():
     rospy.loginfo("El ciclo util A es: {}".format(cicloA))
     rospy.loginfo("El ciclo util B es: {}".format(cicloB))
 
-
     GPIO.output(pwmA1,1)
     GPIO.output(pwmB2,1)
     p1.ChangeDutyCycle(cicloA)
     p2.ChangeDutyCycle(cicloB)
+
     if eA1 or eA2:
         contadorA=contadorA+1
     if eB1 or eB2:
         contadorB=contadorB+1
     if contadorA==6 or contadorB==6:
+        contadorA = 0
+        contadorB = 0
         rospy.loginfo("es true perras")
 
 
@@ -72,25 +74,18 @@ def leviathan():
     GPIO.setup(pwmB1,GPIO.OUT)
     GPIO.setup(pwmB2,GPIO.OUT)
 
-
     GPIO.setup(encodA1,GPIO.IN)
     GPIO.setup(encodA2,GPIO.IN)
     GPIO.setup(encodB1,GPIO.IN)
     GPIO.setup(encodB2,GPIO.IN)
 
     rate = rospy.Rate(h)
+
     GPIO.output(pwmA1,0)
     GPIO.output(pwmB2,0)
 
-
     p1 = GPIO.PWM(pwmA2,f)
     p2 = GPIO.PWM(pwmB1,f)
-
-    eA1= GPIO.PWM(encodA1,f)
-    eA2= GPIO.PWM(encodA2,f)
-    eB1= GPIO.PWM(encodB1,f)
-    eB2= GPIO.PWM(encodB2,f)
-
 
     p1.start(0)
     p2.start(0)
