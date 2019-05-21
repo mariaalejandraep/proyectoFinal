@@ -23,10 +23,10 @@ pwmB2 = 16
 f = 500
 
 #Ciclo util del pulso para el motor A. Un numero entre 0 y 100.
-cicloA = 10
+cicloA = 2
 
 #Ciclo util del pulso para el motor B. Un numero entre 0 y 100.
-cicloB = 10
+cicloB = 2
 
 def prender():
     global p1, p2
