@@ -73,10 +73,10 @@ def prender():
 
 
 def apagar():
-    cicloA = 0
-    cicloB = 0
-    p1.ChangeDutyCycle(cicloA)
-    p2.ChangeDutyCycle(cicloB)
+    #cicloA = 0
+    #cicloB = 0
+    #p1.ChangeDutyCycle(cicloA)
+    #p2.ChangeDutyCycle(cicloB)
     rospy.loginfo("Apagando. El ciclo util de A es: {}".format(cicloA))
     rospy.loginfo("Apagando. El ciclo util de B es: {}".format(cicloB))
     GPIO.cleanup()
