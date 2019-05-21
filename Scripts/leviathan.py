@@ -44,8 +44,11 @@ cicloA = 0
 #Ciclpo util del pulso para el motor B. Un numero entre 0 y 100.
 cicloB = 0
 
+contadorA = 0
+contadorB = 0
+
 def prender():
-    global p1, p2, contadorA, contadorB,eA1, eA2, eB1, eB2
+    global p1, p2, contadorA, contadorB,eA1, eA2, eB1, eB2, contadorA, contadorB
     rospy.loginfo("El ciclo util A es: {}".format(cicloA))
     rospy.loginfo("El ciclo util B es: {}".format(cicloB))
 
