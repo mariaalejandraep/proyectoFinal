@@ -23,14 +23,15 @@ pwmB2 = 16
 f = 500
 
 #Ciclo util del pulso para el motor A. Un numero entre 0 y 100.
-cicloA = 0
+cicloA = 10
 
 #Ciclo util del pulso para el motor B. Un numero entre 0 y 100.
-cicloB = 0
+cicloB = 10
 
 def prender():
     global p1, p2
     rospy.loginfo("El ciclo util A es: {}".format(cicloA))
+    rospy.loginfo("El ciclo util B es: {}".format(cicloB))
     GPIO.output(pwmA1,1)
     GPIO.output(pwmB2,1)
     p1.ChangeDutyCycle(cicloA)
@@ -59,6 +60,8 @@ def leviathan():
     while not rospy.is_shutdown():
         prender()
         rate.sleep()
+    cicloA = 0
+    cicloB = 0
 
 if __name__ == '__main__':
     try:
