@@ -43,7 +43,7 @@ def apagar():
     cicloB = 0
     p1.ChangeDutyCycle(cicloA)
     p2.ChangeDutyCycle(cicloB)
-    rospy.loginfo("Apagando. El ciclo útil de A es: {}".format(cicloA))
+    rospy.loginfo("Apagando. El ciclo util de A es: {}".format(cicloA))
     rospy.loginfo("Apagando. El ciclo util de B es: {}".format(cicloB))
 
 def leviathan():
