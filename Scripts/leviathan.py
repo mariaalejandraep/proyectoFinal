@@ -62,6 +62,8 @@ def leviathan():
         rate.sleep()
     cicloA = 0
     cicloB = 0
+    rospy.loginfo("El ciclo util A es: {}".format(cicloA))
+    rospy.loginfo("El ciclo util B es: {}".format(cicloB))
 
 if __name__ == '__main__':
     try:
