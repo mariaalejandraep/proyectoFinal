@@ -23,28 +23,30 @@ pwmB2 = 16
 f = 500
 
 #Ciclo util del pulso para el motor A. Un numero entre 0 y 100.
-cicloA = 0
+cicloA = 10
 
 #Ciclo util del pulso para el motor B. Un numero entre 0 y 100.
-cicloB = 0
+cicloB = 10
 
 def prender():
     global p1, p2
     rospy.loginfo("El ciclo util A es: {}".format(cicloA))
     rospy.loginfo("El ciclo util B es: {}".format(cicloB))
     GPIO.output(pwmA1,0)
-    GPIO.output(pwmA2,0)
-    GPIO.output(pwmB1,0)
     GPIO.output(pwmB2,0)
+    p1.ChangeDutyCycle(cicloA)
+    p2.ChangeDutyCycle(cicloB)
 
 def apagar():
     global cicloA, cicloB
     cicloA = 0
     cicloB = 0
-    p1.ChangeDutyCycle(cicloA)
-    p2.ChangeDutyCycle(cicloB)
-    rospy.loginfo("Apagando. El ciclo util de A es: {}".format(cicloA))
-    rospy.loginfo("Apagando. El ciclo util de B es: {}".format(cicloB))
+    GPIO.output(pwmA1,0)
+    GPIO.output(pwmA2,0)
+    GPIO.output(pwmB1,0)
+    GPIO.output(pwmB2,0)
+
+    rospy.loginfo("Apagando.")
 
 def leviathan():
     global p1, p2
