@@ -72,6 +72,15 @@ def prender():
     #     rospy.loginfo("es true perras")
 
 
+def apagar():
+    cicloA = 0
+    cicloB = 0
+    p1.ChangeDutyCycle(cicloA)
+    p2.ChangeDutyCycle(cicloB)
+    rospy.loginfo("Apagando. El ciclo util de A es: {}".format(cicloA))
+    rospy.loginfo("Apagando. El ciclo util de B es: {}".format(cicloB))
+    GPIO.cleanup()
+
 def leviathan():
     global p1, p2#, eA1, eA2, eB1, eB2
     rospy.init_node('Raspberry_controller', anonymous=True)
@@ -105,12 +114,7 @@ def leviathan():
         prender()
         rate.sleep()
 
-    cicloA = 0
-    cicloB = 0
-    p1.ChangeDutyCycle(cicloA)
-    p2.ChangeDutyCycle(cicloB)
-    rospy.loginfo("Apagando. El ciclo util de A es: {}".format(cicloA))
-    rospy.loginfo("Apagando. El ciclo util de B es: {}".format(cicloB))
+    apagar()
 
 if __name__ == '__main__':
     try:
