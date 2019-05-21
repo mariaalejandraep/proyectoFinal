@@ -32,10 +32,10 @@ def prender():
     global p1, p2
     rospy.loginfo("El ciclo util A es: {}".format(cicloA))
     rospy.loginfo("El ciclo util B es: {}".format(cicloB))
-    GPIO.output(pwmA1,1)
-    GPIO.output(pwmB2,1)
-    p1.ChangeDutyCycle(cicloA)
-    p2.ChangeDutyCycle(cicloB)
+    GPIO.output(pwmA1,0)
+    GPIO.output(pwmA2,0)
+    GPIO.output(pwmB1,0)
+    GPIO.output(pwmB2,0)
 
 def apagar():
     global cicloA, cicloB
