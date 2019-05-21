@@ -12,6 +12,12 @@ pwmA1 = 11
 #Variable con el segundo pin que va al driver para controlar el motor A.
 pwmA2 = 12
 
+#Variable con el primer pin que va al driver para controlar el motor B.
+pwmB1 = 15
+
+#Variable con el segundo pin que va al driver para controlar el motor B.
+pwmB2 = 16
+
 # Variable para pin de lectura de encoder A 1
 
 encodA1= 35
@@ -20,12 +26,6 @@ encodA1= 35
 
 encodA2= 36
 
-#Variable con el primer pin que va al driver para controlar el motor B.
-pwmB1 = 15
-
-#Variable con el segundo pin que va al driver para controlar el motor B.
-pwmB2 = 16
-
 # Variable para pin de lectura de encoder B 1
 
 encodB1= 37
@@ -33,7 +33,6 @@ encodB1= 37
 #Variable para pin de lectura de encoder B 2
 
 encodB2= 38
-
 
 #Frecuencia en Hertz (Hz) del pin que va al motor.
 f = 500
@@ -48,33 +47,33 @@ contadorA = 0
 contadorB = 0
 
 def prender():
-    global p1, p2, contadorA, contadorB,eA1, eA2, eB1, eB2, contadorA, contadorB
-    rospy.loginfo("El ciclo util A es: {}".format(cicloA))
-    rospy.loginfo("El ciclo util B es: {}".format(cicloB))
+    global p1, p2#, contadorA, contadorB, eA1, eA2, eB1, eB2, contadorA, contadorB
+    #rospy.loginfo("El ciclo util A es: {}".format(cicloA))
+    #rospy.loginfo("El ciclo util B es: {}".format(cicloB))
 
     GPIO.output(pwmA1,1)
     GPIO.output(pwmB2,1)
     p1.ChangeDutyCycle(cicloA)
     p2.ChangeDutyCycle(cicloB)
 
-    eA1 = GPIO.input(encodA1)
-    eA2 = GPIO.input(encodA2)
-    eB1 = GPIO.input(encodB1)
-    eB2 = GPIO.input(encodB2)
+    # eA1 = GPIO.input(encodA1)
+    # eA2 = GPIO.input(encodA2)
+    # eB1 = GPIO.input(encodB1)
+    # eB2 = GPIO.input(encodB2)
 
-
-    if eA1 or eA2:
-        contadorA=contadorA+1
-    if eB1 or eB2:
-        contadorB=contadorB+1
-    if contadorA==6 or contadorB==6:
-        contadorA = 0
-        contadorB = 0
-        rospy.loginfo("es true perras")
+    #
+    # if eA1 or eA2:
+    #     contadorA=contadorA+1
+    # if eB1 or eB2:
+    #     contadorB=contadorB+1
+    # if contadorA==6 or contadorB==6:
+    #     contadorA = 0
+    #     contadorB = 0
+    #     rospy.loginfo("es true perras")
 
 
 def leviathan():
-    global p1, p2, eA1, eA2, eB1, eB2
+    global p1, p2#, eA1, eA2, eB1, eB2
     rospy.init_node('Raspberry_controller', anonymous=True)
     GPIO.setmode(GPIO.BOARD)
 
@@ -83,14 +82,16 @@ def leviathan():
     GPIO.setup(pwmB1,GPIO.OUT)
     GPIO.setup(pwmB2,GPIO.OUT)
 
-    GPIO.setup(encodA1,GPIO.IN)
-    GPIO.setup(encodA2,GPIO.IN)
-    GPIO.setup(encodB1,GPIO.IN)
-    GPIO.setup(encodB2,GPIO.IN)
+    # GPIO.setup(encodA1,GPIO.IN)
+    # GPIO.setup(encodA2,GPIO.IN)
+    # GPIO.setup(encodB1,GPIO.IN)
+    # GPIO.setup(encodB2,GPIO.IN)
 
     rate = rospy.Rate(h)
 
     GPIO.output(pwmA1,0)
+    GPIO.output(pwmA2,0)
+    GPIO.output(pwmB1,0)
     GPIO.output(pwmB2,0)
 
     p1 = GPIO.PWM(pwmA2,f)
