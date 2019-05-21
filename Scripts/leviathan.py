@@ -60,8 +60,11 @@ def leviathan():
     while not rospy.is_shutdown():
         prender()
         rate.sleep()
+
     cicloA = 0
     cicloB = 0
+    p1.ChangeDutyCycle(cicloA)
+    p2.ChangeDutyCycle(cicloB)
     rospy.loginfo("El ciclo util A es: {}".format(cicloA))
     rospy.loginfo("El ciclo util B es: {}".format(cicloB))
 
