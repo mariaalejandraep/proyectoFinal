@@ -47,7 +47,7 @@ contadorA = 0
 contadorB = 0
 
 def prender():
-    global p1, p2#, contadorA, contadorB, eA1, eA2, eB1, eB2, contadorA, contadorB
+    global #p1, p2#, contadorA, contadorB, eA1, eA2, eB1, eB2, contadorA, contadorB
     #rospy.loginfo("El ciclo util A es: {}".format(cicloA))
     #rospy.loginfo("El ciclo util B es: {}".format(cicloB))
 
@@ -82,7 +82,7 @@ def apagar():
     GPIO.cleanup()
 
 def leviathan():
-    global p1, p2#, eA1, eA2, eB1, eB2
+    global #p1, p2#, eA1, eA2, eB1, eB2
     rospy.init_node('Raspberry_controller', anonymous=True)
     GPIO.setmode(GPIO.BOARD)
 
