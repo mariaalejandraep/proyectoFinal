@@ -38,10 +38,10 @@ encodB2= 38
 f = 500
 
 #Ciclo util del pulso para el motor A. Un numero entre 0 y 100.
-cicloA = 0
+cicloA = 5
 
-#Ciclpo util del pulso para el motor B. Un numero entre 0 y 100.
-cicloB = 0
+#Ciclo util del pulso para el motor B. Un numero entre 0 y 100.
+cicloB = 5
 
 contadorA = 0
 contadorB = 0
