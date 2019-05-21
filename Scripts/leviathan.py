@@ -54,6 +54,12 @@ def prender():
     p1.ChangeDutyCycle(cicloA)
     p2.ChangeDutyCycle(cicloB)
 
+    eA1 = GPIO.input(encodA1)
+    eA2 = GPIO.input(encodA2)
+    eB1 = GPIO.input(encodB1)
+    eB2 = GPIO.input(encodB2)
+
+
     if eA1 or eA2:
         contadorA=contadorA+1
     if eB1 or eB2:
