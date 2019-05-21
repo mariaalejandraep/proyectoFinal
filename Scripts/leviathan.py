@@ -19,7 +19,7 @@ pwmB1 = 15
 pwmB2 = 16
 
 
-#Frecuencia en Hertz (Hz) del pin que va al motor.
+#Frecuencia en Hertz (Hz) de la señal de pulso que controla el motor.
 f = 500
 
 #Ciclo util del pulso para el motor A. Un numero entre 0 y 100.
@@ -36,6 +36,15 @@ def prender():
     GPIO.output(pwmB2,1)
     p1.ChangeDutyCycle(cicloA)
     p2.ChangeDutyCycle(cicloB)
+
+def apagar():
+    global cicloA, cicloB
+    cicloA = 0
+    cicloB = 0
+    p1.ChangeDutyCycle(cicloA)
+    p2.ChangeDutyCycle(cicloB)
+    rospy.loginfo("Apagando. El ciclo útil de A es: {}".format(cicloA))
+    rospy.loginfo("Apagando. El ciclo util de B es: {}".format(cicloB))
 
 def leviathan():
     global p1, p2
@@ -61,12 +70,8 @@ def leviathan():
         prender()
         rate.sleep()
 
-    cicloA = 0
-    cicloB = 0
-    p1.ChangeDutyCycle(cicloA)
-    p2.ChangeDutyCycle(cicloB)
-    rospy.loginfo("Apagando. El ciclo útil de A es: {}".format(cicloA))
-    rospy.loginfo("Apagando. El ciclo util de B es: {}".format(cicloB))
+    apagar()
+
 
 if __name__ == '__main__':
     try:
