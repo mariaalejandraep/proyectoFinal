@@ -56,6 +56,8 @@ velRefB = 0
 # Velocidades actual de las ruedas
 velActA = 0
 velActB = 0
+# Variable booleana que hace referencia a que se esta mivendo
+moving = False
 
 
 def setPins():
@@ -74,13 +76,13 @@ def setPins():
     GPIO.setup(pwmB2Encoder, GPIO.IN)
     # Configurando senales de salida para el driver e inicializandolas en ciclo util de 0
     pA1 = GPIO.PWM(pwmA1Driver, fDriver)
-    pA1.start(0)
+    GPIO.output(pwmA1Driver, 0)
     pA2 = GPIO.PWM(pwmA2Driver, fDriver)
-    pA2.start(0)
+    GPIO.output(pwmA2Driver, 0)
     pB1 = GPIO.PWM(pwmB1Driver, fDriver)
-    pB1.start(0)
+    GPIO.output(pwmB1Driver, 0)
     pB2 = GPIO.PWM(pwmB2Driver, fDriver)
-    pB2.start(0)
+    GPIO.output(pwmB2Driver, 0)
     # Detectar flancos en otros metodos
     GPIO.add_event_detect(pwmA1Encoder, GPIO.RISING, callback=sumarFlancoA1)
     GPIO.add_event_detect(pwmB1Encoder, GPIO.RISING, callback=sumarFlancoB1)
@@ -99,61 +101,66 @@ def controlBajoNivel():
         calcularVelocidadRuedas()
         aplicarControlBajoNivel()
         rate.sleep()
-
-
     apagar()
 
 
 def calcularVelocidadRuedas():
-    global velActA, velActB
-    if subidaA1[len(subidaA1) - 1] < subidaB1[len(subidaB1) - 1]:
-        velActA = -1*(2 * math.pi() * r) / (subidaA1[len(subidaA1) - 1] - subidaA1[0])
+    global velActA, velActB, moving
+    if moving:
+        if subidaA1[len(subidaA1) - 1] < subidaB1[len(subidaB1) - 1]:
+            velActA = -1 * (2 * math.pi() * r) / (subidaA1[len(subidaA1) - 1] - subidaA1[0])
+        else:
+            velActA = (2 * math.pi() * r) / (subidaB1[len(subidaB1) - 1] - subidaB1[0])
+        if subidaA2[len(subidaA2) - 1] < subidaB2[len(subidaB2) - 1]:
+            velActB = (2 * math.pi() * r) / (subidaA2[len(subidaA2) - 1] - subidaA2[0])
+        else:
+            velActB = -1 * (2 * math.p() * r) / (subidaB2[len(subidaB2) - 1] - subidaB2[0])
+        moving = False
     else:
-        velActA = (2 * math.pi() * r) / (subidaB1[len(subidaB1) - 1] - subidaB1[0])
-    if subidaA2[len(subidaA2) - 1] < subidaB2[len(subidaB2) - 1]:
-        velActB = (2 * math.pi() * r) / (subidaA2[len(subidaA2) - 1] - subidaA2[0])
-    else:
-        velActB = -1*(2 * math.p() * r) / (subidaB2[len(subidaB2) - 1] - subidaB2[0])
+        velActA = 0
+        velActB = 0
 
 
 def aplicarControlBajoNivel():
     global integradorA, integradorB, pA1, pA2, pB1, pB2
-    if velRefA != 0 or velRefB != 0:
-        errorA = velRefA - velActA
-        errorB = velRefB - velActB
-        integradorA.append(errorA)
-        integradorA = integradorA[-100:]
-        integradorB.append(errorB)
-        integradorB = integradorB[-100:]
-        integralA = sum(integradorA)
-        integralB = sum(integradorB)
-        errorSignalA = kp * errorA + ki * integralA
-        errorSignalB = kp * errorB + ki * integralB
-        if errorSignalA > 0:
-            if errorSignalA > 100:
-                errorSignalA = 100
-            pA2.ChangeDutyCycle(errorSignalA)
-            pA1.ChangeDutyCycle(0)
-        else:
-            if errorSignalA < -100:
-                errorSignalA = 100
-            pA2.ChangeDutyCycle(0)
-            pA1.ChangeDutyCycle(errorSignalA)
-        if errorSignalB > 0:
-            if errorSignalB > 100:
-                errorSignalB = 100
-            pB2.ChangeDutyCycle(errorSignalA)
-            pB1.ChangeDutyCycle(0)
-        else:
-            if errorSignalA < -100:
-                errorSignalA = 100
-            pB2.ChangeDutyCycle(0)
-            pB1.ChangeDutyCycle(errorSignalA)
-
+    errorA = velRefA - velActA
+    errorB = velRefB - velActB
+    integradorA.append (errorA)
+    integradorA = integradorA[-100:]
+    integradorB.append (errorB)
+    integradorB = integradorB[-100:]
+    integralA = sum (integradorA)
+    integralB = sum (integradorB)
+    errorSignalA = kp * errorA + ki * integralA
+    errorSignalB = kp * errorB + ki * integralB
+    if errorSignalA >= 0:
+        if errorSignalA > 100:
+            errorSignalA = 100
+        pA1.stop ()
+        GPIO.output (pwmA1Driver, 0)
+        pA2.start (0)
+        pA2.ChangeDutyCycle (errorSignalA)
     else:
-        g =1
-
-
+        if errorSignalA < -100:
+            errorSignalA = 100
+        pA2.stop ()
+        GPIO.output (pwmA2Driver, 0)
+        pA1.start (0)
+        pA1.ChangeDutyCycle (errorSignalA)
+    if errorSignalB >= 0:
+        if errorSignalB > 100:
+            errorSignalB = 100
+        pB2.stop ()
+        GPIO.output (pwmB2Driver, 0)
+        pB1.start (0)
+        pB1.ChangeDutyCycle (errorSignalB)
+    else:
+        if errorSignalB < -100:
+            errorSignalB = 100
+        pB1.stop ()
+        GPIO.output (pwmB1Driver, 0)
+        pB2.start (0)
+        pB2.ChangeDutyCycle (errorSignalB)
 
 
 def handle_velocidad_deseada(vel):
@@ -170,36 +177,35 @@ def apagar():
     GPIO.output(pwmA2Driver, 0)
     GPIO.output(pwmB1Driver, 0)
     GPIO.output(pwmB2Driver, 0)
-
     rospy.loginfo("Apagando.")
 
 
 def sumarFlancoA1():
-    global subidaA1
+    global subidaA1, moving
     subidaA1.append(time.time())
     subidaA1 = subidaA1[-7:]
-    print(len(subidaA1))
+    moving = True
 
 
 def sumarFlancoB1():
-    global subidaB1
+    global subidaB1, moving
     subidaB1.append(time.time())
     subidaB1 = subidaB1[-7:]
-    # print(len(subidaB1))
+    moving = True
 
 
 def sumarFlancoA2():
-    global subidaA2
+    global subidaA2, moving
     subidaA2.append(time.time())
     subidaA2 = subidaA2[-7:]
-    # print(len(subidaA2))
+    moving = True
 
 
 def sumarFlancoB2():
-    global subidaB2
+    global subidaB2, moving
     subidaB2.append(time.time())
     subidaB2 = subidaB2[-7:]
-    # print(len(subidaB2))
+    moving = True
 
 
 if __name__ == '__main__':
