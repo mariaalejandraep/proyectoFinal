@@ -6,7 +6,7 @@ import sys
 if __name__ == '__main__':
     try:
         msg = Float32MultiArray()
-        msg.data = [0, 0]
+        msg.data = [1, 1]
         if len(sys.argv) > 2:
             print("Hay parametros")
             try:
