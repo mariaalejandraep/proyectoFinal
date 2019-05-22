@@ -29,17 +29,17 @@ pwmB1Encoder = 36
 pwmA2Encoder = 37
 # Variable con el pin que va del encoder con la senal A
 pwmB2Encoder = 38
-# Varibles que referencian senales PMW de los encoders
+# Variables que referencian senales PMW de los encoders
 pA1 = None
 pA2 = None
 pB1 = None
 pB2 = None
-# Varibles de conteo de flancos de encoders
+# Variables de conteo de flancos de encoders
 subidaA1 = []
 subidaB1 = []
 subidaA2 = []
 subidaB2 = []
-# Varible booleana  que inidca si se esta calculando velocidad
+# Variable booleana  que inidca si se esta calculando velocidad
 calculando = False
 # Radio de las llantas en metros
 r = (23.3/2000)
@@ -210,6 +210,6 @@ def sumarFlancoB2():
 
 if __name__ == '__main__':
     try:
-        ken=2
+        controlBajoNivel()
     except rospy.ROSInterruptException:
         pass
