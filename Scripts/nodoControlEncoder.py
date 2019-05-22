@@ -91,7 +91,7 @@ def setPins():
 
 
 def controlBajoNivel():
-    rospy.init_node('raspberry_control _encoder', anonymous=True)
+    rospy.init_node('controlEncoder', anonymous=True)
     rospy.Subscriber('velocidad_deseada', Float32MultiArray, handle_velocidad_deseada)
     rate = rospy.Rate(h)
     setPins()
