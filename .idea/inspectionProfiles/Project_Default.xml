@@ -15,6 +15,10 @@
         <list>
           <option value="rospy" />
           <option value="Scripts.encoderController.RPi" />
+          <option value="Scripts.nodoPrincipal.std_msgs" />
+          <option value="Scripts.nodoPrincipal.geometry_msgs" />
+          <option value="Scripts.nodoPrincipal.master_msgs_iele3338" />
+          <option value="Scripts.nodoControlEncoder.std_msgs" />
         </list>
       </option>
     </inspection_tool>

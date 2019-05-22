@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 import rospy
 import RPi.GPIO as GPIO
-import time, math
+import time
+import math
+from std_msgs.msg import Float32MultiArray
 
 # Es la tasa en Hertz (Hz) del nodo.
 h = 10
@@ -16,9 +18,9 @@ pwmB2Driver = 16
 # Frecuencia en Hertz (Hz) de la senal de pulso que controla el motor.
 fDriver = 500
 # Ciclo util del pulso para el motor A. Un numero entre 0 y 100.
-cicloADriver = 10
+cicloADriver = 0
 # Ciclo util del pulso para el motor B. Un numero entre 0 y 100.
-cicloBDriver = 10
+cicloBDriver = 0
 # Variable con el pin que va del encoder con la senal A
 pwmA1Encoder = 35
 # Variable con el pin que va del encoder con la senal A
@@ -41,6 +43,19 @@ subidaB2 = []
 calculando = False
 # Radio de las llantas en metros
 r = (23.3/2000)
+# Variables de control PI
+kp = 10
+ki = 0
+# Acumulacion de error para integrador
+integradorA = []
+integradorB = []
+# Velocidades de referencia de las ruedas // ASUMIRE rueda A izquierda (vel positiva counter clockwise, B antes que A) y
+# rueda B derecha (vel positiva clockwise, A antes que B)
+velRefA = 0
+velRefB = 0
+# Velocidades actual de las ruedas
+velActA = 0
+velActB = 0
 
 
 def setPins():
@@ -74,26 +89,77 @@ def setPins():
 
 
 def controlBajoNivel():
-    rospy.init_node('Raspberry_controller', anonymous=True)
+    rospy.init_node('raspberry_control _encoder', anonymous=True)
+    rospy.Subscriber('velocidad_deseada', Float32MultiArray, handle_velocidad_deseada)
     rate = rospy.Rate(h)
     setPins()
     pA1.ChangeDutyCycle(cicloADriver)
     pB1.ChangeDutyCycle(cicloBDriver)
     while not rospy.is_shutdown():
+        calcularVelocidadRuedas()
+        aplicarControlBajoNivel()
         rate.sleep()
-        if subidaA1[len(subidaA1)-1] < subidaB1[len(subidaB1)-1]:
-            print("Rueda 1 en dirreccion manecillas")
-        else:
-            print("Rueda 1 en dirreccion contra manecillas")
-        if len(subidaA1) == 7:
-            print("La velocidad de la rueda 1 es:", (2 * math.pi() * r) / (subidaA1[len(subidaA1) - 1] - subidaA1[0]))
-        if subidaA2[len(subidaA2)-1] < subidaB2[len(subidaB2)-1]:
-            print("Rueda 2 en dirreccion manecillas")
-        else:
-            print("Rueda 2 en dirreccion contra manecillas")
-        if len(subidaA2) == 7:
-            print("La velocidad de la rueda 2 es:", (2 * math.pi() * r) / (subidaA2[len(subidaA2) - 1] - subidaA2[0]))
+
+
     apagar()
+
+
+def calcularVelocidadRuedas():
+    global velActA, velActB
+    if subidaA1[len(subidaA1) - 1] < subidaB1[len(subidaB1) - 1]:
+        velActA = -1*(2 * math.pi() * r) / (subidaA1[len(subidaA1) - 1] - subidaA1[0])
+    else:
+        velActA = (2 * math.pi() * r) / (subidaB1[len(subidaB1) - 1] - subidaB1[0])
+    if subidaA2[len(subidaA2) - 1] < subidaB2[len(subidaB2) - 1]:
+        velActB = (2 * math.pi() * r) / (subidaA2[len(subidaA2) - 1] - subidaA2[0])
+    else:
+        velActB = -1*(2 * math.p() * r) / (subidaB2[len(subidaB2) - 1] - subidaB2[0])
+
+
+def aplicarControlBajoNivel():
+    global integradorA, integradorB, pA1, pA2, pB1, pB2
+    if velRefA != 0 or velRefB != 0:
+        errorA = velRefA - velActA
+        errorB = velRefB - velActB
+        integradorA.append(errorA)
+        integradorA = integradorA[-100:]
+        integradorB.append(errorB)
+        integradorB = integradorB[-100:]
+        integralA = sum(integradorA)
+        integralB = sum(integradorB)
+        errorSignalA = kp * errorA + ki * integralA
+        errorSignalB = kp * errorB + ki * integralB
+        if errorSignalA > 0:
+            if errorSignalA > 100:
+                errorSignalA = 100
+            pA2.ChangeDutyCycle(errorSignalA)
+            pA1.ChangeDutyCycle(0)
+        else:
+            if errorSignalA < -100:
+                errorSignalA = 100
+            pA2.ChangeDutyCycle(0)
+            pA1.ChangeDutyCycle(errorSignalA)
+        if errorSignalB > 0:
+            if errorSignalB > 100:
+                errorSignalB = 100
+            pB2.ChangeDutyCycle(errorSignalA)
+            pB1.ChangeDutyCycle(0)
+        else:
+            if errorSignalA < -100:
+                errorSignalA = 100
+            pB2.ChangeDutyCycle(0)
+            pB1.ChangeDutyCycle(errorSignalA)
+
+    else:
+        g =1
+
+
+
+
+def handle_velocidad_deseada(vel):
+    global velRefA, velRefB
+    velRefA = vel.data[0]
+    velRefB = vel.data[1]
 
 
 def apagar():
