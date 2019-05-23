@@ -20,6 +20,9 @@
           <option value="Scripts.nodoPrincipal.master_msgs_iele3338" />
           <option value="Scripts.nodoControlEncoder.std_msgs" />
           <option value="Scripts.nodoPruebaControlEncoder.std_msgs" />
+          <option value="TerminarServicio" />
+          <option value="Scripts.nodoControl.geometry_msgs" />
+          <option value="Scripts.nodoControl.std_msgs" />
         </list>
       </option>
     </inspection_tool>

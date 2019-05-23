@@ -42,7 +42,7 @@ subidaB2 = []
 # Variable booleana  que inidca si se esta calculando velocidad
 calculando = False
 # Radio de las llantas en metros
-r = (23.3/2000)
+r = (29.3/2000)
 # Variables de control PI
 kp = 10
 ki = 0
