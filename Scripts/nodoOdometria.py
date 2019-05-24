@@ -12,6 +12,7 @@ cov = Covariance()
 #El primero es la velocidad de la rueda izquierda y el segundo es la velocidad de la derecha.
 vel = [0, 0]
 
+#Son las constantes utilizadas para calcular la posicion y orientacion estimada del robot en cada momento.
 dt = 0
 dSl = 0
 dSr = 0
@@ -44,6 +45,7 @@ Fpt1trans=np.transpose(Fpt1)
 FdS=np.matrix([[0,0],[0,0],[0,0]])
 FdStrans=np.transpose(Fpt1)
 
+#En esta variable se almacenan los ultimos 2 valores de tiempo.
 t = [0, 0]
 
 def odometria():
@@ -87,7 +89,6 @@ def actualizar(msg):
 
     vel = msg.data
 
-
     CovarSrSl=np.matrix([kr*np.absolute(dSr),0],[0,kl*np.absolute(dSl)],dtype='f')
 
     Fpt1=np.matrix([[1, 0, -dSsin],[1, 0, dScos],[0, 0, 1]])
@@ -113,12 +114,8 @@ def actualizar(msg):
 
 
 
-
-
-
 if __name__ == '__main__':
     try:
-        # En caso de que se pasen tres parametros tipo numero se ajusta la nueva posicion final deseada
         odometria()
     except rospy.ROSInterruptException:
         pass
