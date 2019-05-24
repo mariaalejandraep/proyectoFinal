@@ -44,8 +44,6 @@ Fpt1trans=np.transpose(Fpt1)
 FdS=np.matrix([[0,0],[0,0],[0,0]])
 FdStrans=np.transpose(Fpt1)
 
-
-
 t = [0, 0]
 
 def odometria():
@@ -56,7 +54,7 @@ def odometria():
 
 
 def inicializar():
-    global pubPos, pubCov, t, tRef
+    global pubPos, pubCov, t
     pubPos = rospy.Publisher('robot_position', Pose, queue_size = 10)
     pubCov = rospy.Publisher('robot_uncertainty', Covariance, queue_size = 10)
     rospy.Suscriber('velocidad_deseada', Float32MultiArray, actualizar)
