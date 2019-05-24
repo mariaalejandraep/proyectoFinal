@@ -54,6 +54,9 @@ def odometria():
 
     inicializar()
 
+    while not rospy.is_shutdown():
+        rate.sleep()
+
 
 def inicializar():
     global pubPos, pubCov, t
@@ -63,7 +66,7 @@ def inicializar():
     t = [time.time(), time.time()]
 
 def actualizar(msg):
-    global pos,cov, vel, dt, dS, dSl, dSr, O, dO, Covarianza,pubPos,pubCov,CovarSrSl,CovarSrSl,Fpt1,Fpt1trans,FdS,FdStrans
+    global pos, cov, vel, dt, dS, dSl, dSr, O, dO, Covarianza,pubPos,pubCov,CovarSrSl,CovarSrSl,Fpt1,Fpt1trans,FdS,FdStrans
 
     t.append(time.time())
     t = t[-2:]
@@ -86,8 +89,6 @@ def actualizar(msg):
     pos.position.x = pos.position.x + dScos
     pos.position.y = pos.position.y +dSsin
     pos.orientation.z = O + dO
-
-    vel = msg.data
 
     CovarSrSl=np.matrix([kr*np.absolute(dSr),0],[0,kl*np.absolute(dSl)],dtype='f')
 
@@ -112,6 +113,7 @@ def actualizar(msg):
     pubPos.publish(pos)
     pubCov.publish(cov)
 
+    vel = msg.data
 
 
 if __name__ == '__main__':
