@@ -37,10 +37,10 @@ posicionActual = Pose()
 posicionFinal = Pose()
 # ########################### ACA DEBO SEGUIR ######################################
 # Es el diametro de la rueda del Pioneer 3dx en metros.
-diametroRueda = 195.3/1000#metros
+diametroRueda = 29.3/1000#metros
 # Es el radio de la rueda del Pioneer 3dx en metros.
 radioRueda = diametroRueda/2 #metros
-# Es la distancia entre el punto P y el eje de cada rueda.
+# Es la distancia entre el punto P y el eje de cada rueda. ##TOCA MEDIRLO
 l = 0.19 # metros
 # Es la variable donde se almacena el valor de p (rho) que equivale a la distancia entre el punto actual y el final.
 p = 0
