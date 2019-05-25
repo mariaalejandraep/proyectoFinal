@@ -60,6 +60,9 @@ velActB = 0
 # Variable booleana que hace referencia a que se esta mivendo
 movingA = False
 movingB = False
+# Variable de saturacion maxima de ciclo util
+satCicloUtil = 35
+
 
 
 def setPins():
@@ -141,30 +144,30 @@ def aplicarControlBajoNivel():
     errorSignalA = kp * errorA + ki * integralA
     errorSignalB = kp * errorB + ki * integralB
     if errorSignalA >= 0:
-        if errorSignalA > 100:
-            errorSignalA = 100
-        pA1.stop ()
+        if errorSignalA > satCicloUtil:
+            errorSignalA = satCicloUtil
+        pA1.stop()
         GPIO.output (pwmA1Driver, 0)
         pA2.start (0)
-        pA2.ChangeDutyCycle (errorSignalA)
+        pA2.ChangeDutyCycle(errorSignalA)
     else:
-        if errorSignalA < -100:
-            errorSignalA = 100
+        if errorSignalA < -satCicloUtil:
+            errorSignalA = satCicloUtil
         errorSignalA = abs(errorSignalA)
         pA2.stop ()
         GPIO.output (pwmA2Driver, 0)
         pA1.start (0)
         pA1.ChangeDutyCycle (errorSignalA)
     if errorSignalB >= 0:
-        if errorSignalB > 100:
-            errorSignalB = 100
+        if errorSignalB > satCicloUtil:
+            errorSignalB = satCicloUtil
         pB2.stop ()
         GPIO.output (pwmB2Driver, 0)
         pB1.start (0)
         pB1.ChangeDutyCycle (errorSignalB)
     else:
-        if errorSignalB < -100:
-            errorSignalB = 100
+        if errorSignalB < -satCicloUtil:
+            errorSignalB = satCicloUtil
         errorSignalB = abs(errorSignalB)
         pB1.stop ()
         GPIO.output (pwmB1Driver, 0)
