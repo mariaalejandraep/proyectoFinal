@@ -40,6 +40,10 @@ posicionFinal = Pose()
 diametroRueda = 29.3/1000#metros
 # Es el radio de la rueda del Pioneer 3dx en metros.
 radioRueda = diametroRueda/2 #metros
+
+nObstacles=0
+obstacles=[]
+
 # Es la distancia entre el punto P y el eje de cada rueda. ##TOCA MEDIRLO
 l = 0.05 # metros
 # Es la variable donde se almacena el valor de p (rho) que equivale a la distancia entre el punto actual y el final.
@@ -98,6 +102,7 @@ def control():
 
 
     # Se espera a que se publique por primera vez a traves del topico
+    #preguntarCasillas
     while not empezar:
         empezar = empezar or False
     # Como medida de seguridad se espera .1 segundos para asegurarse de que si se actulizaron los valores de los
@@ -110,13 +115,13 @@ def control():
     # Se emplea el metodo de la libreria networkx para sacar la ruta de nodos A*, a este metodo es necesario
     # suministrarle el nombre del nodo inicial, final y un parametro que haga referencia a un metodo que calcule la
     # heuristica entre dos nodos
-    ruta = nx.astar_path(g,numCasillas(posicionActual.x,posicionActual.y),numCasillas(posicionFinal.x,posicionFinal.y) , heuristic=heuristic)
+    ruta = nx.astar_path(g,numCasillas(posicionActual.position.x,posicionActual.position.y),numCasillas(posicionFinal.position.x,posicionFinal.position.y) , heuristic=heuristic)
     # En caso de que la ruta este compuesta por mas de un nodo calcula el teta adecuado para que la primera posicion
     # termine orientada a la siguiente casilla, de lo contrario, la orienta al punto final
     if len(ruta)>1:
         teta = math.atan2(casillas[ruta[1]].y-casillas[ruta[0]].y, casillas[ruta[1]].x-casillas[ruta[0]].x)
     else:
-        teta = math.atan2(posicionFinal.y-casillas[ruta[0]].y, posicionFinal.x-casillas[ruta[0]].x)
+        teta = math.atan2(posicionFinal.position.y-casillas[ruta[0]].y, posicionFinal.position.x-casillas[ruta[0]].x)
     # Crea la primera posicion
     posInter = Posicion(casillas[ruta[0]].x, casillas[ruta[0]].y, teta)
     # Inicializa el contador que define el punto de la ruta en la que se encuentra
@@ -145,7 +150,7 @@ def control():
             elif iRuta == len(ruta):
                 # Debido a que llega a la posicon final se modifica el Kb para que modifique su orientacion a la final
                 kb = -0.06
-                if abs( posicionFinal.teta - posicionActual.teta ) < 0.1:
+                if abs( posicionFinal.orientation.z - posicionActual.orientation.z ) < 0.1:
                     # En caso que la orientacion tenga un error menor a los 0.1 radianes en la poscion final termina procedimiento
                     fin = True
         # En cada iteracion calcula las velocidades segun el punto final que se le pase
@@ -260,7 +265,10 @@ def creadorArcos():
 
 # Metodo que indica si cierta posicion en la escena esta ocupada por alguno de los obstaculos, devuelve True en caso de
 # que no haya obstaculo en ese punto y False de lo contrario
+#preguntar distRef pero ya corregido
 def libre(xCas, yCas):# Si se encuentra un obstaculo en ella
+    # esto se debe cambiar
+
     # Dependiendo de si la discretizacion de las casillas es fina con respecto al tamano del robot se toma como
     # distancia minima la distancia maxima entre el punto P y el borde del Pioneer o si es grande se toma como la
     # distancia de la diagonal entre el el centro una casilla y una de sus esquinas
@@ -269,31 +277,31 @@ def libre(xCas, yCas):# Si se encuentra un obstaculo en ella
     else:
         distanciaCarro = distanciaCuadricula / math.sqrt (2)
     # Se saca la distancia entre el centor de los obstaculos y el punto pasado por parametro
-    dist0 = math.sqrt ((twistInfoPos1.linear.x - xCas) ** 2 + (twistInfoPos1.linear.y - yCas) ** 2)
-    dist1 = math.sqrt ((twistInfoPos2.linear.x - xCas) ** 2 + (twistInfoPos2.linear.y - yCas) ** 2)
-    dist2 = math.sqrt ((twistInfoPos3.linear.x - xCas) ** 2 + (twistInfoPos3.linear.y - yCas) ** 2)
-    dist3 = math.sqrt ((twistInfoPos4.linear.x - xCas) ** 2 + (twistInfoPos4.linear.y - yCas) ** 2)
-    dist4 = math.sqrt ((twistInfoPos5.linear.x - xCas) ** 2 + (twistInfoPos5.linear.y - yCas) ** 2)
-    # La distancia referencia para cada obstaculo teniendo en cuanta la variable generada anteriormente
-    distRef0 = twistInfoPos1.linear.z/2 + distanciaCarro
-    distRef1 = twistInfoPos2.linear.z/2 + distanciaCarro
-    distRef2 = twistInfoPos3.linear.z/2 + distanciaCarro
-    distRef3 = twistInfoPos4.linear.z/2 + distanciaCarro
-    distRef4 = twistInfoPos5.linear.z/2 + distanciaCarro
-    # En caso de que alguna distancia de referencia mayor que la distancia al obstaculo se considera que ese punto esta
+    distBool=False
+    for i in obstacles:
+        distObs= math.sqrt((obstacles[i].position.position.x -xCas)**2 + (obstacles[i].position.position.y- yCas)**2)
+        # La distancia referencia para cada obstaculo teniendo en cuanta la variable generada anteriormente
+        distRef=obstacles[i].position.position.z/2 + distanciaCarro
+        distBool= distObs>=distRef
+        if not distBool:
+            break
+    return distBool
+    # En caso de que alguna distancia de referencia sea mayor que la distancia al obstaculo se considera que ese punto esta
     # ocupado por un obstaculo
-    return (dist0>=distRef0) and (dist1>=distRef1) and (dist2>=distRef2) and (dist3>=distRef3) and (dist4>=distRef4)
+
+    #return (dist0>=distRef0) and (dist1>=distRef1) and (dist2>=distRef2) and (dist3>=distRef3) and (dist4>=distRef4)
 
 
 
 #Este metodo calcula la distancia p (rho) equivalente a la distancia entre el punto final y el actual y tambien calcula
 #las distancias en el eje X y Y entre dichos puntos. Ademas, si p (rho) es menor al umbral definido se le indica al resto
 #del codigo que se llego al punto final.
+#ya en Pose
 def calcularDistancia(pos):
     global p,dx,dy,arrivedP
     # Se define ro
-    dx = pos.x-posicionActual.x
-    dy = pos.y-posicionActual.y
+    dx = pos.x-posicionActual.position.x
+    dy = pos.y-posicionActual.position.y
     p = math.sqrt(dx**2 + dy**2)
     # Si ro es menor que el umbral se asume que ya se llego al punto adecuado y cambio la variable booleana de llegada
     if p <= umbralP:
@@ -315,12 +323,13 @@ def calcularVelocidades(pos):
 
 #En este metodo se calculan los angulos a (alpha) y b (beta). Si el umbral se cumplio, las variables p (rho)
 #y a (alpha) se igualan a 0 para permitirle al robot girar y lograr orientarse de manera correcta.
+#ya en z
 def calcularAngulos(pos):
     global p,a,b,t,arrivedP
     t = math.atan2(dy,dx)
     # Se define si alfa y ro deben ser cero o no dependiendo de si se llego al umbral
     if not arrivedP:
-        a = -posicionActual.teta + t
+        a = -posicionActual.orientation.z + t
     else:
         p = 0
         a = 0
@@ -332,7 +341,7 @@ def calcularAngulos(pos):
         while a <= -math.pi:
             a = a + 2 * math.pi
     # Se restringe el valor de beta entre -pi y pi
-    b = posicionActual.teta-pos.teta - a
+    b = posicionActual.orientation.z-pos.orientation.z - a
     if b > math.pi:
         while b > math.pi:
             b = b - 2 * math.pi
@@ -358,3 +367,4 @@ if __name__ == '__main__':
         control()
     except rospy.ROSInterruptException:
         pass
+
