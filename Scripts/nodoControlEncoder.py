@@ -58,7 +58,8 @@ velRefB = 0
 velActA = 0
 velActB = 0
 # Variable booleana que hace referencia a que se esta mivendo
-moving = False
+movingA = False
+movingB = False
 
 
 def setPins():
@@ -106,20 +107,25 @@ def controlBajoNivel():
 
 
 def calcularVelocidadRuedas():
-    global velActA, velActB, moving
-    if moving:
+    global velActA, velActB, movingA, movingB
+    if movingA:
         if subidaA1[len(subidaA1) - 1] < subidaB1[len(subidaB1) - 1]:
             velActA = -1 * (2 * math.pi() * r) / (subidaA1[len(subidaA1) - 1] - subidaA1[0])
         else:
             velActA = (2 * math.pi() * r) / (subidaB1[len(subidaB1) - 1] - subidaB1[0])
+        movingA = False
+    else:
+        velActA = 0
+    if movingB:
         if subidaA2[len(subidaA2) - 1] < subidaB2[len(subidaB2) - 1]:
             velActB = (2 * math.pi() * r) / (subidaA2[len(subidaA2) - 1] - subidaA2[0])
         else:
             velActB = -1 * (2 * math.p() * r) / (subidaB2[len(subidaB2) - 1] - subidaB2[0])
-        moving = False
+        movingB = False
     else:
-        velActA = 0
         velActB = 0
+
+
 
 
 def aplicarControlBajoNivel():
@@ -164,6 +170,8 @@ def aplicarControlBajoNivel():
         GPIO.output (pwmB1Driver, 0)
         pB2.start (0)
         pB2.ChangeDutyCycle (errorSignalB)
+    print("Ciclo util rueda A:", errorSignalA)
+    print("Ciclo util rueda B:", errorSignalB)
 
 
 def handle_velocidad_deseada(vel):
