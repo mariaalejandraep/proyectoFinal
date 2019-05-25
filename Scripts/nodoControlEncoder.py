@@ -149,19 +149,19 @@ def aplicarControlBajoNivel():
         print("Entro if rueda A")
         if errorSignalA > satCicloUtil:
             errorSignalA = satCicloUtil
-        pA1.stop()
-        GPIO.output (pwmA1Driver, 0)
-        pA2.start (0)
-        pA2.ChangeDutyCycle(errorSignalA)
+        pA2.stop()
+        GPIO.output (pwmA2Driver, 0)
+        pA1.start (0)
+        pA1.ChangeDutyCycle(errorSignalA)
     else:
         print ("Entro else rueda A")
         if errorSignalA < -satCicloUtil:
             errorSignalA = satCicloUtil
         errorSignalA = abs(errorSignalA)
-        pA2.stop ()
-        GPIO.output (pwmA2Driver, 0)
-        pA1.start (0)
-        pA1.ChangeDutyCycle (errorSignalA)
+        pA1.stop ()
+        GPIO.output (pwmA1Driver, 0)
+        pA2.start (0)
+        pA2.ChangeDutyCycle (errorSignalA)
     if errorSignalB >= 0:
         if errorSignalB > satCicloUtil:
             errorSignalB = satCicloUtil
