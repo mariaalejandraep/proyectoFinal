@@ -144,6 +144,7 @@ def aplicarControlBajoNivel():
     else:
         if errorSignalA < -100:
             errorSignalA = 100
+        errorSignalA = abs(errorSignalA)
         pA2.stop ()
         GPIO.output (pwmA2Driver, 0)
         pA1.start (0)
@@ -158,6 +159,7 @@ def aplicarControlBajoNivel():
     else:
         if errorSignalB < -100:
             errorSignalB = 100
+        errorSignalB = abs(errorSignalB)
         pB1.stop ()
         GPIO.output (pwmB1Driver, 0)
         pB2.start (0)
