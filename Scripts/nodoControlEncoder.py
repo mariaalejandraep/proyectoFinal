@@ -127,6 +127,8 @@ def calcularVelocidadRuedas():
         movingB = False
     else:
         velActB = 0
+    print("La velocidad actual de la rueda A:", velActA)
+    print("La velocidad actual de la rueda B:", velActB)
 
 
 
@@ -144,6 +146,7 @@ def aplicarControlBajoNivel():
     errorSignalA = kp * errorA + ki * integralA
     errorSignalB = kp * errorB + ki * integralB
     if errorSignalA >= 0:
+        print("Entro if rueda A")
         if errorSignalA > satCicloUtil:
             errorSignalA = satCicloUtil
         pA1.stop()
@@ -151,6 +154,7 @@ def aplicarControlBajoNivel():
         pA2.start (0)
         pA2.ChangeDutyCycle(errorSignalA)
     else:
+        print ("Entro else rueda A")
         if errorSignalA < -satCicloUtil:
             errorSignalA = satCicloUtil
         errorSignalA = abs(errorSignalA)
