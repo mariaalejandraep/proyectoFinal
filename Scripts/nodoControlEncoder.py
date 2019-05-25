@@ -177,6 +177,7 @@ def apagar():
     GPIO.output(pwmA2Driver, 0)
     GPIO.output(pwmB1Driver, 0)
     GPIO.output(pwmB2Driver, 0)
+    GPIO.cleanup()
     rospy.loginfo("Apagando.")
 
 
