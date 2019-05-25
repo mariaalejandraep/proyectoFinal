@@ -3,6 +3,7 @@ import rospy
 import RPi.GPIO as GPIO
 import time
 import math
+import sys
 from std_msgs.msg import Float32MultiArray
 
 # Es la tasa en Hertz (Hz) del nodo.
@@ -211,6 +212,12 @@ def sumarFlancoB2():
 
 if __name__ == '__main__':
     try:
+        if len(sys.argv) == 3:
+            try:
+                velRefA = float(sys.argv[1])
+                velRefB = float(sys.argv[2])
+            except ValueError:
+                pass
         controlBajoNivel()
     except rospy.ROSInterruptException:
         pass
