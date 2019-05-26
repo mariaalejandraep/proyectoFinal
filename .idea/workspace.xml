@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="00974ca6-b36f-4c4a-a2fd-40c4dc2b68b7" name="Default Changelist" comment="" />
+    <list default="true" id="00974ca6-b36f-4c4a-a2fd-40c4dc2b68b7" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Scripts/nodoPrincipal.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/nodoPrincipal.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,8 +69,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Scripts/nodoPrincipal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="37" column="49" selection-start-line="37" selection-start-column="38" selection-end-line="37" selection-end-column="49" />
+            <state relative-caret-position="420">
+              <caret line="49" column="25" lean-forward="true" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
               <folding>
                 <element signature="e#22#34#0" expanded="true" />
               </folding>
@@ -353,8 +355,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Scripts/nodoPrincipal.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="37" column="49" selection-start-line="37" selection-start-column="38" selection-end-line="37" selection-end-column="49" />
+        <state relative-caret-position="420">
+          <caret line="49" column="25" lean-forward="true" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
           <folding>
             <element signature="e#22#34#0" expanded="true" />
           </folding>
