@@ -38,16 +38,13 @@ def leviathan():
     rospy.loginfo("Esperando ack_service")
     try:
         ack_service = rospy.ServiceProxy('ack_service', AckService)  # Crea el objeto referente al servicio
-        ip = String()
-        ip.data = socket.gethostbyname(socket.gethostname())  # identifica la ip del dispositivo
-        groupNumber = Int32()
-        groupNumber.data = 4
+        ip= socket.gethostbyname(socket.gethostname())  # identifica la ip del dispositivo
+        groupNumber = 4
         resp = Int32()
-        resp.data = 0
-        while resp.data == 0:
+        resp = 0
+        while resp == 0 or resp.state == 0:
             resp = ack_service(groupNumber, ip)  # Solicita la respuesta del servicio
-            if resp.data != 1:
-                resp.data = 0
+            print(resp.state)
             time.sleep(1)
         rospy.loginfo("Enviando start_service")
         #pubEstado.publish(1)
@@ -76,13 +73,14 @@ def leviathan():
         print("Ocurrio un error solicitando servicio")
 
 
-def handle_start_service(pStart, pGoal, pN_obstacles, pObstacles_array):
+def handle_start_service(startS):
     global start, goal, n_obstacles, obstacles_array, esperarStartService
-    start = pStart
-    goal = pGoal
-    n_obstacles = pN_obstacles
-    obstacles_array = pObstacles_array
+    start = startS.start
+    goal = startS.goal
+    n_obstacles = startS.n_obstacles
+    obstacles_array = startS.obstacles
     esperarStartService = True
+    return
 
 
 def handle_terminar_recorrido():
