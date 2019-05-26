@@ -23,6 +23,7 @@
           <option value="TerminarServicio" />
           <option value="Scripts.nodoControl.geometry_msgs" />
           <option value="Scripts.nodoControl.std_msgs" />
+          <option value="Scripts.nodoPrincipal.proyectoFinal" />
         </list>
       </option>
     </inspection_tool>
