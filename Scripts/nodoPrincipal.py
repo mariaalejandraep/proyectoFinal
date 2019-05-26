@@ -46,7 +46,7 @@ def leviathan():
                 resp.data = 0
             time.sleep(1)
         # Aca publica que esta esperando start_service 1
-        rospy.loginfo ("Enviando start_service")
+        rospy.loginfo("Enviando start_service")
         rospy.Service('start_service', StartService,  handle_start_service)
         # rospy.spin()
         rospy.wait_for_service('iniciar_recorrido')  # Espera a que se cree el servicio
