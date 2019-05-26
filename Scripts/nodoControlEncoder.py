@@ -64,7 +64,7 @@ movingB = False
 satCicloUtil = 35
 
 
-def setPins():
+def setPins(): 
     global pA1, pA2, pB1, pB2
     # Configurandp estructura de pins de raspberry
     GPIO.setmode(GPIO.BOARD)
