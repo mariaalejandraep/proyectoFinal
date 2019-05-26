@@ -16,8 +16,6 @@ cicloB2=0
 # Ciclo util color 3 led B
 cicloB3=0
 
-
-
 # Variable que controla color 1 del LED A
 LedA_1 =33
 # Variable que controla color 2 del LED A
@@ -46,7 +44,7 @@ def setPins():
     GPIO.setup(LedB_3, GPIO.OUT)
 
     # Configurando senales de salida para los LEDS e inicializandolas en ciclo util de 0
-    pLedA_1 = GPIO.PWM(LedA_1,fLeds)
+    pLedA_1 = GPIO.PWM(LedA_1, fLeds)
     GPIO.output(LedA_1, 0)
     pLedA_2 = GPIO.PWM(LedA_2, fLeds)
     GPIO.output(LedA_2, 0)
