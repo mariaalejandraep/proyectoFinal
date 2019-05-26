@@ -70,30 +70,30 @@ def iniciarLeds():
 
 def handle_color(estado_act):
     global pLedA_1,pLedA_2,pLedA_3,pLedB_1,pLedB_2,pLedB_3,cicloA1,cicloA2,cicloA3,cicloB1,cicloB2,cicloB3
-    if estado_act==0:
+    if estado_act.data==0:
         cicloA1=50
         pLedA_1.ChangeDutyCycle(cicloA1)
-    elif estado_act==1:
+    elif estado_act.data==1:
         cicloA1=0
         pLedA_1.ChangeDutyCycle(cicloA1)
         cicloA2=50
         pLedA_2.ChangeDutyCycle(cicloA2)
-    elif estado_act==2:
+    elif estado_act.data==2:
         cicloA2=0
         pLedA_2.ChangeDutyCycle(cicloA2)
         cicloA3=50
         pLedA_3.ChangeDutyCycle(cicloA3)
-    elif estado_act==3:
+    elif estado_act.data==3:
         cicloA3=0
         pLedA_3.ChangeDutyCycle(cicloA3)
         cicloB1=50
         pLedB_1.ChangeDutyCycle(cicloB1)
-    elif estado_act==4:
+    elif estado_act.data==4:
         cicloB1=0
         pLedB_1.ChangeDutyCycle(cicloB1)
         cicloB2=50
         pLedB_2.ChangeDutyCycle(cicloB2)
-    elif estado_act==5:
+    elif estado_act.data==5:
         cicloB2=0
         pLedB_2.ChangeDutyCycle(cicloB2)
         cicloB3=50
