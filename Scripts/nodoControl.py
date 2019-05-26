@@ -109,6 +109,7 @@ def control():
     # obstaculos
     time.sleep (.1)
     # Se crean los vertices y casillas del grafo y arreglo respectivamente
+    # Publica un 2 en topico comunicacion con nodo estado
     creadorVerticesCasillas()
     # Se crean los arcos del grafo
     creadorArcos()
@@ -118,6 +119,7 @@ def control():
     ruta = nx.astar_path(g,numCasillas(posicionActual.position.x,posicionActual.position.y),numCasillas(posicionFinal.position.x,posicionFinal.position.y) , heuristic=heuristic)
     # En caso de que la ruta este compuesta por mas de un nodo calcula el teta adecuado para que la primera posicion
     # termine orientada a la siguiente casilla, de lo contrario, la orienta al punto final
+    # Publica un 3 en topico estados
     if len(ruta)>1:
         teta = math.atan2(casillas[ruta[1]].y-casillas[ruta[0]].y, casillas[ruta[1]].x-casillas[ruta[0]].x)
     else:
@@ -159,6 +161,7 @@ def control():
         pubMot.publish(mot)
         # Espera a que se cumpla la tasa de tiempo
         rate.sleep()
+
     # En caso de terminar detiene a el pioneer
     mot.data[0] = 0
     mot.data[1] = 0
