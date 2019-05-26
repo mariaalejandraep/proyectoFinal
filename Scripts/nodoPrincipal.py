@@ -61,7 +61,7 @@ def leviathan():
         pubEstado.publish(4)
         solicitud_contrasena = rospy.ServiceProxy('solicitud_contrasena', Contrasena) # Crea el objeto referente al servicio
         password = solicitud_contrasena()
-        pubEstado.publish (5)
+        pubEstado.publish(5)
         resp.data = password
         end_service = rospy.ServiceProxy('end_service', Int32)
         respFinal = end_service(resp)
