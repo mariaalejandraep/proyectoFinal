@@ -8,7 +8,7 @@ from geometry_msgs.msg import Pose
 from master_msgs_iele3338.msg import Obstacle
 from master_msgs_iele3338.srv import StartService, EndService
 from proyectoFinal.srv import Contrasena
-import TerminarRecorrido
+from proyectoFinal.srv import TerminarRecorrido
 
 # Posicion de inicio del robot
 start = Pose()
