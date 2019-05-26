@@ -22,6 +22,8 @@ obstacles_array = Obstacle()
 password = None
 # Variable que identifica si se termino el recorrido
 esperarTerminarRecorrido = False
+# Variable que identifica que se solicito el servicio start_service
+esperarStartService = False
 
 
 def leviathan():
@@ -32,7 +34,6 @@ def leviathan():
     rospy.loginfo("Esperando ack_service")
     rospy.wait_for_service('ack_service')  # Espera a que se cree el servicio
     ack_service = rospy.ServiceProxy('ack_service', Int32)  # Crea el objeto referente al servicio
-    # hostname =   # identifica el hostname del dispositivo
     ip = String()
     ip.data = socket.gethostbyname(socket.gethostname())  # identifica la ip del dispositivo
     groupNumber = Int32()
@@ -45,36 +46,40 @@ def leviathan():
             if resp.data != 1:
                 resp.data = 0
             time.sleep(1)
-        # Aca publica que esta esperando start_service 1
         rospy.loginfo("Enviando start_service")
+        pubEstado.publish(1)
         rospy.Service('start_service', StartService,  handle_start_service)
-        # rospy.spin()
         rospy.wait_for_service('iniciar_recorrido')  # Espera a que se cree el servicio
+        while not esperarStartService:
+            pass
+        rospy.wait_for_service('iniciar_recorrido')
         iniciar_service = rospy.ServiceProxy('iniciar_recorrido')  # Crea el objeto referente al servicio
-        resp.data = 0
-        while resp.data == 0:
-            resp = iniciar_service(start, goal, n_obstacles, obstacles_array)
-        terminar_service = rospy.Service('terminar_recorrido', TerminarServicio, handle_terminar_recorrido)
+        iniciar_service(start, goal, n_obstacles, obstacles_array)
+        rospy.Service('terminar_recorrido', TerminarServicio, handle_terminar_recorrido)
         while not esperarTerminarRecorrido:
             pass
-        # Publica un 4 en topico de estado
+        pubEstado.publish(4)
         solicitud_contrasena = rospy.ServiceProxy('solicitud_contrasena', Contrasena) # Crea el objeto referente al servicio
         password = solicitud_contrasena()
-
-
-
-
-
+        pubEstado.publish (5)
+        resp.data = password
+        end_service = rospy.ServiceProxy('end_service', Int32)
+        respFinal = end_service(resp)
+        if respFinal.data == 1:
+            print("Drop the mic, leave the room")
+        else:
+            print("Burn the room")
     except rospy.ServiceException:
         print("Ocurrio un error solicitando servicio")
 
 
 def handle_start_service(pStart, pGoal, pN_obstacles, pObstacles_array):
-    global start, goal, n_obstacles, obstacles_array
+    global start, goal, n_obstacles, obstacles_array, esperarStartService
     start = pStart
     goal = pGoal
     n_obstacles = pN_obstacles
     obstacles_array = pObstacles_array
+    esperarStartService = True
 
 
 def handle_terminar_recorrido():
