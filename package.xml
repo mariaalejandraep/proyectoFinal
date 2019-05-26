@@ -61,6 +61,7 @@
   <build_depend>master_msgs_iele3338</build_depend>
   <build_export_depend>master_msgs_iele3338</build_export_depend>
   <exec_depend>master_msgs_iele3338</exec_depend>
+  <build_depend>message_generation</build_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->
