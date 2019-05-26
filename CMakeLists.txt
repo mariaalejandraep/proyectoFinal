@@ -42,7 +42,7 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add "message_generation" and every package in MSG_DEP_SET to
 ##     find_package(catkin REQUIRED COMPONENTS ...)
 ##   * add "message_runtime" and every package in MSG_DEP_SET to
-catkin_package(CATKIN_DEPENDS message_runtime)
+
 ##   * uncomment the add_*_files sections below as needed
 ##     and list every .msg/.srv/.action file to be processed
 ##   * uncomment the generate_messages entry below
@@ -121,6 +121,8 @@ include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
 )
+
+catkin_package(CATKIN_DEPENDS message_runtime)
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
