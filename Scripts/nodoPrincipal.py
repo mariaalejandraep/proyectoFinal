@@ -5,8 +5,10 @@ import time
 from std_msgs.msg import Int32
 from std_msgs.msg import String
 from geometry_msgs.msg import Pose
-from master_msgs_iele3338.msg import Obstacle
-from master_msgs_iele3338.srv import StartService, EndService
+#from master_msgs_iele3338.msg import Obstacle
+#from master_msgs_iele3338.srv import StartService, EndService
+from master_msgs_iele3338.srv import *
+from master_msgs_iele3338.msg import *
 from proyectoFinal.srv import Contrasena
 from proyectoFinal.srv import TerminarRecorrido
 
@@ -32,7 +34,7 @@ def leviathan():
     pubEstado = rospy.Publisher('estado', Int32, queue_size=10)
     pubEstado.publish(0)  # Aca publica que esta esperando ack_service 0
     # rospy.wait_for_service('ack_service')  # Espera a que se cree el servicio
-    rospy.loginfo ("Esperando ack_service")
+    rospy.loginfo("Esperando ack_service")
     ack_service = rospy.ServiceProxy('ack_service', Int32)  # Crea el objeto referente al servicio
     ip = String()
     ip.data = socket.gethostbyname(socket.gethostname())  # identifica la ip del dispositivo
