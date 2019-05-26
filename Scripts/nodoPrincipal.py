@@ -8,7 +8,7 @@ from geometry_msgs.msg import Pose
 from master_msgs_iele3338.msg import Obstacle
 from master_msgs_iele3338.srv import StartService, EndService
 import Contrasena
-import TerminarServicio
+import TerminarRecorrido
 
 # Posicion de inicio del robot
 start = Pose()
@@ -55,7 +55,7 @@ def leviathan():
         rospy.wait_for_service('iniciar_recorrido')
         iniciar_service = rospy.ServiceProxy('iniciar_recorrido')  # Crea el objeto referente al servicio
         iniciar_service(start, goal, n_obstacles, obstacles_array)
-        rospy.Service('terminar_recorrido', TerminarServicio, handle_terminar_recorrido)
+        rospy.Service('terminar_recorrido', TerminarRecorrido, handle_terminar_recorrido)
         while not esperarTerminarRecorrido:
             pass
         pubEstado.publish(4)
