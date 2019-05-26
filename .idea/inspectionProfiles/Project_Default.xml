@@ -24,6 +24,7 @@
           <option value="Scripts.nodoControl.geometry_msgs" />
           <option value="Scripts.nodoControl.std_msgs" />
           <option value="Scripts.nodoPrincipal.proyectoFinal" />
+          <option value="Contrasena" />
         </list>
       </option>
     </inspection_tool>
