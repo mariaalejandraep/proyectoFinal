@@ -37,7 +37,7 @@ def leviathan():
     rospy.wait_for_service('ack_service')  # Espera a que se cree el servicio
     rospy.loginfo("Esperando ack_service")
     try:
-        service_ack = rospy.ServiceProxy('ack_service', AckService)  # Crea el objeto referente al servicio
+        ack_service = rospy.ServiceProxy('ack_service', AckService)  # Crea el objeto referente al servicio
         ip = String()
         ip.data = socket.gethostbyname(socket.gethostname())  # identifica la ip del dispositivo
         groupNumber = Int32()
@@ -45,7 +45,7 @@ def leviathan():
         resp = Int32()
         resp.data = 0
         while resp.data == 0:
-            resp = service_ack(groupNumber, ip)  # Solicita la respuesta del servicio
+            resp = ack_service(groupNumber, ip)  # Solicita la respuesta del servicio
             if resp.data != 1:
                 resp.data = 0
             time.sleep(1)

@@ -43,7 +43,7 @@ subidaB2 = []
 # Variable booleana  que inidca si se esta calculando velocidad
 calculando = False
 # Radio de las llantas en metros
-r = (29.3/2000)
+r = (29.3/2)
 # Variables de control PI
 kp = 10
 ki = 0
@@ -129,8 +129,6 @@ def calcularVelocidadRuedas():
         velActB = 0
     print("La velocidad actual de la rueda A:", velActA)
     print("La velocidad actual de la rueda B:", velActB)
-
-
 
 
 def aplicarControlBajoNivel():

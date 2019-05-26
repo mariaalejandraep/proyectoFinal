@@ -25,6 +25,8 @@
           <option value="Scripts.nodoControl.std_msgs" />
           <option value="Scripts.nodoPrincipal.proyectoFinal" />
           <option value="Contrasena" />
+          <option value="Scripts.nodoControl.proyectoFinal" />
+          <option value="Scripts.nodoControl.master_msgs_iele3338" />
         </list>
       </option>
     </inspection_tool>
