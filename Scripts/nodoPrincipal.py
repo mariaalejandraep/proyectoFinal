@@ -31,12 +31,13 @@ esperarStartService = False
 def leviathan():
     global password
     rospy.init_node('nodoPrincipal', anonymous=True)  # inicializa el nodo
-    pubEstado = rospy.Publisher('estado', Int32, queue_size=10)
-    pubEstado.publish(0)  # Aca publica que esta esperando ack_service 0
+    #pubEstado = rospy.Publisher('estado', Int32, queue_size=10)
+    #pubEstado.publish(0)  # Aca publica que esta esperando ack_service 0
+    rospy.loginfo("Llega.")
     rospy.wait_for_service('ack_service')  # Espera a que se cree el servicio
     rospy.loginfo("Esperando ack_service")
     try:
-        ack_service = rospy.ServiceProxy('ack_service', AckService)  # Crea el objeto referente al servicio
+        service_ack = rospy.ServiceProxy('ack_service', AckService)  # Crea el objeto referente al servicio
         ip = String()
         ip.data = socket.gethostbyname(socket.gethostname())  # identifica la ip del dispositivo
         groupNumber = Int32()
@@ -44,12 +45,12 @@ def leviathan():
         resp = Int32()
         resp.data = 0
         while resp.data == 0:
-            resp = ack_service(groupNumber, ip)  # Solicita la respuesta del servicio
+            resp = service_ack(groupNumber, ip)  # Solicita la respuesta del servicio
             if resp.data != 1:
                 resp.data = 0
             time.sleep(1)
         rospy.loginfo("Enviando start_service")
-        pubEstado.publish(1)
+        #pubEstado.publish(1)
         rospy.Service('start_service', StartService,  handle_start_service)
         rospy.wait_for_service('iniciar_recorrido')  # Espera a que se cree el servicio
         while not esperarStartService:
@@ -60,10 +61,10 @@ def leviathan():
         rospy.Service('terminar_recorrido', TerminarRecorrido, handle_terminar_recorrido)
         while not esperarTerminarRecorrido:
             pass
-        pubEstado.publish(4)
+        #pubEstado.publish(4)
         solicitud_contrasena = rospy.ServiceProxy('solicitud_contrasena', Contrasena) # Crea el objeto referente al servicio
         password = solicitud_contrasena()
-        pubEstado.publish(5)
+        #pubEstado.publish(5)
         resp.data = password
         end_service = rospy.ServiceProxy('end_service', Int32)
         respFinal = end_service(resp)
