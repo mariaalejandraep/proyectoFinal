@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="00974ca6-b36f-4c4a-a2fd-40c4dc2b68b7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Scripts/nodoPrincipal.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/nodoPrincipal.py" afterDir="false" />
-    </list>
+    <list default="true" id="00974ca6-b36f-4c4a-a2fd-40c4dc2b68b7" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,7 +14,7 @@
         <entry file="file://$PROJECT_DIR$/Scripts/nodoControlEncoder.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="900">
-              <caret line="147" column="25" lean-forward="true" selection-start-line="147" selection-start-column="25" selection-end-line="147" selection-end-column="25" />
+              <caret line="147" column="25" selection-start-line="147" selection-start-column="25" selection-end-line="147" selection-end-column="25" />
               <folding>
                 <element signature="e#22#34#0" expanded="true" />
               </folding>
@@ -28,7 +26,7 @@
         <entry file="file://$PROJECT_DIR$/Scripts/leviathan.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
-              <caret line="61" column="31" lean-forward="true" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="31" />
+              <caret line="61" column="31" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="31" />
               <folding>
                 <element signature="e#53#65#0" expanded="true" />
               </folding>
@@ -39,7 +37,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Scripts/nodoControl.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
+            <state relative-caret-position="1455">
               <caret line="163" selection-start-line="163" selection-end-line="163" />
               <folding>
                 <element signature="e#94#129#0" expanded="true" />
@@ -61,7 +59,7 @@
         <entry file="file://$PROJECT_DIR$/Scripts/nodoOdometria.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-655">
-              <caret line="22" column="6" lean-forward="true" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
+              <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -69,8 +67,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Scripts/nodoPrincipal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="48" column="21" selection-start-line="48" selection-start-column="21" selection-end-line="48" selection-end-column="21" />
+            <state relative-caret-position="225">
+              <caret line="15" column="13" lean-forward="true" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
               <folding>
                 <element signature="e#22#34#0" expanded="true" />
               </folding>
@@ -94,7 +92,7 @@
         <entry file="file://$PROJECT_DIR$/../taller3_4/Scripts/Punto2/punto2c.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="215">
-              <caret line="94" column="76" lean-forward="true" selection-start-line="94" selection-start-column="4" selection-end-line="94" selection-end-column="76" />
+              <caret line="94" column="76" selection-start-line="94" selection-start-column="4" selection-end-line="94" selection-end-column="76" />
             </state>
           </provider>
         </entry>
@@ -112,7 +110,7 @@
         <entry file="file://$PROJECT_DIR$/Scripts/nodoPruebaControlEncoder.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="405">
-              <caret line="27" column="39" lean-forward="true" selection-start-line="27" selection-start-column="39" selection-end-line="27" selection-end-column="39" />
+              <caret line="27" column="39" selection-start-line="27" selection-start-column="39" selection-end-line="27" selection-end-column="39" />
               <folding>
                 <element signature="e#22#34#0" expanded="true" />
               </folding>
@@ -285,7 +283,7 @@
     <entry file="file://$PROJECT_DIR$/Scripts/nodoPruebaControlEncoder.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="405">
-          <caret line="27" column="39" lean-forward="true" selection-start-line="27" selection-start-column="39" selection-end-line="27" selection-end-column="39" />
+          <caret line="27" column="39" selection-start-line="27" selection-start-column="39" selection-end-line="27" selection-end-column="39" />
           <folding>
             <element signature="e#22#34#0" expanded="true" />
           </folding>
@@ -295,7 +293,7 @@
     <entry file="file://$PROJECT_DIR$/Scripts/leviathan.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
-          <caret line="61" column="31" lean-forward="true" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="31" />
+          <caret line="61" column="31" selection-start-line="61" selection-start-column="31" selection-end-line="61" selection-end-column="31" />
           <folding>
             <element signature="e#53#65#0" expanded="true" />
           </folding>
@@ -305,7 +303,7 @@
     <entry file="file://$PROJECT_DIR$/Scripts/nodoControlEncoder.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="900">
-          <caret line="147" column="25" lean-forward="true" selection-start-line="147" selection-start-column="25" selection-end-line="147" selection-end-column="25" />
+          <caret line="147" column="25" selection-start-line="147" selection-start-column="25" selection-end-line="147" selection-end-column="25" />
           <folding>
             <element signature="e#22#34#0" expanded="true" />
           </folding>
@@ -315,31 +313,14 @@
     <entry file="file://$PROJECT_DIR$/Scripts/nodoOdometria.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-655">
-          <caret line="22" column="6" lean-forward="true" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
+          <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../taller3_4/Scripts/Punto2/punto2c.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="215">
-          <caret line="94" column="76" lean-forward="true" selection-start-line="94" selection-start-column="4" selection-end-line="94" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Documents/Proyecto Robotica/intentoControlMale.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1085">
-          <caret line="343" column="46" selection-start-line="343" selection-start-column="46" selection-end-line="343" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/nodoControl.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="163" selection-start-line="163" selection-end-line="163" />
-          <folding>
-            <element signature="e#94#129#0" expanded="true" />
-          </folding>
+          <caret line="94" column="76" selection-start-line="94" selection-start-column="4" selection-end-line="94" selection-end-column="76" />
         </state>
       </provider>
     </entry>
@@ -353,10 +334,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/Documents/Proyecto Robotica/intentoControlMale.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1085">
+          <caret line="343" column="46" selection-start-line="343" selection-start-column="46" selection-end-line="343" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/nodoControl.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1455">
+          <caret line="163" selection-start-line="163" selection-end-line="163" />
+          <folding>
+            <element signature="e#94#129#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Scripts/nodoPrincipal.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="48" column="21" selection-start-line="48" selection-start-column="21" selection-end-line="48" selection-end-column="21" />
+        <state relative-caret-position="225">
+          <caret line="15" column="13" lean-forward="true" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
           <folding>
             <element signature="e#22#34#0" expanded="true" />
           </folding>
