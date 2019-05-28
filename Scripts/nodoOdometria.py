@@ -7,7 +7,6 @@ from master_msgs_iele3338.msg import Covariance
 import numpy as np
 from master_msgs_iele3338.srv import StartService
 
-
 pos = Pose()
 cov = Covariance()
 
@@ -39,11 +38,12 @@ dO = 0
 h = 10
 
 #Covarianza
-Covarianza=np.matrix([[0,0,0],[0,0,0],[0,0,0]])
-CovarSrSl=np.matrix([[0,0],[0,0]])
-Fpt1=np.matrix([[0, 0, 0],[0, 0, 0],[0, 0, 0]])
+Covarianza=np.zeros((3,3))
+CovarSrSl=np.zeros((2,2))
+
+Fpt1=np.zeros((3,3))
 Fpt1trans=np.transpose(Fpt1)
-FdS=np.matrix([[0,0],[0,0],[0,0]])
+FdS=np.zeros((3,2))
 FdStrans=np.transpose(Fpt1)
 
 #En esta variable se almacenan los ultimos 2 valores de tiempo.
@@ -102,15 +102,15 @@ def actualizar(msg):
     pos.position.y = pos.position.y +dSsin
     pos.orientation.w = O + dO
 
-    CovarSrSl=np.matrix([kr*np.absolute(dSr),0],[0,kl*np.absolute(dSl)],np.single)
+    #CovarSrSl=np.matrix(((kr*np.absolute(dSr),0),(0,kl*np.absolute(dSl))))
 
-    Fpt1=np.matrix([[1, 0, -dSsin],[1, 0, dScos],[0, 0, 1]])
+    Fpt1=np.array([[1, 0, -dSsin],[1, 0, dScos],[0, 0, 1]])
     Fpt1trans=np.transpose(Fpt1)
 
-    FdS=np.matrix([[(1/2)*cose-(1/(2*b))*dSsin,(1/2)*cose+(1/(2*b))*dSsin],[(1/2)*seno+(1/(2*b))*dScos,(1/2)*seno-(1/(2*b))*dScos],[1/b,-(1/b)]])
-    FdStrans=np.transpose(Fpt1)
+    FdS=np.array([[(1/2)*cose-(1/(2*b))*dSsin,(1/2)*cose+(1/(2*b))*dSsin],[(1/2)*seno+(1/(2*b))*dScos,(1/2)*seno-(1/(2*b))*dScos],[1/b,-(1/b)]])
+    FdStrans=np.transpose(FdS)
 
-    Covarianza=np.sum(np.multiply(np.multiply(Fpt1,Covarianza),Fpt1trans),np.multiply(np.multiply(FdS,CovarSrSl),FdStrans))
+    Covarianza=(Fpt1.dot(Covarianza)).dot(Fpt1trans) + (FdS.dot(CovarSrSl)).dot(FdStrans)
 
     cov.sigma11=Covarianza[0,0]
     cov.sigma12=Covarianza[0,1]
