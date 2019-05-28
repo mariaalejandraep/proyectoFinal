@@ -53,7 +53,7 @@ calculando = False
 # Radio de las llantas en metros
 r = (29.3/2)
 # Variables de control PI
-kp = 0.001
+kp = 0.1
 ki = 0
 # Acumulacion de error para integrador
 integradorA = []
@@ -110,7 +110,7 @@ def controlBajoNivel():
     pA1.ChangeDutyCycle(cicloADriver)
     pB1.ChangeDutyCycle(cicloBDriver)
     while not rospy.is_shutdown():
-        # calcularVelocidadRuedas()
+        calcularVelocidadRuedas()
         aplicarControlBajoNivel()
         print(contadorA)
         rate.sleep()
@@ -176,7 +176,7 @@ def aplicarControlBajoNivel():
     #     GPIO.output (pwmB1Driver, 0)
     #     pB2.start (0)
     #     pB2.ChangeDutyCycle (errorSignalB)
-    # refAccionControlA = errorSignalA
+    refAccionControlA = errorSignalA
     print("Ciclo util rueda A:", errorSignalA)
     # print("Ciclo util rueda B:", errorSignalB)
 
