@@ -66,7 +66,7 @@ b = 0
 # Equivale al angulo que se forma en el triangulo formado por el punto actual y final.
 t = 0
 # Es la constante kp. Debe ser mayor que 0 para que el sistema sea localmente estable.
-kp = 0.4  #0.4 # mayor que 0, antes era 0.1
+kp = 0.04  #0.4 # mayor que 0, antes era 0.1
 # Es la constante ka. ka-kp debe ser mayor que 0 para que el sistema sea localmente estable.
 ka = 0.5  # 1 # ka-kp mayor que 0, antes era 0.5
 # Es la constante kb. Debe ser menor a 0 para que el sistema sea localmente estable.
@@ -123,7 +123,7 @@ def control():
     posInter = Pose()
     posInter.position.x = aux.x
     posInter.position.y = aux.y
-    posInter.orientation.z = aux.teta
+    posInter.orientation.w = aux.teta
 
     # Inicializa el contador que define el punto de la ruta en la que se encuentra
     iRuta = 0
@@ -147,7 +147,7 @@ def control():
                 aux = Posicion(casillas[ruta[iRuta+1]].x, casillas[ruta[iRuta+1]].y, math.atan2(casillas[ruta[iRuta+1]].y-casillas[ruta[iRuta]].y, casillas[ruta[iRuta+1]].x-casillas[ruta[iRuta]].x))
                 posInter.position.x = aux.x
                 posInter.position.y = aux.y
-                posInter.orientation.z = aux.teta
+                posInter.orientation.w = aux.teta
 
                 iRuta = iRuta + 1
                 arrivedP = False
@@ -155,13 +155,13 @@ def control():
             elif iRuta == len(ruta):
                 # Debido a que llega a la posicon final se modifica el Kb para que modifique su orientacion a la final
                 kb = -0.06
-                if abs(posicionFinal.orientation.z - posicionActual.orientation.z) < 0.1:
+                if abs(posicionFinal.orientation.w - posicionActual.orientation.w) < 0.1:
                     # En caso que la orientacion tenga un error menor a los 0.1 radianes en la poscion final termina
                     # procedimiento
                     fin = True
         # En cada iteracion calcula las velocidades segun el punto final que se le pase
         calcularVelocidades(posInter)
-        rospy.loginfo(posInter)
+        #rospy.loginfo(posInter)
         # Publica en el topico la velocidad de los motores requerida
         pubMot.publish(mot)
         # Espera a que se cumpla la tasa de tiempo
@@ -181,6 +181,8 @@ def handle_iniciar_recorrido(startS):
     empezar = True
     posicionActual = startS.start
     posicionFinal = startS.goal
+    rospy.loginfo(posicionActual)
+    rospy.loginfo(posicionFinal)
     n_obstacles = startS.n_obstacles
     obstacles = startS.obstacles
     rospy.loginfo("Handle")
@@ -291,6 +293,7 @@ def libre(xCas, yCas):  # Si se encuentra un obstaculo en ella
     distanciaCarro = 200
     distBool = True
     for i in obstacles:
+        rospy.loginfo(i)
         distObs = math.sqrt((obstacles[i].position.position.x - xCas)**2 + (obstacles[i].position.position.y - yCas)**2)
         distRef = obstacles[i].radius + distanciaCarro
         distBool = (distObs >= distRef)
@@ -338,7 +341,7 @@ def calcularAngulos(pos):
     t = math.atan2(dy, dx)
     # Se define si alfa y ro deben ser cero o no dependiendo de si se llego al umbral
     if not arrivedP:
-        a = -posicionActual.orientation.z + t
+        a = -posicionActual.orientation.w + t
     else:
         p = 0
         a = 0
@@ -350,7 +353,7 @@ def calcularAngulos(pos):
         while a <= -math.pi:
             a = a + 2 * math.pi
     # Se restringe el valor de beta entre -pi y pi
-    b = posicionActual.orientation.z-pos.orientation.z - a
+    b = posicionActual.orientation.w-pos.orientation.w - a
     if b > math.pi:
         while b > math.pi:
             b = b - 2 * math.pi

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8297593f-bf6d-4e5e-88fd-5685ddd2a36c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/graficador.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nodoControl.py" beforeDir="false" afterPath="$PROJECT_DIR$/nodoControl.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nodoOdometria.py" beforeDir="false" afterPath="$PROJECT_DIR$/nodoOdometria.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nodoPrincipal.py" beforeDir="false" afterPath="$PROJECT_DIR$/nodoPrincipal.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,22 +23,25 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/nodoControl.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="150" lean-forward="true" selection-start-line="150" selection-end-line="150" />
+            <state relative-caret-position="3290">
+              <caret line="295" column="23" selection-start-line="295" selection-start-column="23" selection-end-line="295" selection-end-column="23" />
+              <folding>
+                <element signature="e#95#130#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/graficador.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/nodoOdometria.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="8" column="53" lean-forward="true" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
+            <state relative-caret-position="330">
+              <caret line="85" column="20" lean-forward="true" selection-start-line="85" selection-start-column="20" selection-end-line="85" selection-end-column="20" />
               <folding>
-                <element signature="e#22#34#0" expanded="true" />
+                <element signature="e#94#129#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -47,8 +50,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/nodoPrincipal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="98" column="13" selection-start-line="98" selection-start-column="13" selection-end-line="98" selection-end-column="13" />
+            <state relative-caret-position="465">
+              <caret line="82" column="62" lean-forward="true" selection-start-line="82" selection-start-column="62" selection-end-line="82" selection-end-column="62" />
               <folding>
                 <element signature="e#22#34#0" expanded="true" />
               </folding>
@@ -70,6 +73,7 @@
       <find>setpo</find>
       <find>pos</find>
       <find>calcularDis</find>
+      <find>orientation.z</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -80,11 +84,11 @@
       <list>
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/leviathan.py" />
-        <option value="$PROJECT_DIR$/nodoOdometria.py" />
         <option value="$PROJECT_DIR$/nodoLeds.py" />
         <option value="$PROJECT_DIR$/graficador.py" />
-        <option value="$PROJECT_DIR$/nodoPrincipal.py" />
         <option value="$PROJECT_DIR$/nodoControl.py" />
+        <option value="$PROJECT_DIR$/nodoPrincipal.py" />
+        <option value="$PROJECT_DIR$/nodoOdometria.py" />
       </list>
     </option>
   </component>
@@ -98,11 +102,11 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="453" />
-    <option name="y" value="-4" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="479" />
+    <option name="y" value="24" />
     <option name="width" value="597" />
-    <option name="height" value="771" />
+    <option name="height" value="743" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -143,7 +147,7 @@
     <configuration />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1301" height="772" extended-state="7" />
+    <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2198748" />
@@ -165,6 +169,17 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/nodoControl.py</url>
+          <line>2</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/scratch.py" />
     <entry file="file://$PROJECT_DIR$/.gitignore">
@@ -178,16 +193,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1035">
           <caret line="70" column="23" selection-start-line="70" selection-start-column="23" selection-end-line="70" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/nodoOdometria.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="18" column="6" lean-forward="true" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
-          <folding>
-            <element signature="e#94#129#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -214,8 +219,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/graficador.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="8" column="53" lean-forward="true" selection-start-line="8" selection-start-column="53" selection-end-line="8" selection-end-column="53" />
+        <state relative-caret-position="465">
+          <caret line="52" column="30" selection-start-line="52" selection-start-column="23" selection-end-line="52" selection-end-column="30" />
           <folding>
             <element signature="e#22#34#0" expanded="true" />
           </folding>
@@ -224,8 +229,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/nodoPrincipal.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="98" column="13" selection-start-line="98" selection-start-column="13" selection-end-line="98" selection-end-column="13" />
+        <state relative-caret-position="465">
+          <caret line="82" column="62" lean-forward="true" selection-start-line="82" selection-start-column="62" selection-end-line="82" selection-end-column="62" />
           <folding>
             <element signature="e#22#34#0" expanded="true" />
           </folding>
@@ -234,8 +239,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/nodoControl.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="150" lean-forward="true" selection-start-line="150" selection-end-line="150" />
+        <state relative-caret-position="3290">
+          <caret line="295" column="23" selection-start-line="295" selection-start-column="23" selection-end-line="295" selection-end-column="23" />
+          <folding>
+            <element signature="e#95#130#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/nodoOdometria.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="85" column="20" lean-forward="true" selection-start-line="85" selection-start-column="20" selection-end-line="85" selection-end-column="20" />
+          <folding>
+            <element signature="e#94#129#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
