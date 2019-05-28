@@ -135,9 +135,9 @@ def aplicarControlBajoNivel():
     errorA = velRefA - velActA
     errorB = velRefB - velActB
     integradorA.append(errorA)
-    integradorA = integradorA[-5:]
+    integradorA = integradorA[-10:]
     integradorB.append(errorB)
-    integradorB = integradorB[-5:]
+    integradorB = integradorB[-10:]
     integralA = sum(integradorA)
     integralB = sum(integradorB)
     errorSignalA = kp * errorA + ki * integralA
