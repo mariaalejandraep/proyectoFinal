@@ -55,8 +55,8 @@ calculando = False
 # Radio de las llantas en metros
 r = (29.3/2)
 # Variables de control PI
-kp = 0.05
-ki = 0
+kp = 0.02
+ki = 0.0000001
 # Acumulacion de error para integrador
 integradorA = []
 integradorB = []
@@ -135,14 +135,14 @@ def aplicarControlBajoNivel():
     errorA = velRefA - velActA
     errorB = velRefB - velActB
     integradorA.append(errorA)
-    integradorA = integradorA[-5:]
+    integradorA = integradorA[-10:]
     integradorB.append(errorB)
-    integradorB = integradorB[-5:]
+    integradorB = integradorB[-10:]
     integralA = sum(integradorA)
     integralB = sum(integradorB)
     errorSignalA = kp * errorA + ki * integralA
-    if errorSignalA<5:
-        errorSignalA = 1
+    if abs(errorSignalA) < 0.5:
+        errorSignalA = 0
     pwmA = pwmA + errorSignalA
     errorSignalB = kp * errorB + ki * integralB
     if pwmA >= 0:
