@@ -147,7 +147,7 @@ def control():
                 aux = Posicion(casillas[ruta[iRuta+1]].x, casillas[ruta[iRuta+1]].y, math.atan2(casillas[ruta[iRuta+1]].y-casillas[ruta[iRuta]].y, casillas[ruta[iRuta+1]].x-casillas[ruta[iRuta]].x))
                 posInter.position.x = aux.x
                 posInter.position.y = aux.y
-                posInter.orientation.z = auz.teta
+                posInter.orientation.z = aux.teta
 
                 iRuta = iRuta + 1
                 arrivedP = False
@@ -161,6 +161,7 @@ def control():
                     fin = True
         # En cada iteracion calcula las velocidades segun el punto final que se le pase
         calcularVelocidades(posInter)
+        rospy.loginfo(posInter)
         # Publica en el topico la velocidad de los motores requerida
         pubMot.publish(mot)
         # Espera a que se cumpla la tasa de tiempo
@@ -178,12 +179,12 @@ def control():
 def handle_iniciar_recorrido(startS):
     global posicionActual, posicionFinal, n_obstacles, obstacles, empezar
     empezar = True
-    start = startS.start
-    goal = startS.goal
+    posicionActual = startS.start
+    posicionFinal = startS.goal
     n_obstacles = startS.n_obstacles
-    obstacles_array = startS.obstacles
+    obstacles = startS.obstacles
     rospy.loginfo("Handle")
-    return None
+    return []
 
 
 # Metodo que arroja la distancia euclidiana entre dos casillas segun su numeramiento (no posicion exacta)
@@ -231,14 +232,14 @@ def creadorVerticesCasillas():
         casillas.append(nC)
 
 # Metodo que ejecuta nodo graficador usanto herramiento roslaunch, crea un nuevo proceso.
-def iniciarGraficador():
-    # Se define el paquete y nodo que se deben ejecutar
-    package = 'proyectoFinal'
-    script = 'graficador.py'
-    node = roslaunch.core.Node (package, script)
-    launch = roslaunch.scriptapi.ROSLaunch ()
-    launch.start ()
-    process = launch.launch (node)
+# def iniciarGraficador():
+#     # Se define el paquete y nodo que se deben ejecutar
+#     package = 'proyectoFinal'
+#     script = 'graficador.py'
+#     node = roslaunch.core.Node (package, script)
+#     launch = roslaunch.scriptapi.ROSLaunch ()
+#     launch.start ()
+#     process = launch.launch (node)
 
 
 # Crea los arcos entre los vertices creados en el grafo, solo es necesario revisar los nodos que pueden ser vecinos, en
