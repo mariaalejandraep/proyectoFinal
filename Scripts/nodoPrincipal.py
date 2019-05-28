@@ -80,7 +80,7 @@ def handle_start_service(startS):
     n_obstacles = startS.n_obstacles
     obstacles_array = startS.obstacles
     esperarStartService = True
-    return
+    return None
 
 
 def handle_terminar_recorrido():

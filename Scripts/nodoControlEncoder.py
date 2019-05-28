@@ -199,28 +199,28 @@ def apagar():
 def sumarFlancoA1():
     global subidaA1, moving
     subidaA1.append(time.time())
-    subidaA1 = subidaA1[-7:]
+    subidaA1 = subidaA1[-13:]
     moving = True
 
 
 def sumarFlancoB1():
     global subidaB1, moving
     subidaB1.append(time.time())
-    subidaB1 = subidaB1[-7:]
+    subidaB1 = subidaB1[-13:]
     moving = True
 
 
 def sumarFlancoA2():
     global subidaA2, moving
     subidaA2.append(time.time())
-    subidaA2 = subidaA2[-7:]
+    subidaA2 = subidaA2[-13:]
     moving = True
 
 
 def sumarFlancoB2():
     global subidaB2, moving
     subidaB2.append(time.time())
-    subidaB2 = subidaB2[-7:]
+    subidaB2 = subidaB2[-13:]
     moving = True
 
 
