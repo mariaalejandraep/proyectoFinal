@@ -110,7 +110,7 @@ def controlBajoNivel():
     pA1.ChangeDutyCycle(cicloADriver)
     pB1.ChangeDutyCycle(cicloBDriver)
     while not rospy.is_shutdown():
-        # calcularVelocidadRuedas()
+        calcularVelocidadRuedas()
         aplicarControlBajoNivel()
         print(contadorA)
         rate.sleep()
