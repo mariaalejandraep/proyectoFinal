@@ -96,12 +96,13 @@ def handle_start_service(startS):
     obstacles_array = startS.obstacles
     esperarStartService = True
     rospy.loginfo("Handle")
-    return None
+    return []
 
 
 def handle_terminar_recorrido():
     global esperarTerminarRecorrido
     esperarTerminarRecorrido = True
+
 
 
 if __name__ == '__main__':
