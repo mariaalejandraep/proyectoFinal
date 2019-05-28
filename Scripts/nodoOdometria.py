@@ -102,7 +102,7 @@ def actualizar(msg):
     pos.position.y = pos.position.y +dSsin
     pos.orientation.w = O + dO
 
-    CovarSrSl=np.matrix([kr*np.absolute(dSr),0],[0,kl*np.absolute(dSl)],dtype='f')
+    CovarSrSl=np.matrix([kr*np.absolute(dSr),0],[0,kl*np.absolute(dSl)],np.single)
 
     Fpt1=np.matrix([[1, 0, -dSsin],[1, 0, dScos],[0, 0, 1]])
     Fpt1trans=np.transpose(Fpt1)
