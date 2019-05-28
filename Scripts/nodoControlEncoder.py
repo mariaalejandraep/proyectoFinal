@@ -71,7 +71,7 @@ velActB = 0
 movingA = False
 movingB = False
 # Variable de saturacion maxima de ciclo util
-satCicloUtil = 35
+satCicloUtil = 60
 
 
 def setPins():
