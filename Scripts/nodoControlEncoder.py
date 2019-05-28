@@ -215,7 +215,7 @@ def sumarFlancoA2(a):
     global subidaA2, moving
     subidaA2.append(time.time())
     subidaA2 = subidaA2[-13:]
-    print ("Hay flanco en A2")
+    print (a)
     moving = True
 
 
