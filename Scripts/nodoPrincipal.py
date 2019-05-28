@@ -12,14 +12,16 @@ from master_msgs_iele3338.msg import *
 from proyectoFinal.srv import Contrasena
 from proyectoFinal.srv import TerminarRecorrido
 
+#Variable con toda la informacion del escenario
+escenario = None
 # Posicion de inicio del robot
 start = Pose()
 # Posicion final a la que se quiere llegar
 goal = Pose()
 # Numero de obstaculos que se envian
-n_obstacles = Int32()
+n_obstacles = 0
 # Objeto tipo Obstacle con informacion de los obstaculos
-obstacles_array = Obstacle()
+obstacles_array = []
 # Contrasena obtenida
 password = None
 # Variable que identifica si se termino el recorrido
@@ -40,7 +42,6 @@ def leviathan():
         ack_service = rospy.ServiceProxy('ack_service', AckService)  # Crea el objeto referente al servicio
         ip= socket.gethostbyname(socket.gethostname())  # identifica la ip del dispositivo
         groupNumber = 4
-        resp = Int32()
         resp = 0
         while resp == 0 or resp.state == 0:
             resp = ack_service(groupNumber, ip)  # Solicita la respuesta del servicio
@@ -48,16 +49,28 @@ def leviathan():
             time.sleep(1)
         rospy.loginfo("Enviando start_service")
         #pubEstado.publish(1)
-        rospy.Service('start_service', StartService,  handle_start_service)
-        rospy.wait_for_service('iniciar_recorrido')  # Espera a que se cree el servicio
+
+        s = rospy.Service('start_service', StartService,  handle_start_service)
+
+        rospy.loginfo("Despues de start service")
+
+        rospy.loginfo("Enviando iniciar_recorrido")
+        rospy.wait_for_service('iniciar_recorrido')
+
         while not esperarStartService:
             pass
-        rospy.wait_for_service('iniciar_recorrido')
-        iniciar_service = rospy.ServiceProxy('iniciar_recorrido')  # Crea el objeto referente al servicio
-        iniciar_service(start, goal, n_obstacles, obstacles_array)
+
+        iniciar_service = rospy.ServiceProxy('iniciar_recorrido', StartService)  # Crea el objeto referente al servicio
+        iniciar_service(escenario)
+
         rospy.Service('terminar_recorrido', TerminarRecorrido, handle_terminar_recorrido)
+
+        rospy.loginfo("Esperando terminar recorrido")
+
+
         while not esperarTerminarRecorrido:
             pass
+
         #pubEstado.publish(4)
         solicitud_contrasena = rospy.ServiceProxy('solicitud_contrasena', Contrasena) # Crea el objeto referente al servicio
         password = solicitud_contrasena()
@@ -74,12 +87,15 @@ def leviathan():
 
 
 def handle_start_service(startS):
-    global start, goal, n_obstacles, obstacles_array, esperarStartService
+    global escenario, start, goal, n_obstacles, obstacles_array, esperarStartService
+
+    escenario = startS
     start = startS.start
     goal = startS.goal
     n_obstacles = startS.n_obstacles
     obstacles_array = startS.obstacles
     esperarStartService = True
+    rospy.loginfo("Handle")
     return None
 
 
