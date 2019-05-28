@@ -130,7 +130,7 @@ def calcularVelocidadRuedas():
 
 def aplicarControlBajoNivel():
     global integradorA, integradorB, pA1, pA2, pB1, pB2, refAccionControlA
-    errorA = velRefA - velActA
+    errorA = velRefA - 0  # velActA
     errorB = velRefB - velActB
     integradorA.append(errorA)
     integradorA = integradorA[-5:]
