@@ -196,28 +196,29 @@ def apagar():
     rospy.loginfo("Apagando.")
 
 
-def sumarFlancoA1():
+def sumarFlancoA1(a):
     global subidaA1, moving
     subidaA1.append(time.time())
     subidaA1 = subidaA1[-13:]
+    print("Hay flanco en A1")
     moving = True
 
 
-def sumarFlancoB1():
+def sumarFlancoB1(a):
     global subidaB1, moving
     subidaB1.append(time.time())
     subidaB1 = subidaB1[-13:]
     moving = True
 
 
-def sumarFlancoA2():
+def sumarFlancoA2(a):
     global subidaA2, moving
     subidaA2.append(time.time())
     subidaA2 = subidaA2[-13:]
     moving = True
 
 
-def sumarFlancoB2():
+def sumarFlancoB2(a):
     global subidaB2, moving
     subidaB2.append(time.time())
     subidaB2 = subidaB2[-13:]
