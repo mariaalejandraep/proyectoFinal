@@ -46,6 +46,8 @@ refTiempoA = 0
 
 refAccionControlA = 0
 
+pwmA = 0
+
 subidaA2 = []
 subidaB2 = []
 # Variable booleana  que inidca si se esta calculando velocidad
@@ -72,7 +74,7 @@ movingB = False
 satCicloUtil = 35
 
 
-def setPins(): 
+def setPins():
     global pA1, pA2, pB1, pB2
     # Configurandp estructura de pins de raspberry
     GPIO.setmode(GPIO.BOARD)
@@ -129,7 +131,7 @@ def calcularVelocidadRuedas():
 
 
 def aplicarControlBajoNivel():
-    global integradorA, integradorB, pA1, pA2, pB1, pB2, refAccionControlA
+    global integradorA, integradorB, pA1, pA2, pB1, pB2, refAccionControlA, pwmA
     errorA = velRefA - velActA
     errorB = velRefB - velActB
     integradorA.append(errorA)
@@ -139,28 +141,28 @@ def aplicarControlBajoNivel():
     integralA = sum(integradorA)
     integralB = sum(integradorB)
     errorSignalA = kp * errorA + ki * integralA
+    pwmA = pwmA + errorSignalA
     errorSignalB = kp * errorB + ki * integralB
-    if errorSignalA >= 0:
+    if pwmA >= 0:
         print("Entro if rueda A")
-        if errorSignalA > satCicloUtil:
-            errorSignalA = satCicloUtil
+        if pwmA > satCicloUtil:
+            pwmA = satCicloUtil
         if refAccionControlA < 0:
-            errorSignalA = 0
+            pwmA = 0
         pA2.stop()
         GPIO.output (pwmA2Driver, 0)
         pA1.start (0)
-        pA1.ChangeDutyCycle(errorSignalA)
+        pA1.ChangeDutyCycle(pwmA)
     else:
         print ("Entro else rueda A")
-        if errorSignalA < -satCicloUtil:
-            errorSignalA = satCicloUtil
-        errorSignalA = abs(errorSignalA)
+        if pwmA < -satCicloUtil:
+            pwmA = -satCicloUtil
         if refAccionControlA > 0:
-            errorSignalA = 0
+            pwmA = 0
         pA1.stop ()
         GPIO.output (pwmA1Driver, 0)
         pA2.start (0)
-        pA2.ChangeDutyCycle (errorSignalA)
+        pA2.ChangeDutyCycle (abs(pwmA))
     # if errorSignalB >= 0:
     #     if errorSignalB > satCicloUtil:
     #         errorSignalB = satCicloUtil
@@ -176,8 +178,8 @@ def aplicarControlBajoNivel():
     #     GPIO.output (pwmB1Driver, 0)
     #     pB2.start (0)
     #     pB2.ChangeDutyCycle (errorSignalB)
-    refAccionControlA = errorSignalA
-    print("Ciclo util rueda A:", errorSignalA)
+    refAccionControlA = pwmA
+    print("Ciclo util rueda A:", pwmA)
     # print("Ciclo util rueda B:", errorSignalB)
 
 
