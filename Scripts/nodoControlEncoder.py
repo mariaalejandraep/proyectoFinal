@@ -31,7 +31,7 @@ pwmA2Encoder = 37
 # Variable con el pin que va del encoder con la senal A
 pwmB2Encoder = 38
 # radio de la rueda
-radioRueda = 29.3/2  # milimetros
+radioRueda = float(29.3/2)  # milimetros
 # Variables que referencian senales PMW de los encoders
 pA1 = None
 pA2 = None
