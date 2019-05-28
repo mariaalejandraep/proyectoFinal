@@ -293,6 +293,7 @@ def libre(xCas, yCas):  # Si se encuentra un obstaculo en ella
     distanciaCarro = 200
     distBool = True
     for i in obstacles:
+        rospy.loginfo(i)
         distObs = math.sqrt((obstacles[i].position.position.x - xCas)**2 + (obstacles[i].position.position.y - yCas)**2)
         distRef = obstacles[i].radius + distanciaCarro
         distBool = (distObs >= distRef)

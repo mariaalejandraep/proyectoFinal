@@ -5,6 +5,8 @@ from std_msgs.msg import Float32MultiArray
 from geometry_msgs.msg import Pose
 from master_msgs_iele3338.msg import Covariance
 import numpy as np
+from master_msgs_iele3338.srv import StartService
+
 
 pos = Pose()
 cov = Covariance()
@@ -36,7 +38,6 @@ dO = 0
 #Es la tasa en Hz del nodo.
 h = 10
 
-
 #Covarianza
 Covarianza=np.matrix([[0,0,0],[0,0,0],[0,0,0]])
 CovarSrSl=np.matrix([[0,0],[0,0]])
@@ -48,9 +49,20 @@ FdStrans=np.transpose(Fpt1)
 #En esta variable se almacenan los ultimos 2 valores de tiempo.
 t = [0, 0]
 
+#Indica cuando comenzar
+empezar = False
+
 def odometria():
     #rospy.wait_for_service()
     rospy.init_node('nodo_odometria', anonymous = True)
+    rate = rospy.Rate(10)
+    s = rospy.Service('iniciar_odometria', StartService, handle_iniciar_odometria)
+
+    rospy.loginfo("Despues de")
+
+    # Se espera a que se publique por primera vez a traves del topico preguntarCasillas
+    while not empezar:
+        pass
 
     inicializar()
 
@@ -62,11 +74,11 @@ def inicializar():
     global pubPos, pubCov, t
     pubPos = rospy.Publisher('robot_position', Pose, queue_size = 10)
     pubCov = rospy.Publisher('robot_uncertainty', Covariance, queue_size = 10)
-    rospy.Suscriber('velocidad_deseada', Float32MultiArray, actualizar)
+    rospy.Subscriber('velocidad_deseada', Float32MultiArray, actualizar)
     t = [time.time(), time.time()]
 
 def actualizar(msg):
-    global pos, cov, vel, dt, dS, dSl, dSr, O, dO, Covarianza,pubPos,pubCov,CovarSrSl,CovarSrSl,Fpt1,Fpt1trans,FdS,FdStrans
+    global pos, cov, vel, t, dt, dS, dSl, dSr, O, dO, Covarianza,pubPos,pubCov,CovarSrSl,CovarSrSl,Fpt1,Fpt1trans,FdS,FdStrans
 
     t.append(time.time())
     t = t[-2:]
@@ -79,7 +91,7 @@ def actualizar(msg):
     dS = (dSl+dSr)/2
     dO = (dSr-dSl)/b
 
-    O = pos.orientation.z
+    O = pos.orientation.w
 
     cose=math.cos(O+dO/2.0)
     seno=math.sin(O+dO/2.0)
@@ -88,7 +100,7 @@ def actualizar(msg):
 
     pos.position.x = pos.position.x + dScos
     pos.position.y = pos.position.y +dSsin
-    pos.orientation.z = O + dO
+    pos.orientation.w = O + dO
 
     CovarSrSl=np.matrix([kr*np.absolute(dSr),0],[0,kl*np.absolute(dSl)],dtype='f')
 
@@ -115,6 +127,13 @@ def actualizar(msg):
 
     vel = msg.data
 
+def handle_iniciar_odometria(startS):
+    global pos, empezar
+    empezar = True
+
+    pos = startS.start
+    rospy.loginfo("Handle")
+    return []
 
 if __name__ == '__main__':
     try:
