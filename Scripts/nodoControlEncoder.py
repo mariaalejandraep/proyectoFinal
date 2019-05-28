@@ -55,7 +55,7 @@ calculando = False
 # Radio de las llantas en metros
 r = (29.3/2)
 # Variables de control PI
-kp = 0.05
+kp = 0.02
 ki = 0.0000001
 # Acumulacion de error para integrador
 integradorA = []
