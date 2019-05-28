@@ -53,7 +53,7 @@ calculando = False
 # Radio de las llantas en metros
 r = (29.3/2)
 # Variables de control PI
-kp = 0.001
+kp = 0.01
 ki = 0
 # Acumulacion de error para integrador
 integradorA = []
@@ -130,7 +130,7 @@ def calcularVelocidadRuedas():
 
 def aplicarControlBajoNivel():
     global integradorA, integradorB, pA1, pA2, pB1, pB2, refAccionControlA
-    errorA = velRefA - velActA
+    errorA = velRefA - 0# velActA
     errorB = velRefB - velActB
     integradorA.append(errorA)
     integradorA = integradorA[-5:]
