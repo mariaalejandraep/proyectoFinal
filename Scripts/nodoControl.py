@@ -17,7 +17,7 @@ class Casilla:
         self.libre = pE
 
 
-# Clase que hace referenia a una posicion en especifico.
+# Clase que hace referencia a una posicion en especifico.
 class Posicion:
     def __init__(self, xP, yP, pTeta):
         self.x=float(xP)
@@ -92,7 +92,10 @@ def control():
     # Se crea referencia a topico para publicar velocidad de los motores
     pubMot = rospy.Publisher('velocidad_deseada', Float32MultiArray, queue_size=10)
     # Se crea el servicio que provee el nodo para recibir parametros de informacion
-    rospy.Service('iniciar_recorrido', StartService, handle_start_service)
+    s = rospy.Service('iniciar_recorrido', StartService, handle_iniciar_recorrido)
+
+    rospy.loginfo("Despues de")
+
     # Se espera a que se publique por primera vez a traves del topico preguntarCasillas
     while not empezar:
         pass
@@ -115,7 +118,13 @@ def control():
     else:
         teta = math.atan2(posicionFinal.position.y-casillas[ruta[0]].y, posicionFinal.position.x-casillas[ruta[0]].x)
     # Crea la primera posicion
-    posInter = Posicion(casillas[ruta[0]].x, casillas[ruta[0]].y, teta)
+    aux = Posicion(casillas[ruta[0]].x, casillas[ruta[0]].y, teta)
+
+    posInter = Pose()
+    posInter.position.x = aux.x
+    posInter.position.y = aux.y
+    posInter.orientation.z = aux.teta
+
     # Inicializa el contador que define el punto de la ruta en la que se encuentra
     iRuta = 0
     # Tasa a la que se debe publicar en el nodo del movimiento del pioneeer
@@ -135,7 +144,11 @@ def control():
                 umbralP = 30
             # Entra al siguiente condicional en caso de que halla llegado a un punto intermedio de la ruta
             elif iRuta < len(ruta)-1:
-                posInter = Posicion(casillas[ruta[iRuta+1]].x, casillas[ruta[iRuta+1]].y, math.atan2(casillas[ruta[iRuta+1]].y-casillas[ruta[iRuta]].y, casillas[ruta[iRuta+1]].x-casillas[ruta[iRuta]].x))
+                aux = Posicion(casillas[ruta[iRuta+1]].x, casillas[ruta[iRuta+1]].y, math.atan2(casillas[ruta[iRuta+1]].y-casillas[ruta[iRuta]].y, casillas[ruta[iRuta+1]].x-casillas[ruta[iRuta]].x))
+                posInter.position.x = aux.x
+                posInter.position.y = aux.y
+                posInter.orientation.z = auz.teta
+
                 iRuta = iRuta + 1
                 arrivedP = False
             # Entra de que halla llegado a la poscion final
@@ -162,13 +175,15 @@ def control():
     terminar_recorrido()
 
 
-def handle_start_service(pStart, pGoal, pN_obstacles, pObstacles_array):
+def handle_iniciar_recorrido(startS):
     global posicionActual, posicionFinal, n_obstacles, obstacles, empezar
     empezar = True
-    posicionActual = pStart
-    posicionFinal = pGoal
-    n_obstacles = pN_obstacles
-    obstacles = pObstacles_array
+    start = startS.start
+    goal = startS.goal
+    n_obstacles = startS.n_obstacles
+    obstacles_array = startS.obstacles
+    rospy.loginfo("Handle")
+    return None
 
 
 # Metodo que arroja la distancia euclidiana entre dos casillas segun su numeramiento (no posicion exacta)
@@ -214,6 +229,16 @@ def creadorVerticesCasillas():
         div = i//n
         nC = Casilla(xInic+mod*distanciaCuadricula, yInic-div*distanciaCuadricula, libre(xInic+mod*distanciaCuadricula,                                                                                   yInic-div*distanciaCuadricula))
         casillas.append(nC)
+
+# Metodo que ejecuta nodo graficador usanto herramiento roslaunch, crea un nuevo proceso.
+def iniciarGraficador():
+    # Se define el paquete y nodo que se deben ejecutar
+    package = 'proyectoFinal'
+    script = 'graficador.py'
+    node = roslaunch.core.Node (package, script)
+    launch = roslaunch.scriptapi.ROSLaunch ()
+    launch.start ()
+    process = launch.launch (node)
 
 
 # Crea los arcos entre los vertices creados en el grafo, solo es necesario revisar los nodos que pueden ser vecinos, en
@@ -282,8 +307,8 @@ def libre(xCas, yCas):  # Si se encuentra un obstaculo en ella
 def calcularDistancia(pos):
     global p, dx, dy, arrivedP
     # Se define ro
-    dx = pos.x-posicionActual.position.x
-    dy = pos.y-posicionActual.position.y
+    dx = pos.position.x-posicionActual.position.x
+    dy = pos.position.y-posicionActual.position.y
     p = math.sqrt(dx**2 + dy**2)
     # Si ro es menor que el umbral se asume que ya se llego al punto adecuado y cambio la variable booleana de llegada
     if p <= umbralP:
