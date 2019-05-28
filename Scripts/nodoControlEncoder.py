@@ -120,7 +120,7 @@ def controlBajoNivel():
 def calcularVelocidadRuedas():
     global velActA, refContadorA, refTiempoA
     flancos = contadorA - refContadorA
-    tiempoNuevo = time.time()
+    tiempoNuevo = float(time.time())
     tiempo = tiempoNuevo - refTiempoA
     refContadorA = contadorA
     refTiempoA = tiempoNuevo
@@ -231,7 +231,6 @@ def sumarFlancoA2(channel):
     global subidaA2, moving
     subidaA2.append(time.time())
     subidaA2 = subidaA2[-13:]
-    print (a)
     moving = True
 
 
