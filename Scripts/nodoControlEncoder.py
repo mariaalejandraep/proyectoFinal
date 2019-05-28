@@ -30,6 +30,8 @@ pwmB1Encoder = 36
 pwmA2Encoder = 37
 # Variable con el pin que va del encoder con la senal A
 pwmB2Encoder = 38
+# radio de la rueda
+radioRueda = 29.3/2  # milimetros
 # Variables que referencian senales PMW de los encoders
 pA1 = None
 pA2 = None
@@ -38,6 +40,12 @@ pB2 = None
 # Variables de conteo de flancos de encoders
 contadorA = 0
 
+# Referencia de ultimo contador de ruedas
+refContadorA = 0
+refTiempoA = 0
+
+refAccionControlA = 0
+
 subidaA2 = []
 subidaB2 = []
 # Variable booleana  que inidca si se esta calculando velocidad
@@ -45,7 +53,7 @@ calculando = False
 # Radio de las llantas en metros
 r = (29.3/2)
 # Variables de control PI
-kp = 10
+kp = 1
 ki = 0
 # Acumulacion de error para integrador
 integradorA = []
@@ -103,50 +111,41 @@ def controlBajoNivel():
     pB1.ChangeDutyCycle(cicloBDriver)
     while not rospy.is_shutdown():
         # calcularVelocidadRuedas()
-        # aplicarControlBajoNivel()
+        aplicarControlBajoNivel()
         print(contadorA)
         rate.sleep()
     apagar()
 
 
-# def calcularVelocidadRuedas():
-#     global velActA, velActB, movingA, movingB
-#     if movingA:
-#         if subidaA1[len(subidaA1) - 1] < subidaB1[len(subidaB1) - 1]:
-#             velActA = -1 * (2 * math.pi() * r) / (subidaA1[len(subidaA1) - 1] - subidaA1[0])
-#         else:
-#             velActA = (2 * math.pi() * r) / (subidaB1[len(subidaB1) - 1] - subidaB1[0])
-#         movingA = False
-#     else:
-#         velActA = 0
-#     if movingB:
-#         if subidaA2[len(subidaA2) - 1] < subidaB2[len(subidaB2) - 1]:
-#             velActB = (2 * math.pi() * r) / (subidaA2[len(subidaA2) - 1] - subidaA2[0])
-#         else:
-#             velActB = -1 * (2 * math.p() * r) / (subidaB2[len(subidaB2) - 1] - subidaB2[0])
-#         movingB = False
-#     else:
-#         velActB = 0
-#     print("La velocidad actual de la rueda A:", velActA)
-#     print("La velocidad actual de la rueda B:", velActB)
+def calcularVelocidadRuedas():
+    global velActA, refContadorA, refTiempoA
+    flancos = contadorA - refContadorA
+    tiempoNuevo = time.time()
+    tiempo = tiempoNuevo - refTiempoA
+    refContadorA = contadorA
+    refTiempoA = tiempoNuevo
+    velActA = (flancos/tiempo)*(math.pi()/600)*radioRueda
+    print("La velocidad actual de la rueda A:", velActA)
 
 
 def aplicarControlBajoNivel():
-    global integradorA, integradorB, pA1, pA2, pB1, pB2
+    global integradorA, integradorB, pA1, pA2, pB1, pB2, refAccionControlA
     errorA = velRefA - velActA
     errorB = velRefB - velActB
-    integradorA.append (errorA)
-    integradorA = integradorA[-100:]
-    integradorB.append (errorB)
-    integradorB = integradorB[-100:]
-    integralA = sum (integradorA)
-    integralB = sum (integradorB)
+    integradorA.append(errorA)
+    integradorA = integradorA[-5:]
+    integradorB.append(errorB)
+    integradorB = integradorB[-5:]
+    integralA = sum(integradorA)
+    integralB = sum(integradorB)
     errorSignalA = kp * errorA + ki * integralA
     errorSignalB = kp * errorB + ki * integralB
     if errorSignalA >= 0:
         print("Entro if rueda A")
         if errorSignalA > satCicloUtil:
             errorSignalA = satCicloUtil
+        if refAccionControlA < 0:
+            errorSignalA = 0
         pA2.stop()
         GPIO.output (pwmA2Driver, 0)
         pA1.start (0)
@@ -156,27 +155,30 @@ def aplicarControlBajoNivel():
         if errorSignalA < -satCicloUtil:
             errorSignalA = satCicloUtil
         errorSignalA = abs(errorSignalA)
+        if refAccionControlA > 0:
+            errorSignalA = 0
         pA1.stop ()
         GPIO.output (pwmA1Driver, 0)
         pA2.start (0)
         pA2.ChangeDutyCycle (errorSignalA)
-    if errorSignalB >= 0:
-        if errorSignalB > satCicloUtil:
-            errorSignalB = satCicloUtil
-        pB2.stop ()
-        GPIO.output (pwmB2Driver, 0)
-        pB1.start (0)
-        pB1.ChangeDutyCycle (errorSignalB)
-    else:
-        if errorSignalB < -satCicloUtil:
-            errorSignalB = satCicloUtil
-        errorSignalB = abs(errorSignalB)
-        pB1.stop ()
-        GPIO.output (pwmB1Driver, 0)
-        pB2.start (0)
-        pB2.ChangeDutyCycle (errorSignalB)
+    # if errorSignalB >= 0:
+    #     if errorSignalB > satCicloUtil:
+    #         errorSignalB = satCicloUtil
+    #     pB2.stop ()
+    #     GPIO.output (pwmB2Driver, 0)
+    #     pB1.start (0)
+    #     pB1.ChangeDutyCycle (errorSignalB)
+    # else:
+    #     if errorSignalB < -satCicloUtil:
+    #         errorSignalB = satCicloUtil
+    #     errorSignalB = abs(errorSignalB)
+    #     pB1.stop ()
+    #     GPIO.output (pwmB1Driver, 0)
+    #     pB2.start (0)
+    #     pB2.ChangeDutyCycle (errorSignalB)
+    # refAccionControlA = errorSignalA
     print("Ciclo util rueda A:", errorSignalA)
-    print("Ciclo util rueda B:", errorSignalB)
+    # print("Ciclo util rueda B:", errorSignalB)
 
 
 def handle_velocidad_deseada(vel):
@@ -197,17 +199,35 @@ def apagar():
     rospy.loginfo("Apagando.")
 
 
-def sumarFlancoA1(a):
+def sumarFlancoA1(channel):
     global contadorA
-    contadorA = contadorA + 1
+    if GPIO.input(pwmA1Encoder):
+        if GPIO.input(pwmB1Encoder):
+            contadorA = contadorA + 1
+        else:
+            contadorA = contadorA - 1
+    else:
+        if GPIO.input(pwmB1Encoder):
+            contadorA = contadorA - 1
+        else:
+            contadorA = contadorA + 1
 
 
-def sumarFlancoB1(a):
+def sumarFlancoB1(channel):
     global contadorA
-    contadorA = contadorA + 1
+    if GPIO.input(pwmB1Encoder):
+        if GPIO.input(pwmA1Encoder):
+            contadorA = contadorA - 1
+        else:
+            contadorA = contadorA + 1
+    else:
+        if GPIO.input(pwmA1Encoder):
+            contadorA = contadorA + 1
+        else:
+            contadorA = contadorA - 1
 
 
-def sumarFlancoA2(a):
+def sumarFlancoA2(channel):
     global subidaA2, moving
     subidaA2.append(time.time())
     subidaA2 = subidaA2[-13:]
@@ -215,7 +235,7 @@ def sumarFlancoA2(a):
     moving = True
 
 
-def sumarFlancoB2(a):
+def sumarFlancoB2(channel):
     global subidaB2, moving
     subidaB2.append(time.time())
     subidaB2 = subidaB2[-13:]
