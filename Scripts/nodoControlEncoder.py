@@ -124,7 +124,7 @@ def calcularVelocidadRuedas():
     tiempo = tiempoNuevo - refTiempoA
     refContadorA = contadorA
     refTiempoA = tiempoNuevo
-    velActA = (flancos/tiempo)*(math.pi()/600)*radioRueda
+    velActA = (flancos/tiempo)*(math.pi/600)*radioRueda
     print("La velocidad actual de la rueda A:", velActA)
 
 
