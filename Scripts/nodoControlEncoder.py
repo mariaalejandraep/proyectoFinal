@@ -141,7 +141,7 @@ def aplicarControlBajoNivel():
     integralA = sum(integradorA)
     integralB = sum(integradorB)
     errorSignalA = kp * errorA + ki * integralA
-    if abs(errorSignalA) < 5:
+    if abs(errorSignalA) < 0.5:
         errorSignalA = 0
     pwmA = pwmA + errorSignalA
     errorSignalB = kp * errorB + ki * integralB
