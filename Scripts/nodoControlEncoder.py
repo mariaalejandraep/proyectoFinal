@@ -56,7 +56,7 @@ calculando = False
 r = (29.3/2)
 # Variables de control PI
 kp = 0.05
-ki = 0.00001
+ki = 0.0000001
 # Acumulacion de error para integrador
 integradorA = []
 integradorB = []
