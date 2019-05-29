@@ -118,8 +118,8 @@ def controlBajoNivel():
 
     s = rospy.Service ('iniciar_encoders', StartService, handle_iniciar_encoders)
 
-    #while not empezar:
-    #   pass
+    while not empezar:
+       pass
 
     rospy.Subscriber('velocidad_deseada', Float32MultiArray, handle_velocidad_deseada)
     pub = rospy.Publisher('velocidad_actual', Float32MultiArray, queue_size = 10)
