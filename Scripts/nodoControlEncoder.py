@@ -136,6 +136,7 @@ def controlBajoNivel():
         rate.sleep()
     apagar()
 
+
 def handle_iniciar_encoders(req):
     global empezar
     empezar = True
@@ -153,8 +154,6 @@ def calcularVelocidadRuedas():
     refTiempo = tiempoNuevo
     velActA = (flancosA/tiempo)*(math.pi/600)*radioRueda
     velActB = (flancosB/tiempo)*(math.pi/600)*radioRueda
-    print("La velocidad actual de la rueda A:", velActA)
-    print("La velocidad actual de la rueda B:", velActB)
     return tiempo
 
 
@@ -187,7 +186,6 @@ def aplicarControlBajoNivel(time):
     if velRefB == 0:
         pwmB = 0
     if pwmA >= 0:
-        print("Entro if rueda A")
         if pwmA > satCicloUtil:
             pwmA = satCicloUtil
         if refAccionControlA < 0:
@@ -197,7 +195,6 @@ def aplicarControlBajoNivel(time):
         pA1.start (0)
         pA1.ChangeDutyCycle(pwmA)
     else:
-        print ("Entro else rueda A")
         if pwmA < -satCicloUtil:
             pwmA = -satCicloUtil
         if refAccionControlA > 0:
@@ -226,8 +223,6 @@ def aplicarControlBajoNivel(time):
         pB2.ChangeDutyCycle (abs(pwmB))
     refAccionControlA = pwmA
     refAccionControlB = pwmB
-    print("Ciclo util rueda A:", pwmA)
-    print("Ciclo util rueda B:", pwmB)
 
 
 def handle_velocidad_deseada(vel):
@@ -244,7 +239,6 @@ def apagar():
     GPIO.output(pwmB1Driver, 0)
     GPIO.output(pwmB2Driver, 0)
     GPIO.cleanup()
-    rospy.loginfo("Apagando.")
 
 
 def sumarFlancoA1(channel):

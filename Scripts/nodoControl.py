@@ -52,7 +52,7 @@ l = 50  # milimetros
 # Es la variable donde se almacena el valor de p (rho) que equivale a la distancia entre el punto actual y el final.
 p = 0
 # Es un umbral que se define para indicarle al robot cuando llega al punto final.
-umbralP = 195# distanciaCuadricula/2
+umbralP = 195 # distanciaCuadricula/2
 # Es una variable booleana que indica que el robot ha llegado al punto final.
 arrivedP = False
 # Es la variable donde se guarda la distancia en x entre el punto actual y final.
@@ -95,9 +95,6 @@ def control():
     pubMot = rospy.Publisher('velocidad_deseada', Float32MultiArray, queue_size=10)
     # Se crea el servicio que provee el nodo para recibir parametros de informacion
     s = rospy.Service('iniciar_recorrido', StartService, handle_iniciar_recorrido)
-
-    rospy.loginfo("Despues de")
-
     # Se espera a que se publique por primera vez a traves del topico preguntarCasillas
     while not empezar:
         pass
@@ -137,8 +134,6 @@ def control():
     fin = False
     while (not rospy.is_shutdown()) and (not fin):
         # Entra al siguiente condicional en caso de que se halla llegado a uno de los puntos intermedios de la ruta
-        rospy.loginfo(len(ruta))
-        rospy.loginfo(iRuta)
         if arrivedP:
             # Entra al siguiente condicional en caso de que halla llegado al punto final de la ruta, debe encaminarse a
             # posicion final del camino
@@ -154,7 +149,6 @@ def control():
                 posInter.position.x = aux.x
                 posInter.position.y = aux.y
                 posInter.orientation.w = aux.teta
-
                 iRuta = iRuta + 1
                 arrivedP = False
             # Entra de que halla llegado a la poscion final
@@ -181,17 +175,14 @@ def control():
         rate.sleep()
 
     # En caso de terminar detiene a el pioneer
-    rospy.loginfo("Termino el recorrido")
     mot.data[0] = 0
     mot.data[1] = 0
     pubMot.publish(mot)
     # rospy.wait_for_service('terminar_control')
-    rospy.loginfo("Despues de terminar control")
     terminar_control = rospy.ServiceProxy('terminar_control', TerminarRecorrido)
     # pubTermino = rospy.Publisher('termino_recorrido', Int32,  queue_size=10)
     # pubTermino.publish(1)
     terminar_control()
-
     rospy.spin()
 
 
@@ -248,7 +239,7 @@ def creadorVerticesCasillas():
         g.add_node(i)
         mod = i % n
         div = i//n
-        nC = Casilla(xInic+mod*distanciaCuadricula, yInic-div*distanciaCuadricula, libre(xInic+mod*distanciaCuadricula,                                                                                   yInic-div*distanciaCuadricula))
+        nC = Casilla(xInic+mod*distanciaCuadricula, yInic-div*distanciaCuadricula, libre(xInic+mod*distanciaCuadricula, yInic-div*distanciaCuadricula))
         casillas.append(nC)
 
 # Metodo que ejecuta nodo graficador usanto herramiento roslaunch, crea un nuevo proceso.
@@ -273,8 +264,6 @@ def comparadorAngulos(angulo1, angulo2):
     while an2 < -math.pi:
         an2 = an2 + 2*math.pi
     dist = math.sqrt((math.cos(an1)-math.cos(an2))**2+(math.sin(an1)-math.sin(an2))**2)
-    rospy.loginfo(dist)
-    rospy.loginfo(dist<0.5)
     return dist < 0.5
 
 
@@ -397,10 +386,9 @@ def calcularAngulos(pos):
             b = b + 2 * math.pi
 
 
-
 # Metodo que grafica el camino generado por el RTT previo a que se realice la accion de control
 def visualizacionPrevia(path):
-    global casillasRRT, xDescartados, yDescartados, g
+    global g
     cordX = []
     cordY = []
     cordXObs = []
@@ -425,8 +413,9 @@ def visualizacionPrevia(path):
                 print("Error casilla ocupada pertenece a ruta")
     plt.plot(cordX, cordY, 'bo')
     plt.plot(cordXObs, cordYObs, 'ro')
-    plt.plot(xPath,yPath,'go')
+    plt.plot(xPath, yPath, 'go')
     plt.show()
+
 
 # Metodo main, mira si existen parametros para la posicion final deseada y ejecuta el metodo principal
 if __name__ == '__main__':
