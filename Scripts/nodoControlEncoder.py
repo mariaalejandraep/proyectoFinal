@@ -56,7 +56,7 @@ calculando = False
 # Radio de las llantas en metros
 r = (29.3/2)
 # Variables de control PI
-kpA = 0.02
+kpA = 0.08
 kiA = 0.00001
 kpB = 0
 kiB = 0
