@@ -150,10 +150,10 @@ def aplicarControlBajoNivel():
         errorSignalA = 0
     if abs(errorSignalB) < .1:
         errorSignalB = 0
-    # pwmA = pwmA + errorSignalA
-    # pwmB = pwmB + errorSignalB
-    pwmA = velActA * (10/(math.pi*radioRueda))+errorSignalA
-    pwmB = velActB * (10/(math.pi*radioRueda))+errorSignalB
+    pwmA = pwmA + errorSignalA
+    pwmB = pwmB + errorSignalB
+    # pwmA = velActA * (10/(math.pi*radioRueda))+errorSignalA
+    # pwmB = velActB * (10/(math.pi*radioRueda))+errorSignalB
     if pwmA >= 0:
         print("Entro if rueda A")
         if pwmA > satCicloUtil:
