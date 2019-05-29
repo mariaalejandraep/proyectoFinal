@@ -8,7 +8,7 @@ from proyectoFinal.srv import Contrasena
 def handle_contrasena(req):
     os.chdir("/home/pi/catkin_ws/src/proyectoFinal/resources")
     os.system("sudo fswebcam -r 1280x720 --no-banner webcam/prueba.jpg")
-
+    ans=""
 ################################Entrenamiento
 #entrenamiento con dato del archivo intentoEntrenamiento.py
     cv2.ml.KNearest_create
@@ -59,9 +59,11 @@ def handle_contrasena(req):
                 retval, results, neigh_resp, dists = model.findNearest(roismall, k = 1)
                 string = str(int((results[0][0])))
                 print (string)
+		ans= ans+string
                 #cv2.putText(out,string,(x,y+h),0,1,(0,255,0))
+    cv2.imshow("out", im)
     cv2.waitKey(0)
-    return 1234
+    return int(ans)
 
 def contrasena():
     rospy.init_node ('nodo_Contrasena', anonymous=True)
