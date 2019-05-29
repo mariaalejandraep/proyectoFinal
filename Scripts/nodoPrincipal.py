@@ -77,11 +77,14 @@ def leviathan():
 
         #pubEstado.publish(4)
         solicitud_contrasena = rospy.ServiceProxy('iniciar_contrasena', Contrasena) # Crea el objeto referente al servicio
-        password = solicitud_contrasena()
+        data = solicitud_contrasena()
         #pubEstado.publish(5)
-        resp = password
-        end_service = rospy.ServiceProxy('end_service', EndService)
-        respFinal = end_service(resp)
+
+        rospy.loginfo(password)
+
+        endService = rospy.ServiceProxy('end_service', EndService)
+        respFinal = endService(data.password)
+
         if respFinal == 1:
             print("Drop the mic, leave the room")
         else:
