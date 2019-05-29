@@ -58,10 +58,10 @@ r = (29.3/2)
 # Variables de control PI
 kpA = 0.1
 kiA = 0.0000001
-kdA = 0.001
+kdA = 0.0001
 kpB = 0.1
 kiB = 0.0000001
-kdB = 0.001
+kdB = 0.0001
 # Acumulacion de error para integrador
 integradorA = []
 integradorB = []
