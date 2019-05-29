@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8297593f-bf6d-4e5e-88fd-5685ddd2a36c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inicio.launch" beforeDir="false" afterPath="$PROJECT_DIR$/inicio.launch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodoContrasena.py" beforeDir="false" afterPath="$PROJECT_DIR$/nodoContrasena.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nodoControl.py" beforeDir="false" afterPath="$PROJECT_DIR$/nodoControl.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nodoPrincipal.py" beforeDir="false" afterPath="$PROJECT_DIR$/nodoPrincipal.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/nodoPrincipal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="82" column="61" selection-start-line="82" selection-start-column="56" selection-end-line="82" selection-end-column="61" />
+            <state relative-caret-position="417">
+              <caret line="89" column="13" lean-forward="true" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
               <folding>
                 <element signature="e#22#34#0" expanded="true" />
               </folding>
@@ -29,24 +25,24 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nodoControl.py">
+        <entry file="file://$PROJECT_DIR$/nodoContrasena.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-606">
-              <caret line="191" column="16" selection-start-line="191" selection-start-column="16" selection-end-line="191" selection-end-column="16" />
+            <state relative-caret-position="315">
+              <caret line="63" column="4" selection-start-line="63" selection-start-column="4" selection-end-line="63" selection-end-column="15" />
               <folding>
-                <element signature="e#95#130#0" expanded="true" />
+                <element signature="e#19#29#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/nodoContrasena.py">
+        <entry file="file://$PROJECT_DIR$/nodoControl.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-363">
-              <caret line="8" column="62" selection-start-line="8" selection-start-column="62" selection-end-line="8" selection-end-column="62" />
+            <state relative-caret-position="324">
+              <caret line="181" lean-forward="true" selection-start-line="181" selection-end-line="181" />
               <folding>
-                <element signature="e#19#29#0" expanded="true" />
+                <element signature="e#95#130#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -96,11 +92,11 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="65" />
+  <component name="ProjectFrameBounds" extendedState="7">
+    <option name="x" value="343" />
     <option name="y" value="-4" />
-    <option name="width" value="1301" />
-    <option name="height" value="772" />
+    <option name="width" value="785" />
+    <option name="height" value="770" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -142,7 +138,7 @@
     <configuration />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1301" height="772" extended-state="7" />
+    <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2198748" />
@@ -242,8 +238,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/nodoControl.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-606">
-          <caret line="191" column="16" selection-start-line="191" selection-start-column="16" selection-end-line="191" selection-end-column="16" />
+        <state relative-caret-position="324">
+          <caret line="181" lean-forward="true" selection-start-line="181" selection-end-line="181" />
           <folding>
             <element signature="e#95#130#0" expanded="true" />
           </folding>
@@ -252,8 +248,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/nodoContrasena.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-363">
-          <caret line="8" column="62" selection-start-line="8" selection-start-column="62" selection-end-line="8" selection-end-column="62" />
+        <state relative-caret-position="315">
+          <caret line="63" column="4" selection-start-line="63" selection-start-column="4" selection-end-line="63" selection-end-column="15" />
           <folding>
             <element signature="e#19#29#0" expanded="true" />
           </folding>
@@ -262,8 +258,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/nodoPrincipal.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="82" column="61" selection-start-line="82" selection-start-column="56" selection-end-line="82" selection-end-column="61" />
+        <state relative-caret-position="417">
+          <caret line="89" column="13" lean-forward="true" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
           <folding>
             <element signature="e#22#34#0" expanded="true" />
           </folding>
