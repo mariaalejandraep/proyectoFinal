@@ -46,24 +46,22 @@ Fpt1trans=np.transpose(Fpt1)
 FdS=np.zeros((3,2))
 FdStrans=np.transpose(Fpt1)
 
-#En esta variable se almacenan los ultimos 2 valores de tiempo.
+#  En esta variable se almacenan los ultimos 2 valores de tiempo.
 t = [0, 0]
 
-#Indica cuando comenzar
+#  Indica cuando comenzar
 empezar = False
 
+
 def odometria():
-    #rospy.wait_for_service()
+    #  rospy.wait_for_service()
     rospy.init_node('nodo_odometria', anonymous = True)
     rate = rospy.Rate(10)
     s = rospy.Service('iniciar_odometria', StartService, handle_iniciar_odometria)
-
     rospy.loginfo("Despues de")
-
     # Se espera a que se publique por primera vez a traves del topico preguntarCasillas
     while not empezar:
         pass
-
     inicializar()
 
     while not rospy.is_shutdown():
@@ -120,15 +118,16 @@ def actualizar(msg):
 
     Covarianza=(Fpt1.dot(Covarianza)).dot(Fpt1trans) + (FdS.dot(CovarSrSl)).dot(FdStrans)
 
-    cov.sigma11=Covarianza[0,0]
-    cov.sigma12=Covarianza[0,1]
-    cov.sigma13=Covarianza[0,2]
-    cov.sigma21=Covarianza[1,0]
-    cov.sigma22=Covarianza[1,1]
-    cov.sigma23=Covarianza[1,2]
-    cov.sigma31=Covarianza[2,0]
-    cov.sigma32=Covarianza[2,1]
-    cov.sigma33=Covarianza[2,2]
+    cov.sigma11 = Covarianza[0, 0]
+    cov.sigma12 = Covarianza[0, 1]
+    cov.sigma13 = Covarianza[0, 2]
+    cov.sigma21 = Covarianza[1, 0]
+    cov.sigma22 = Covarianza[1, 1]
+    cov.sigma23 = Covarianza[1, 2]
+    cov.sigma31 = Covarianza[2, 0]
+    cov.sigma32 = Covarianza[2, 1]
+    cov.sigma33 = Covarianza[2, 2]
+    rospy.loginfo(cov)
 
     pubPos.publish(pos)
     pubCov.publish(cov)
