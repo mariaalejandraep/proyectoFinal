@@ -111,7 +111,7 @@ def actualizar(msg):
     CovarSrSl = np.matrix([[kr*np.absolute(dSr), 0], [0, kl*np.absolute(dSl)]])
     rospy.loginfo ("CovarSrsl")
     rospy.loginfo (CovarSrSl)
-    Fpt1=np.matrix([[[1, 0, -dSsin],[1, 0, dScos],[0, 0, 1]]])
+    Fpt1=np.matrix([[1, 0, -dSsin],[1, 0, dScos],[0, 0, 1]])
     rospy.loginfo ("Fpt1")
     rospy.loginfo (Fpt1)
     Fpt1trans=np.transpose(Fpt1)
