@@ -108,16 +108,16 @@ def actualizar(msg):
     while pos.orientation.w > math.pi:
         pos.orientation.w = pos.orientation.w - 2*math.pi
 
-    CovarSrSl = np.matrix([[kr*np.absolute(dSr), 0], [0, kl*np.absolute(dSl)]])
+    CovarSrSl = np.array([[kr*np.absolute(dSr), 0], [0, kl*np.absolute(dSl)]])
     rospy.loginfo ("CovarSrsl")
     rospy.loginfo (CovarSrSl)
-    Fpt1=np.matrix([[1, 0, -dSsin],[1, 0, dScos],[0, 0, 1]])
+    Fpt1=np.array([[1, 0, -dSsin],[1, 0, dScos],[0, 0, 1]])
     rospy.loginfo ("Fpt1")
     rospy.loginfo (Fpt1)
-    Fpt1trans=np.transpose(Fpt1)
+    Fpt1trans=Fpt1.transpose()
     rospy.loginfo ("Fpt1trans")
     rospy.loginfo (Fpt1trans)
-    FdS=np.matrix([[(1/2)*cose-(1/(2*b))*dSsin, (1/2)*cose+(1/(2*b))*dSsin], [(1/2)*seno+(1/(2*b))*dScos, (1/2)*seno-(1/(2*b))*dScos], [1/b, -(1/b)]])
+    FdS=np.array([[(1/2)*cose-(1/(2*b))*dSsin, (1/2)*cose+(1/(2*b))*dSsin], [(1/2)*seno+(1/(2*b))*dScos, (1/2)*seno-(1/(2*b))*dScos], [1/b, -(1/b)]])
     rospy.loginfo ("FdS")
     rospy.loginfo (FdS)
     FdStrans=np.transpose(FdS)
