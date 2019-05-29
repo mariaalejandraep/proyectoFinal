@@ -7,7 +7,7 @@ from proyectoFinal.srv import Contrasena
 
 def handle_contrasena(req):
     os.chdir("/home/pi/catkin_ws/src/proyectoFinal/resources")
-    #os.system("sudo fswebcam -r 1280x720 --no-banner webcam/prueba.jpg")
+    os.system("sudo fswebcam -r 1280x720 --no-banner webcam/prueba.jpg")
 
 ################################Entrenamiento
 #entrenamiento con dato del archivo intentoEntrenamiento.py
@@ -25,7 +25,7 @@ def handle_contrasena(req):
 
 #################################Calculo
 #imagen a leer
-    im = cv2.imread('./webcam/nuevoNums.jpg')
+    im = cv2.imread('./webcam/prueba.jpg')
 
 #nueva imagen con contorno
     out = np.zeros(im.shape,np.uint8)
@@ -43,7 +43,7 @@ def handle_contrasena(req):
     for cnt in contours:
         if cv2.contourArea(cnt)>100:
             [x,y,w,h] = cv2.boundingRect(cnt)
-            if  h>150:#tamano del numero (asi no reconoce cosas pequenas)(obtenido experimentalmente)
+            if  h>120:#tamano del numero (asi no reconoce cosas pequenas)(obtenido experimentalmente)
 
                 #tamano,color y grosor de rectangulo
                 cv2.rectangle(im,(x-20,y-20),(x+w+10,y+h+10),(0,0,255),3)
