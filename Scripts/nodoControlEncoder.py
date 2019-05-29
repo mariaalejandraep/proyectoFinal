@@ -7,7 +7,7 @@ import sys
 from std_msgs.msg import Float32MultiArray
 
 # Es la tasa en Hertz (Hz) del nodo.
-h = 10
+h = 50
 # Variable con el primer pin que va al driver para controlar el motor A.
 pwmA1Driver = 11
 # Variable con el segundo pin que va al driver para controlar el motor A.
