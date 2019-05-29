@@ -137,8 +137,8 @@ def control():
     fin = False
     while (not rospy.is_shutdown()) and (not fin):
         # Entra al siguiente condicional en caso de que se halla llegado a uno de los puntos intermedios de la ruta
-        print("tamano ruta", len(ruta))
-        print("estado en ruta", iRuta)
+        rospy.loginfo("tamano ruta", len(ruta))
+        rospy.loginfo("estado en ruta", iRuta)
         if arrivedP:
             # Entra al siguiente condicional en caso de que halla llegado al punto final de la ruta, debe encaminarse a
             # posicion final del camino
@@ -181,7 +181,7 @@ def control():
         rate.sleep()
 
     # En caso de terminar detiene a el pioneer
-    print("Termino el recorrido")
+    rospy.loginfo("Termino el recorrido")
     mot.data[0] = 0
     mot.data[1] = 0
     pubMot.publish(mot)
@@ -268,8 +268,8 @@ def comparadorAngulos(angulo1, angulo2):
     while an2 < -math.pi:
         an2 = an2 + 2*math.pi
     dist = math.sqrt((math.cos(an1)-math.cos(an2))**2+(math.sin(an1)-math.sin(an2))**2)
-    print(dist)
-    print(dist<0.5)
+    rospy.loginfo(dist)
+    rospy.loginfo(dist<0.5)
     return dist < 0.5
 
 

@@ -10,11 +10,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Scripts/nodoControl.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="185" column="23" lean-forward="true" selection-start-line="185" selection-start-column="23" selection-end-line="185" selection-end-column="23" />
+            <state relative-caret-position="-85">
+              <caret line="121" column="9" lean-forward="true" selection-start-line="121" selection-start-column="9" selection-end-line="121" selection-end-column="9" />
               <folding>
                 <element signature="e#95#130#0" expanded="true" />
               </folding>
@@ -22,10 +22,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Scripts/nodoPrincipal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="19">
+            <state relative-caret-position="1320">
               <caret line="88" column="33" lean-forward="true" selection-start-line="88" selection-start-column="33" selection-end-line="88" selection-end-column="33" />
               <folding>
                 <element signature="e#22#34#0" expanded="true" />
@@ -157,6 +157,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="51" y="10" width="1229" height="790" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19071311" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -309,22 +310,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/nodoControl.py">
+    <entry file="file://$PROJECT_DIR$/Scripts/nodoPrincipal.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="185" column="23" lean-forward="true" selection-start-line="185" selection-start-column="23" selection-end-line="185" selection-end-column="23" />
+        <state relative-caret-position="1320">
+          <caret line="88" column="33" lean-forward="true" selection-start-line="88" selection-start-column="33" selection-end-line="88" selection-end-column="33" />
           <folding>
-            <element signature="e#95#130#0" expanded="true" />
+            <element signature="e#22#34#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/nodoPrincipal.py">
+    <entry file="file://$PROJECT_DIR$/Scripts/nodoControl.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="19">
-          <caret line="88" column="33" lean-forward="true" selection-start-line="88" selection-start-column="33" selection-end-line="88" selection-end-column="33" />
+        <state relative-caret-position="-85">
+          <caret line="121" column="9" lean-forward="true" selection-start-line="121" selection-start-column="9" selection-end-line="121" selection-end-column="9" />
           <folding>
-            <element signature="e#22#34#0" expanded="true" />
+            <element signature="e#95#130#0" expanded="true" />
           </folding>
         </state>
       </provider>
