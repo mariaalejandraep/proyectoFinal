@@ -79,9 +79,10 @@ def leviathan():
         rospy.loginfo("Esperando terminar control")
 
         while not esperarTerminarRecorrido:
+            rospy.loginfo ("Esta esperando actualmente que termine")
             pass
 
-        rospy.loginfo ("Recibio el fin de recorrido de control")
+        rospy.loginfo ("Recibio el final el recorrido y paso el while")
 
         pubEstado.publish(4)
         solicitud_contrasena = rospy.ServiceProxy('iniciar_contrasena', Contrasena) # Crea el objeto referente al servicio
@@ -118,6 +119,7 @@ def handle_terminar_recorrido(req):
     global esperarTerminarRecorrido
     if req == 1:
         esperarTerminarRecorrido = True
+        rospy.loginfo ("Recibio el llamado del topico para terminar recorrido")
 
 
 if __name__ == '__main__':
