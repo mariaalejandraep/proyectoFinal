@@ -59,7 +59,7 @@ r = (29.3/2)
 kpA = 0.02
 kiA = 0.00001
 kpB = 0
-kpB = 0
+kiB = 0
 # Acumulacion de error para integrador
 integradorA = []
 integradorB = []
