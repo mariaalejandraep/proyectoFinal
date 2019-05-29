@@ -143,7 +143,7 @@ def handle_contrasena():
                 ans = ans+string
                 # cv2.putText(out,string,(x,y+h),0,1,(0,255,0))
     cv2.imshow("out", im)
-    cv2.waitKey(0)
+    #cv2.waitKey(0)
     return int(ans)
 
 
