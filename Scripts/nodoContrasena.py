@@ -59,7 +59,7 @@ def handle_contrasena(req):
                 retval, results, neigh_resp, dists = model.findNearest(roismall, k = 1)
                 string = str(int((results[0][0])))
                 print (string)
-		ans= ans+string
+                ans= ans+string
                 #cv2.putText(out,string,(x,y+h),0,1,(0,255,0))
     cv2.imshow("out", im)
     cv2.waitKey(0)
