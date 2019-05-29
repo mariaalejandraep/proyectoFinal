@@ -29,7 +29,7 @@ class Posicion:
 # Iniciar grafico de networkx
 g = nx.Graph()
 # Distancia entre centro de cuadriculas, 10 debe ser divisible por esta distancia
-distanciaCuadricula = 100  #5  # .8 #1
+distanciaCuadricula = 80  #5  # .8 #1
 # Numero de cuadriculas de la escena seleccionada
 n = int(2500/distanciaCuadricula)
 # Arreglo con la informacion de cada una de las casillas
