@@ -72,12 +72,16 @@ def leviathan():
         iniciar_encoders = rospy.ServiceProxy('iniciar_encoders', StartService)
         iniciar_encoders(escenario)
 
-        s1=rospy.Service('terminar_control', TerminarRecorrido, handle_terminar_recorrido)
-        rospy.spin()
+        rospy.Subscriber ('termino_recorrido', Int32, handle_terminar_recorrido)
+
+        # s1=rospy.Service('terminar_control', TerminarRecorrido, handle_terminar_recorrido)
+        #rospy.spin()
         rospy.loginfo("Esperando terminar control")
 
         while not esperarTerminarRecorrido:
             pass
+
+        rospy.loginfo ("Recibio el fin de recorrido de control")
 
         pubEstado.publish(4)
         solicitud_contrasena = rospy.ServiceProxy('iniciar_contrasena', Contrasena) # Crea el objeto referente al servicio
@@ -112,9 +116,8 @@ def handle_start_service(startS):
 
 def handle_terminar_recorrido(req):
     global esperarTerminarRecorrido
-    esperarTerminarRecorrido = True
-    return []
-
+    if req == 1:
+        esperarTerminarRecorrido = True
 
 
 if __name__ == '__main__':
