@@ -7,7 +7,7 @@ import sys
 from std_msgs.msg import Float32MultiArray
 
 # Es la tasa en Hertz (Hz) del nodo.
-h = 10
+h = 10000
 # Variable con el primer pin que va al driver para controlar el motor A.
 pwmA1Driver = 11
 # Variable con el segundo pin que va al driver para controlar el motor A.
@@ -56,8 +56,10 @@ calculando = False
 # Radio de las llantas en metros
 r = (29.3/2)
 # Variables de control PI
-kp = 0.1
-ki = 0
+kpA = 0.02
+kiA = 0.00001
+kpB = 0
+kpB = 0
 # Acumulacion de error para integrador
 integradorA = []
 integradorB = []
@@ -141,8 +143,8 @@ def aplicarControlBajoNivel():
     integradorB = integradorB[-10:]
     integralA = sum(integradorA)
     integralB = sum(integradorB)
-    errorSignalA = kp * errorA + ki * integralA
-    errorSignalB = kp * errorB + ki * integralB
+    errorSignalA = kpA * errorA + kiA * integralA
+    errorSignalB = kpB * errorB + kiB * integralB
     if abs(errorSignalA) < .5:
         errorSignalA = 0
     if abs(errorSignalB) < .5:
