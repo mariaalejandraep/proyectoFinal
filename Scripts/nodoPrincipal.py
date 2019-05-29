@@ -72,8 +72,8 @@ def leviathan():
         iniciar_encoders = rospy.ServiceProxy('iniciar_encoders', StartService)
         iniciar_encoders(escenario)
 
-        rospy.Service('terminar_control', TerminarRecorrido, handle_terminar_recorrido)
-
+        s1=rospy.Service('terminar_control', TerminarRecorrido, handle_terminar_recorrido)
+        rospy.spin()
         rospy.loginfo("Esperando terminar control")
 
         while not esperarTerminarRecorrido:
