@@ -63,7 +63,7 @@ def iniciarLeds():
     rospy.init_node('nodoLeds', anonymous=True)  # inicializa el nodo
     setPins()
     rospy.Subscriber('estado', Int32, handle_color)
-    rate = rospy.Rate()
+    rate = rospy.Rate(10)
     while not rospy.is_shutdown():
         rate.sleep()
 
