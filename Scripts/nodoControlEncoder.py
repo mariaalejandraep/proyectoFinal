@@ -139,6 +139,7 @@ def controlBajoNivel():
 def handle_iniciar_encoders(req):
     global empezar
     empezar = True
+    return []
 
 
 def calcularVelocidadRuedas():
