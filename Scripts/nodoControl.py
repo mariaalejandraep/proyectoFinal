@@ -112,7 +112,6 @@ def control():
     # heuristica entre dos nodos
     ruta = nx.astar_path(g, numCasillas(posicionActual.position.x, posicionActual.position.y),
                          numCasillas(posicionFinal.position.x, posicionFinal.position.y), heuristic=heuristic)
-
     #visualizacionPrevia(ruta)
     pubEstado.publish(3)
     # En caso de que la ruta este compuesta por mas de un nodo calcula el teta adecuado para que la primera posicion
@@ -138,6 +137,8 @@ def control():
     fin = False
     while (not rospy.is_shutdown()) and (not fin):
         # Entra al siguiente condicional en caso de que se halla llegado a uno de los puntos intermedios de la ruta
+        print("tamano ruta", len(ruta))
+        print("estado en ruta", iRuta)
         if arrivedP:
             # Entra al siguiente condicional en caso de que halla llegado al punto final de la ruta, debe encaminarse a
             # posicion final del camino
