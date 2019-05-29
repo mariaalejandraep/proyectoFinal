@@ -1,4 +1,5 @@
 <launch>
+  <node pkg="proyectoFinal" type="nodoPrincipal.py" name="nodo_principal"/>
   <node pkg="proyectoFinal" type="nodoControl.py" name="nodo_control"/>
   <node pkg="proyectoFinal" type="nodoOdometria.py" name="nodo_odometria"/>
 </launch>

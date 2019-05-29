@@ -11,6 +11,7 @@ from master_msgs_iele3338.srv import *
 from master_msgs_iele3338.msg import *
 from proyectoFinal.srv import Contrasena
 from proyectoFinal.srv import TerminarRecorrido
+import os
 
 #Variable con toda la informacion del escenario
 escenario = None
