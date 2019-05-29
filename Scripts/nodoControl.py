@@ -190,6 +190,8 @@ def control():
     terminar_control = rospy.ServiceProxy('terminar_control', TerminarRecorrido)
     terminar_control()
 
+    rospy.spin()
+
 
 def handle_iniciar_recorrido(startS):
     global posicionActual, posicionFinal, n_obstacles, obstacles, empezar
