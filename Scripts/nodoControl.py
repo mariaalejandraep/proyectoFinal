@@ -167,6 +167,7 @@ def control():
                     # dif = dif + math.pi*2
                 # if  dif < umbralFin:
                 if comparadorAngulos(posicionFinal.orientation.w, posicionActual.orientation.w):
+
                     # En caso que la orientacion tenga un error menor a los 0.1 radianes en la poscion final termina
                     # procedimiento
                     fin = True
@@ -179,6 +180,7 @@ def control():
         rate.sleep()
 
     # En caso de terminar detiene a el pioneer
+    print("Termino el recorrido")
     mot.data[0] = 0
     mot.data[1] = 0
     pubMot.publish(mot)
@@ -265,6 +267,8 @@ def comparadorAngulos(angulo1, angulo2):
     while an2 < -math.pi:
         an2 = an2 + 2*math.pi
     dist = math.sqrt((math.cos(an1)-math.cos(an2))**2+(math.sin(an1)-math.sin(an2))**2)
+    print(dist)
+    print(dist<0.5)
     return dist < 0.5
 
 
