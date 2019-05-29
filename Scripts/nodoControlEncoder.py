@@ -130,8 +130,8 @@ def calcularVelocidadRuedas():
     refTiempo = tiempoNuevo
     velActA = (flancosA/tiempo)*(math.pi/600)*radioRueda
     velActB = (flancosB/tiempo)*(math.pi/600)*radioRueda
-    print("La velocidad actual de la rueda A:", velActA)
-    print("La velocidad actual de la rueda B:", velActB)
+    print("La velocidad actual de la rueda A:", contadorA)
+    print("La velocidad actual de la rueda B:", contadorB)
 
 
 def aplicarControlBajoNivel():
@@ -246,7 +246,6 @@ def sumarFlancoB1(channel):
 
 def sumarFlancoA2(channel):
     global contadorB
-    print("Intt A")
     if GPIO.input(pwmA2Encoder):
         if GPIO.input(pwmB2Encoder):
             contadorB = contadorB - 1
@@ -261,7 +260,6 @@ def sumarFlancoA2(channel):
 
 def sumarFlancoB2(channel):
     global contadorB
-    print("Intt B")
     if GPIO.input (pwmB2Encoder):
         if GPIO.input (pwmA2Encoder):
             contadorB = contadorB + 1
