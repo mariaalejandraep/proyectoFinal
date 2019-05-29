@@ -39,17 +39,18 @@ pB1 = None
 pB2 = None
 # Variables de conteo de flancos de encoders
 contadorA = 0
-
-# Referencia de ultimo contador de ruedas
+contadorB = 0
+# Referencia de valor de contador de ultima vez que se calculo la velocidad
 refContadorA = 0
-refTiempoA = 0
-
+refContadorB = 0
+# Referencia de valor de tiempo de ultima vez que se calculo la velocidad
+refTiempo = 0
+# Referencia de seguridad de accion de control para cuando pase por 0
 refAccionControlA = 0
-
+refAccionControlB = 0
+# Referencia de pwm de viejo en ruedas
 pwmA = 0
-
-subidaA2 = []
-subidaB2 = []
+pwmB = 0
 # Variable booleana  que inidca si se esta calculando velocidad
 calculando = False
 # Radio de las llantas en metros
@@ -67,9 +68,6 @@ velRefB = 0
 # Velocidades actual de las ruedas
 velActA = 0
 velActB = 0
-# Variable booleana que hace referencia a que se esta mivendo
-movingA = False
-movingB = False
 # Variable de saturacion maxima de ciclo util
 satCicloUtil = 60
 
@@ -100,8 +98,8 @@ def setPins():
     # Detectar flancos en otros metodos
     GPIO.add_event_detect(pwmA1Encoder, GPIO.BOTH, callback=sumarFlancoA1)
     GPIO.add_event_detect(pwmB1Encoder, GPIO.BOTH, callback=sumarFlancoB1)
-    # GPIO.add_event_detect(pwmA2Encoder, GPIO.RISING, callback=sumarFlancoA2)
-    # GPIO.add_event_detect(pwmB2Encoder, GPIO.RISING, callback=sumarFlancoB2)
+    GPIO.add_event_detect(pwmA2Encoder, GPIO.RISING, callback=sumarFlancoA2)
+    GPIO.add_event_detect(pwmB2Encoder, GPIO.RISING, callback=sumarFlancoB2)
 
 
 def controlBajoNivel():
@@ -120,20 +118,23 @@ def controlBajoNivel():
 
 
 def calcularVelocidadRuedas():
-    global velActA, refContadorA, refTiempoA
-    flancos = contadorA - refContadorA
+    global velActA, velActB, refContadorA, refContadorB, refTiempo
+    flancosA = contadorA - refContadorA
+    flancosB = contadorB - refContadorB
     tiempoNuevo = float(time.time())
-    tiempo = tiempoNuevo - refTiempoA
+    tiempo = tiempoNuevo - refTiempo
     refContadorA = contadorA
-    refTiempoA = tiempoNuevo
-    velActA = (flancos/tiempo)*(math.pi/600)*radioRueda
+    refContadorB = contadorB
+    refTiempo = tiempoNuevo
+    velActA = (flancosA/tiempo)*(math.pi/600)*radioRueda
+    velActB = (flancosB/tiempo)*(math.pi/600)*radioRueda
     print("La velocidad actual de la rueda A:", velActA)
 
 
 def aplicarControlBajoNivel():
-    global integradorA, integradorB, pA1, pA2, pB1, pB2, refAccionControlA, pwmA
-    errorA = velRefA - velActA
-    errorB = velRefB - velActB
+    global integradorA, integradorB, pA1, pA2, pB1, pB2, refAccionControlA, refAccionControlB, pwmA, pwmB
+    errorA = velRefA - 0 # velActA
+    errorB = velRefB - 0 # velActB
     integradorA.append(errorA)
     integradorA = integradorA[-10:]
     integradorB.append(errorB)
@@ -141,11 +142,14 @@ def aplicarControlBajoNivel():
     integralA = sum(integradorA)
     integralB = sum(integradorB)
     errorSignalA = kp * errorA + ki * integralA
-    if abs(errorSignalA) < 0.5:
-        errorSignalA = 0
-    #pwmA = pwmA + errorSignalA
-    pwmA = velActA * (10/(math.pi*radioRueda))+errorSignalA
     errorSignalB = kp * errorB + ki * integralB
+    if abs(errorSignalA) < .5:
+        errorSignalA = 0
+    if abs(errorSignalB) < .5:
+        errorSignalB = 0
+    # pwmA = pwmA + errorSignalA
+    pwmA = velActA * (10/(math.pi*radioRueda))+errorSignalA
+    pwmB = velActB * (10/(math.pi*radioRueda))+errorSignalB
     if pwmA >= 0:
         print("Entro if rueda A")
         if pwmA > satCicloUtil:
@@ -166,24 +170,28 @@ def aplicarControlBajoNivel():
         GPIO.output (pwmA1Driver, 0)
         pA2.start (0)
         pA2.ChangeDutyCycle (abs(pwmA))
-    # if errorSignalB >= 0:
-    #     if errorSignalB > satCicloUtil:
-    #         errorSignalB = satCicloUtil
-    #     pB2.stop ()
-    #     GPIO.output (pwmB2Driver, 0)
-    #     pB1.start (0)
-    #     pB1.ChangeDutyCycle (errorSignalB)
-    # else:
-    #     if errorSignalB < -satCicloUtil:
-    #         errorSignalB = satCicloUtil
-    #     errorSignalB = abs(errorSignalB)
-    #     pB1.stop ()
-    #     GPIO.output (pwmB1Driver, 0)
-    #     pB2.start (0)
-    #     pB2.ChangeDutyCycle (errorSignalB)
+    if pwmB >= 0:
+        if pwmB > satCicloUtil:
+            pwmB = satCicloUtil
+        if refAccionControlB<0:
+            pwmB = 0
+        pB2.stop ()
+        GPIO.output (pwmB2Driver, 0)
+        pB1.start (0)
+        pB1.ChangeDutyCycle (pwmB)
+    else:
+        if pwmB < -satCicloUtil:
+            pwmB = -satCicloUtil
+        if refAccionControlB > 0:
+            pwmB = 0
+        pB1.stop ()
+        GPIO.output (pwmB1Driver, 0)
+        pB2.start (0)
+        pB2.ChangeDutyCycle (abs(pwmB))
     refAccionControlA = pwmA
+    refAccionControlB = pwmB
     print("Ciclo util rueda A:", pwmA)
-    # print("Ciclo util rueda B:", errorSignalB)
+    print("Ciclo util rueda B:", pwmB)
 
 
 def handle_velocidad_deseada(vel):
@@ -233,17 +241,31 @@ def sumarFlancoB1(channel):
 
 
 def sumarFlancoA2(channel):
-    global subidaA2, moving
-    subidaA2.append(time.time())
-    subidaA2 = subidaA2[-13:]
-    moving = True
+    global contadorB
+    if GPIO.input(pwmA2Encoder):
+        if GPIO.input(pwmB2Encoder):
+            contadorB = contadorB - 1
+        else:
+            contadorB = contadorB + 1
+    else:
+        if GPIO.input (pwmB2Encoder):
+            contadorB = contadorB + 1
+        else:
+            contadorB = contadorB - 1
 
 
 def sumarFlancoB2(channel):
-    global subidaB2, moving
-    subidaB2.append(time.time())
-    subidaB2 = subidaB2[-13:]
-    moving = True
+    global contadorB
+    if GPIO.input (pwmB2Encoder):
+        if GPIO.input (pwmA2Encoder):
+            contadorB = contadorB + 1
+        else:
+            contadorB = contadorB - 1
+    else:
+        if GPIO.input (pwmA2Encoder):
+            contadorB = contadorB - 1
+        else:
+            contadorB = contadorB + 1
 
 
 if __name__ == '__main__':
