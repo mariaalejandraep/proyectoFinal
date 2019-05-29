@@ -8,8 +8,10 @@ from proyectoFinal.srv import Contrasena
 
 def handle_contrasena(req):
     global knn
+
     os.chdir("/home/pi/catkin_ws/src/proyectoFinal/resources")
     os.system("sudo fswebcam -r 1280x720 --no-banner webcam/prueba.jpg")
+    os.system("raspberry")
     ans = ""
     cv2.ml.KNearest_create
     with np.load('knn_data.npz') as data:
