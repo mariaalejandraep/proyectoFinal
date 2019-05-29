@@ -58,7 +58,6 @@ def odometria():
     rospy.init_node('nodo_odometria', anonymous = True)
     rate = rospy.Rate(10)
     s = rospy.Service('iniciar_odometria', StartService, handle_iniciar_odometria)
-    rospy.loginfo("Despues de")
     # Se espera a que se publique por primera vez a traves del topico preguntarCasillas
     while not empezar:
         pass
@@ -76,44 +75,32 @@ def inicializar():
     t = [time.time(), time.time()]
 
 def actualizar(msg):
-    global pos, cov, vel, t, dt, dS, dSl, dSr, O, dO, Covarianza,pubPos,pubCov,CovarSrSl,CovarSrSl,Fpt1,Fpt1trans,FdS,FdStrans
-
+    global pos, cov, vel, t, dt, dS, dSl, dSr, O, dO, Covarianza, pubPos, pubCov, CovarSrSl, CovarSrSl, Fpt1, Fpt1trans, FdS, FdStrans, cose, seno, dScos, dSsin
     t.append(time.time())
     t = t[-2:]
-
     dt = (t[1]-t[0])
-
     dSl = vel[0]*dt
     dSr = vel[1]*dt
-
     dS = (dSl+dSr)/2
     dO = (dSr-dSl)/b
-
     O = pos.orientation.w
-
-    cose=math.cos(O+dO/2.0)
-    seno=math.sin(O+dO/2.0)
-    dScos=dS*cose
-    dSsin= dS*seno
-
+    cose = math.cos(O+dO/2.0)
+    seno = math.sin(O+dO/2.0)
+    dScos = dS*cose
+    dSsin = dS*seno
     pos.position.x = pos.position.x + dScos
     pos.position.y = pos.position.y + dSsin
     pos.orientation.w = O + dO
-
     while pos.orientation.w < -math.pi:
         pos.orientation.w = pos.orientation.w + 2*math.pi
-
     while pos.orientation.w > math.pi:
         pos.orientation.w = pos.orientation.w - 2*math.pi
-
     CovarSrSl = np.array([[kr*np.absolute(dSr), 0], [0, kl*np.absolute(dSl)]])
-    Fpt1=np.array([[1, 0, -dSsin],[1, 0, dScos],[0, 0, 1]])
-    Fpt1trans=Fpt1.transpose()
-    FdS=np.array([[(1/2)*cose-(1/(2*b))*dSsin, (1/2)*cose+(1/(2*b))*dSsin], [(1/2)*seno+(1/(2*b))*dScos, (1/2)*seno-(1/(2*b))*dScos], [1/b, -(1/b)]])
-    FdStrans=np.transpose(FdS)
-
-    Covarianza=(Fpt1.dot(Covarianza)).dot(Fpt1trans) + (FdS.dot(CovarSrSl)).dot(FdStrans)
-
+    Fpt1 = np.array([[1.0, 0, -dSsin], [1.0, 0, dScos], [0, 0, 1.0]])
+    Fpt1trans = Fpt1.transpose()
+    FdS = np.array([[(1.0/2.0)*cose-(1.0/(2.0*b))*dSsin, (1.0/2.0)*cose+(1.0/(2.0*b))*dSsin], [(1.0/2.0)*seno+(1.0/(2.0*b))*dScos, (1.0/2.0)*seno-(1.0/(2.0*b))*dScos], [1.0/b, -(1.0/b)]])
+    FdStrans = FdS.transpose()
+    Covarianza = (Fpt1.dot(Covarianza)).dot(Fpt1trans) + (FdS.dot(CovarSrSl)).dot(FdStrans)
     cov.sigma11 = Covarianza[0, 0]
     cov.sigma12 = Covarianza[0, 1]
     cov.sigma13 = Covarianza[0, 2]
@@ -123,12 +110,10 @@ def actualizar(msg):
     cov.sigma31 = Covarianza[2, 0]
     cov.sigma32 = Covarianza[2, 1]
     cov.sigma33 = Covarianza[2, 2]
-
     pubPos.publish(pos)
     pubCov.publish(cov)
-
     vel = msg.data
-    rospy.loginfo(vel)
+
 
 def handle_iniciar_odometria(startS):
     global pos, empezar
