@@ -137,8 +137,8 @@ def control():
     fin = False
     while (not rospy.is_shutdown()) and (not fin):
         # Entra al siguiente condicional en caso de que se halla llegado a uno de los puntos intermedios de la ruta
-        rospy.loginfo("tamano ruta", len(ruta))
-        rospy.loginfo("estado en ruta", iRuta)
+        rospy.loginfo(len(ruta))
+        rospy.loginfo(iRuta)
         if arrivedP:
             # Entra al siguiente condicional en caso de que halla llegado al punto final de la ruta, debe encaminarse a
             # posicion final del camino
