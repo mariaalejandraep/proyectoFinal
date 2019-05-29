@@ -68,22 +68,21 @@ def leviathan():
         iniciar_odometria = rospy.ServiceProxy('iniciar_odometria', StartService)
         iniciar_odometria(escenario)
 
-        rospy.Service('terminar_recorrido', TerminarRecorrido, handle_terminar_recorrido)
+        rospy.Service('terminar_control', TerminarRecorrido, handle_terminar_recorrido)
 
-        rospy.loginfo("Esperando terminar recorrido")
-
+        rospy.loginfo("Esperando terminar control")
 
         while not esperarTerminarRecorrido:
             pass
 
         #pubEstado.publish(4)
-        solicitud_contrasena = rospy.ServiceProxy('solicitud_contrasena', Contrasena) # Crea el objeto referente al servicio
+        solicitud_contrasena = rospy.ServiceProxy('iniciar_contrasena', Contrasena) # Crea el objeto referente al servicio
         password = solicitud_contrasena()
         #pubEstado.publish(5)
-        resp.data = password
-        end_service = rospy.ServiceProxy('end_service', Int32)
+        resp = password
+        end_service = rospy.ServiceProxy('end_service', EndService)
         respFinal = end_service(resp)
-        if respFinal.data == 1:
+        if respFinal == 1:
             print("Drop the mic, leave the room")
         else:
             print("Burn the room")
@@ -104,9 +103,10 @@ def handle_start_service(startS):
     return []
 
 
-def handle_terminar_recorrido():
+def handle_terminar_recorrido(req):
     global esperarTerminarRecorrido
     esperarTerminarRecorrido = True
+    return []
 
 
 

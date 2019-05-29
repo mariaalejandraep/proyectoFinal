@@ -79,6 +79,7 @@ mot.data = [0, 0]
 # Senal para saber si ya se ejecuto
 empezar = False
 
+umbralFin = 10
 
 # En este metodo se inicializa el nodo, se suscribe a los topicos necesarios, se crea la variable para publicar al
 # topico de motorsVel y tambien se lanza el nodo encargado de graficar. Ademas es el metodo encargado de realizar
@@ -159,7 +160,7 @@ def control():
             elif iRuta == len(ruta):
                 # Debido a que llega a la posicon final se modifica el Kb para que modifique su orientacion a la final
                 kb = -0.06
-                if abs(posicionFinal.orientation.w - posicionActual.orientation.w) < 0.1:
+                if abs(posicionFinal.orientation.w - posicionActual.orientation.w) < umbralFin:
                     # En caso que la orientacion tenga un error menor a los 0.1 radianes en la poscion final termina
                     # procedimiento
                     fin = True
@@ -175,9 +176,9 @@ def control():
     mot.data[0] = 0
     mot.data[1] = 0
     pubMot.publish(mot)
-    rospy.wait_for_service('terminar_recorrido')
-    terminar_recorrido = rospy.ServiceProxy('terminar_recorrido', TerminarRecorrido)
-    terminar_recorrido()
+    rospy.wait_for_service('terminar_control')
+    terminar_control = rospy.ServiceProxy('terminar_control', TerminarRecorrido)
+    terminar_control()
 
 
 def handle_iniciar_recorrido(startS):
