@@ -117,9 +117,9 @@ def handle_start_service(startS):
 
 def handle_terminar_recorrido(req):
     global esperarTerminarRecorrido
-    if req == 1:
-        esperarTerminarRecorrido = True
-        rospy.loginfo ("Recibio el llamado del topico para terminar recorrido")
+    esperarTerminarRecorrido = True
+    rospy.loginfo ("Recibio el llamado del topico para terminar recorrido")
+    return []
 
 
 if __name__ == '__main__':
