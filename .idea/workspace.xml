@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="00974ca6-b36f-4c4a-a2fd-40c4dc2b68b7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Scripts/nodoControl.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/nodoControl.py" afterDir="false" />
-    </list>
+    <list default="true" id="00974ca6-b36f-4c4a-a2fd-40c4dc2b68b7" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,31 +25,31 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Scripts/nodoLeds.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="29" column="10" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="10" />
+            <state relative-caret-position="109">
+              <caret line="34" column="14" lean-forward="true" selection-start-line="34" selection-start-column="14" selection-end-line="34" selection-end-column="14" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Scripts/nodoControl.py">
+        <entry file="file://$PROJECT_DIR$/Scripts/nodoPrincipal.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="545">
-              <caret line="170" column="35" lean-forward="true" selection-start-line="170" selection-start-column="35" selection-end-line="170" selection-end-column="35" />
+            <state relative-caret-position="124">
+              <caret line="71" column="43" lean-forward="true" selection-start-line="71" selection-start-column="43" selection-end-line="71" selection-end-column="43" />
               <folding>
-                <element signature="e#95#130#0" expanded="true" />
+                <element signature="e#22#34#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/Documents/Proyecto Robotica/intentoControlMale.py">
+        <entry file="file://$PROJECT_DIR$/Scripts/nodoControl.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
+            <state relative-caret-position="581">
+              <caret line="123" column="15" lean-forward="true" selection-start-line="123" selection-start-column="15" selection-end-line="123" selection-end-column="15" />
               <folding>
-                <element signature="e#94#129#0" expanded="true" />
+                <element signature="e#95#130#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -141,16 +139,16 @@
         <option value="$PROJECT_DIR$/Scripts/encoderController.py" />
         <option value="$PROJECT_DIR$/Scripts/nodoPruebaControlEncoder.py" />
         <option value="$USER_HOME$/Documents/Proyecto Robotica/intentoControlMale.py" />
-        <option value="$PROJECT_DIR$/Scripts/nodoPrincipal.py" />
         <option value="$PROJECT_DIR$/Scripts/nodoOdometria.py" />
         <option value="$PROJECT_DIR$/Scripts/nodoContrasena.py" />
         <option value="$PROJECT_DIR$/Scripts/nodoControlEncoder.py" />
         <option value="$PROJECT_DIR$/Scripts/nodoLeds.py" />
+        <option value="$PROJECT_DIR$/Scripts/nodoPrincipal.py" />
         <option value="$PROJECT_DIR$/Scripts/nodoControl.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="332" />
     <option name="y" value="-4" />
     <option name="width" value="614" />
@@ -246,7 +244,7 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32952926" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -317,16 +315,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/nodoPrincipal.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1050">
-          <caret line="105" column="13" selection-start-line="105" selection-start-column="13" selection-end-line="105" selection-end-column="13" />
-          <folding>
-            <element signature="e#22#34#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Documents/Proyecto Robotica/intentoControlMale.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -385,13 +373,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/nodoLeds.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="29" column="10" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Scripts/nodoControlEncoder.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
@@ -402,12 +383,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/nodoLeds.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="34" column="14" lean-forward="true" selection-start-line="34" selection-start-column="14" selection-end-line="34" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Scripts/nodoControl.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="545">
-          <caret line="170" column="35" lean-forward="true" selection-start-line="170" selection-start-column="35" selection-end-line="170" selection-end-column="35" />
+        <state relative-caret-position="581">
+          <caret line="123" column="15" lean-forward="true" selection-start-line="123" selection-start-column="15" selection-end-line="123" selection-end-column="15" />
           <folding>
             <element signature="e#95#130#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Scripts/nodoPrincipal.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="71" column="43" lean-forward="true" selection-start-line="71" selection-start-column="43" selection-end-line="71" selection-end-column="43" />
+          <folding>
+            <element signature="e#22#34#0" expanded="true" />
           </folding>
         </state>
       </provider>
