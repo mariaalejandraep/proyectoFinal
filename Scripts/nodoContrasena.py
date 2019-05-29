@@ -69,7 +69,7 @@ def contrasena():
     rospy.init_node ('nodo_Contrasena', anonymous=True)
     rate = rospy.Rate (10)
 
-    handle_contrasena(0)
+    # handle_contrasena(0)
 
     s = rospy.Service ('iniciar_contrasena', Contrasena, handle_contrasena)
 
