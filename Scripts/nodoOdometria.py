@@ -24,11 +24,11 @@ cose=0
 seno=0
 
 #Averiguar que es b. Por ahora en 1.
-b = 1
+b = 2*50
 
 #Constantes de la matriz de covarianza. Por ahora en 1.
-kr = 1
-kl = 1
+kr = 0.1
+kl = 0.1
 
 #Theta. Es la orientacion del robot con respecto al eje z.
 O = 0
@@ -93,16 +93,26 @@ def actualizar(msg):
 
     O = pos.orientation.w
 
+    rospy.loginfo("O: {}".format(O))
+
     cose=math.cos(O+dO/2.0)
     seno=math.sin(O+dO/2.0)
     dScos=dS*cose
     dSsin= dS*seno
 
     pos.position.x = pos.position.x + dScos
-    pos.position.y = pos.position.y +dSsin
+    pos.position.y = pos.position.y + dSsin
     pos.orientation.w = O + dO
 
-    #CovarSrSl=np.matrix(((kr*np.absolute(dSr),0),(0,kl*np.absolute(dSl))))
+    rospy.loginfo("dX: {}, dY: {}".format(dScos,dSsin))
+
+    while pos.orientation.w < -math.pi:
+        pos.orientation.w = pos.orientation.w + 2*math.pi
+
+    while pos.orientation.w > math.pi:
+        pos.orientation.w = pos.orientation.w - 2*math.pi
+
+    CovarSrSl=np.matrix(((kr*np.absolute(dSr),0),(0,kl*np.absolute(dSl))))
 
     Fpt1=np.array([[1, 0, -dSsin],[1, 0, dScos],[0, 0, 1]])
     Fpt1trans=np.transpose(Fpt1)
@@ -126,6 +136,7 @@ def actualizar(msg):
     pubCov.publish(cov)
 
     vel = msg.data
+    rospy.loginfo(vel)
 
 def handle_iniciar_odometria(startS):
     global pos, empezar

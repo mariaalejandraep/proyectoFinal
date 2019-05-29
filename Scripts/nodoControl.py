@@ -7,6 +7,7 @@ import networkx as nx
 from master_msgs_iele3338.srv import StartService
 from proyectoFinal.srv import TerminarRecorrido
 from std_msgs.msg import Int32
+import matplotlib.pyplot as plt
 
 
 # Clase que representa una casilla, tiene ubicacion o punto que la define (mitad) y si un objeto la cubre o no.
@@ -51,7 +52,7 @@ l = 50  # milimetros
 # Es la variable donde se almacena el valor de p (rho) que equivale a la distancia entre el punto actual y el final.
 p = 0
 # Es un umbral que se define para indicarle al robot cuando llega al punto final.
-umbralP = 50  # distanciaCuadricula/2
+umbralP = 195# distanciaCuadricula/2
 # Es una variable booleana que indica que el robot ha llegado al punto final.
 arrivedP = False
 # Es la variable donde se guarda la distancia en x entre el punto actual y final.
@@ -66,7 +67,7 @@ b = 0
 # Equivale al angulo que se forma en el triangulo formado por el punto actual y final.
 t = 0
 # Es la constante kp. Debe ser mayor que 0 para que el sistema sea localmente estable.
-kp = 0.04  #0.4 # mayor que 0, antes era 0.1
+kp = 0.4  #0.4 # mayor que 0, antes era 0.1
 # Es la constante ka. ka-kp debe ser mayor que 0 para que el sistema sea localmente estable.
 ka = 0.5  # 1 # ka-kp mayor que 0, antes era 0.5
 # Es la constante kb. Debe ser menor a 0 para que el sistema sea localmente estable.
@@ -99,6 +100,7 @@ def control():
     # Se espera a que se publique por primera vez a traves del topico preguntarCasillas
     while not empezar:
         pass
+
     # pubEstado.publish(2)
     # Se crean los vertices y casillas del grafo y arreglo respectivamente
     creadorVerticesCasillas()
@@ -109,6 +111,8 @@ def control():
     # heuristica entre dos nodos
     ruta = nx.astar_path(g, numCasillas(posicionActual.position.x, posicionActual.position.y),
                          numCasillas(posicionFinal.position.x, posicionFinal.position.y), heuristic=heuristic)
+
+    visualizacionPrevia(ruta)
     # pubEstado.publish(3)
     # En caso de que la ruta este compuesta por mas de un nodo calcula el teta adecuado para que la primera posicion
     # termine orientada a la siguiente casilla, de lo contrario, la orienta al punto final
@@ -178,14 +182,13 @@ def control():
 
 def handle_iniciar_recorrido(startS):
     global posicionActual, posicionFinal, n_obstacles, obstacles, empezar
-    empezar = True
     posicionActual = startS.start
     posicionFinal = startS.goal
     rospy.loginfo(posicionActual)
     rospy.loginfo(posicionFinal)
     n_obstacles = startS.n_obstacles
     obstacles = startS.obstacles
-    rospy.loginfo("Handle")
+    empezar = True
     return []
 
 
@@ -293,9 +296,10 @@ def libre(xCas, yCas):  # Si se encuentra un obstaculo en ella
     distanciaCarro = 200
     distBool = True
     for i in obstacles:
+        rospy.loginfo("i:")
         rospy.loginfo(i)
-        distObs = math.sqrt((obstacles[i].position.position.x - xCas)**2 + (obstacles[i].position.position.y - yCas)**2)
-        distRef = obstacles[i].radius + distanciaCarro
+        distObs = math.sqrt((i.position.position.x - xCas)**2 + (i.position.position.y - yCas)**2)
+        distRef = i.radius + distanciaCarro
         distBool = (distObs >= distRef)
         if not distBool:
             break
@@ -361,6 +365,37 @@ def calcularAngulos(pos):
         while b <= -math.pi:
             b = b + 2 * math.pi
 
+
+
+# Metodo que grafica el camino generado por el RTT previo a que se realice la accion de control
+def visualizacionPrevia(path):
+    global casillasRRT, xDescartados, yDescartados, g
+    cordX = []
+    cordY = []
+    cordXObs = []
+    cordYObs = []
+    xPath = []
+    yPath = []
+
+    for i in range(0, len(casillas)):
+        casillaActual = casillas[i]
+        if casillaActual.libre:
+            if i in path:
+                xPath.append(casillaActual.x)
+                yPath.append(casillaActual.y)
+            else:
+                cordX.append(casillaActual.x)
+                cordY.append(casillaActual.y)
+        else:
+            if i not in path:
+                cordXObs.append (casillaActual.x)
+                cordYObs.append (casillaActual.y)
+            else:
+                print("Error casilla ocupada pertenece a ruta")
+    plt.plot(cordX, cordY, 'bo')
+    plt.plot(cordXObs, cordYObs, 'ro')
+    plt.plot(xPath,yPath,'go')
+    plt.show()
 
 # Metodo main, mira si existen parametros para la posicion final deseada y ejecuta el metodo principal
 if __name__ == '__main__':
