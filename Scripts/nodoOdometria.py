@@ -24,7 +24,7 @@ cose=0
 seno=0
 
 #Averiguar que es b. Por ahora en 1.
-b = 2*50
+b = float(2*50)
 
 #Constantes de la matriz de covarianza. Por ahora en 1.
 kr = 0.1
