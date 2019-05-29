@@ -246,6 +246,7 @@ def sumarFlancoB1(channel):
 
 def sumarFlancoA2(channel):
     global contadorB
+    print("Intt A")
     if GPIO.input(pwmA2Encoder):
         if GPIO.input(pwmB2Encoder):
             contadorB = contadorB - 1
@@ -260,6 +261,7 @@ def sumarFlancoA2(channel):
 
 def sumarFlancoB2(channel):
     global contadorB
+    print("Intt B")
     if GPIO.input (pwmB2Encoder):
         if GPIO.input (pwmA2Encoder):
             contadorB = contadorB + 1
