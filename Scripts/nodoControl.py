@@ -160,12 +160,12 @@ def control():
             elif iRuta == len(ruta):
                 # Debido a que llega a la posicon final se modifica el Kb para que modifique su orientacion a la final
                 kb = -0.06
-				dif = abs(posicionFinal.orientation.w - posicionActual.orientation.w)
-				while dif > math.pi:
-					dif = dif -math.pi*2
-				while dif < -math.pi:
-					dif = dif + math.pi*2
-				if  dif < umbralFin:
+                dif = abs(posicionFinal.orientation.w - posicionActual.orientation.w)
+                while dif > math.pi:
+                    dif = dif -math.pi*2
+                while dif < -math.pi:
+                    dif = dif + math.pi*2
+                if  dif < umbralFin:
                     # En caso que la orientacion tenga un error menor a los 0.1 radianes en la poscion final termina
                     # procedimiento
                     fin = True
