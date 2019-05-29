@@ -160,12 +160,13 @@ def control():
             elif iRuta == len(ruta):
                 # Debido a que llega a la posicon final se modifica el Kb para que modifique su orientacion a la final
                 kb = -0.06
-                dif = abs(posicionFinal.orientation.w - posicionActual.orientation.w)
-                while dif > math.pi:
-                    dif = dif -math.pi*2
-                while dif < -math.pi:
-                    dif = dif + math.pi*2
-                if  dif < umbralFin:
+                # dif = abs(posicionFinal.orientation.w - posicionActual.orientation.w)
+                # while dif > math.pi:
+                    # dif = dif -math.pi*2
+                # while dif < -math.pi:
+                    # dif = dif + math.pi*2
+                # if  dif < umbralFin:
+                if comparadorAngulos(posicionFinal.orientation.w, posicionActual.orientation.w)
                     # En caso que la orientacion tenga un error menor a los 0.1 radianes en la poscion final termina
                     # procedimiento
                     fin = True
@@ -251,6 +252,20 @@ def creadorVerticesCasillas():
 #     launch = roslaunch.scriptapi.ROSLaunch ()
 #     launch.start ()
 #     process = launch.launch (node)
+
+def comparadorAngulos(angulo1, angulo2):
+    an1 = angulo1
+    an2 = angulo2
+    while an1 > math.pi:
+        an1 = an1 - 2*math.pi
+    while an1 < -math.pi:
+        an1 = an1 + 2*math.pi
+    while an2 > math.pi:
+        an2 = an2 - 2*math.pi
+    while an2 < -math.pi:
+        an2 = an2 + 2*math.pi
+    dist = math.sqrt((math.cos(an1)-math.cos(an2))**2+(math.sin(an1)-math.sin(an2))**2)
+    return dist < 0.5
 
 
 # Crea los arcos entre los vertices creados en el grafo, solo es necesario revisar los nodos que pueden ser vecinos, en

@@ -4,17 +4,17 @@ import RPi.GPIO as GPIO
 from std_msgs.msg import Int32
 
 # Ciclo util color 1 led A
-cicloA1=0
+cicloA1=100
 # Ciclo util color 2 led A
-cicloA2=1
+cicloA2=100
 # Ciclo util color 3 led A
-cicloA3=0
+cicloA3=100
 # Ciclo util color 1 led B
-cicloB1=0
+cicloB1=100
 # Ciclo util color 2 led B
-cicloB2=0
+cicloB2=100
 # Ciclo util color 3 led B
-cicloB3=0
+cicloB3=100
 
 # Variable que controla color 1 del LED A
 LedA_1 =33
@@ -45,24 +45,25 @@ def setPins():
 
     # Configurando senales de salida para los LEDS e inicializandolas en ciclo util de 0
     pLedA_1 = GPIO.PWM(LedA_1, fLeds)
-    GPIO.output(LedA_1, 0)
+    GPIO.output(LedA_1, 100)
     pLedA_2 = GPIO.PWM(LedA_2, fLeds)
-    GPIO.output(LedA_2, 0)
+    GPIO.output(LedA_2, 100)
     pLedA_3 = GPIO.PWM(LedA_3, fLeds)
-    GPIO.output(LedA_3, 0)
+    GPIO.output(LedA_3, 100)
     pLedB_1 = GPIO.PWM(LedB_1, fLeds)
-    GPIO.output(LedB_1, 0)
+    GPIO.output(LedB_1, 100)
     pLedB_2 = GPIO.PWM(LedB_2, fLeds)
-    GPIO.output(LedB_2, 0)
+    GPIO.output(LedB_2, 100)
     pLedB_3 = GPIO.PWM(LedB_3, fLeds)
-    GPIO.output(LedB_3, 0)
+    GPIO.output(LedB_3, 100)
 
 
 
 def iniciarLeds():
     rospy.init_node('nodoLeds', anonymous=True)  # inicializa el nodo
     setPins()
-    rospy.Subscriber('estado', int32, handle_color)
+    rospy.Subscriber('estado', Int32, handle_color)
+    rate = rospy.Rate()
     while not rospy.is_shutdown():
         rate.sleep()
 
@@ -71,32 +72,32 @@ def iniciarLeds():
 def handle_color(estado_act):
     global pLedA_1,pLedA_2,pLedA_3,pLedB_1,pLedB_2,pLedB_3,cicloA1,cicloA2,cicloA3,cicloB1,cicloB2,cicloB3
     if estado_act.data==0:
-        cicloA1=50
-        pLedA_1.ChangeDutyCycle(cicloA1)
-    elif estado_act.data==1:
         cicloA1=0
         pLedA_1.ChangeDutyCycle(cicloA1)
-        cicloA2=50
-        pLedA_2.ChangeDutyCycle(cicloA2)
-    elif estado_act.data==2:
+    elif estado_act.data==1:
+        cicloA1=100
+        pLedA_1.ChangeDutyCycle(cicloA1)
         cicloA2=0
         pLedA_2.ChangeDutyCycle(cicloA2)
-        cicloA3=50
-        pLedA_3.ChangeDutyCycle(cicloA3)
-    elif estado_act.data==3:
+    elif estado_act.data==2:
+        cicloA2=100
+        pLedA_2.ChangeDutyCycle(cicloA2)
         cicloA3=0
         pLedA_3.ChangeDutyCycle(cicloA3)
-        cicloB1=50
-        pLedB_1.ChangeDutyCycle(cicloB1)
-    elif estado_act.data==4:
+    elif estado_act.data==3:
+        cicloA3=100
+        pLedA_3.ChangeDutyCycle(cicloA3)
         cicloB1=0
         pLedB_1.ChangeDutyCycle(cicloB1)
-        cicloB2=50
-        pLedB_2.ChangeDutyCycle(cicloB2)
-    elif estado_act.data==5:
+    elif estado_act.data==4:
+        cicloB1=100
+        pLedB_1.ChangeDutyCycle(cicloB1)
         cicloB2=0
         pLedB_2.ChangeDutyCycle(cicloB2)
-        cicloB3=50
+    elif estado_act.data==5:
+        cicloB2=100
+        pLedB_2.ChangeDutyCycle(cicloB2)
+        cicloB3=0
         pLedB_3.ChangeDutyCycle(cicloB3)
 
 
