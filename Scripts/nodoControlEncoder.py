@@ -7,7 +7,7 @@ import sys
 from std_msgs.msg import Float32MultiArray
 
 # Es la tasa en Hertz (Hz) del nodo.
-h = 10
+h = 50
 # Variable con el primer pin que va al driver para controlar el motor A.
 pwmA1Driver = 11
 # Variable con el segundo pin que va al driver para controlar el motor A.
@@ -56,12 +56,12 @@ calculando = False
 # Radio de las llantas en metros
 r = (29.3/2)
 # Variables de control PI
-kpA = 0.08
-kiA = 0#0.00005
-kdA = 0.0001
-kpB = 0.08
-kiB = 0
-kdB = 0.0001
+kpA = 0.1
+kiA = 0.00000001
+kdA = 0.001
+kpB = 0.1
+kiB = 0.00000001
+kdB = 0.001
 # Acumulacion de error para integrador
 integradorA = []
 integradorB = []
