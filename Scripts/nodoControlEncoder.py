@@ -131,12 +131,13 @@ def calcularVelocidadRuedas():
     velActA = (flancosA/tiempo)*(math.pi/600)*radioRueda
     velActB = (flancosB/tiempo)*(math.pi/600)*radioRueda
     print("La velocidad actual de la rueda A:", velActA)
+    print("La velocidad actual de la rueda B:", velActB)
 
 
 def aplicarControlBajoNivel():
     global integradorA, integradorB, pA1, pA2, pB1, pB2, refAccionControlA, refAccionControlB, pwmA, pwmB
     errorA = velRefA - velActA
-    errorB = velRefB - 0 # velActB
+    errorB = velRefB - velActB
     integradorA.append(errorA)
     integradorA = integradorA[-10:]
     integradorB.append(errorB)
