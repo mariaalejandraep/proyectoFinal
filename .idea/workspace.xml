@@ -27,8 +27,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Scripts/nodoOdometria.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="122" column="29" selection-start-line="122" selection-start-column="29" selection-end-line="122" selection-end-column="29" />
+            <state relative-caret-position="660">
+              <caret line="134" column="22" selection-start-line="134" selection-start-column="19" selection-end-line="134" selection-end-column="22" />
               <folding>
                 <element signature="e#94#129#0" expanded="true" />
               </folding>
@@ -357,8 +357,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Scripts/nodoOdometria.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="122" column="29" selection-start-line="122" selection-start-column="29" selection-end-line="122" selection-end-column="29" />
+        <state relative-caret-position="660">
+          <caret line="134" column="22" selection-start-line="134" selection-start-column="19" selection-end-line="134" selection-end-column="22" />
           <folding>
             <element signature="e#94#129#0" expanded="true" />
           </folding>
