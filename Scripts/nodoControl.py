@@ -166,7 +166,7 @@ def control():
                 # while dif < -math.pi:
                     # dif = dif + math.pi*2
                 # if  dif < umbralFin:
-                if comparadorAngulos(posicionFinal.orientation.w, posicionActual.orientation.w)
+                if comparadorAngulos(posicionFinal.orientation.w, posicionActual.orientation.w):
                     # En caso que la orientacion tenga un error menor a los 0.1 radianes en la poscion final termina
                     # procedimiento
                     fin = True
