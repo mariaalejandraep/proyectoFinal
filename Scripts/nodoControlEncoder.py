@@ -61,7 +61,7 @@ kiA = 0#0.00005
 kdA = 0.0001
 kpB = 0.08
 kiB = 0
-kdB = 0.0001
+kdB = 0.001
 # Acumulacion de error para integrador
 integradorA = []
 integradorB = []
