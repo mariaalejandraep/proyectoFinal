@@ -56,8 +56,12 @@ calculando = False
 # Radio de las llantas en metros
 r = (29.3/2)
 # Variables de control PI
-kp = 0.02
-ki = 0.0000001
+kpA = 0.08
+kiA = 0#0.00005
+kdA = 0.0001
+kpB = 0.08
+kiB = 0
+kdB = 0.0001
 # Acumulacion de error para integrador
 integradorA = []
 integradorB = []
@@ -70,6 +74,9 @@ velActA = 0
 velActB = 0
 # Variable de saturacion maxima de ciclo util
 satCicloUtil = 60
+
+errorAnteriorA = 0
+errorAnteriorB = 0
 
 
 def setPins():
@@ -98,8 +105,8 @@ def setPins():
     # Detectar flancos en otros metodos
     GPIO.add_event_detect(pwmA1Encoder, GPIO.BOTH, callback=sumarFlancoA1)
     GPIO.add_event_detect(pwmB1Encoder, GPIO.BOTH, callback=sumarFlancoB1)
-    GPIO.add_event_detect(pwmA2Encoder, GPIO.RISING, callback=sumarFlancoA2)
-    GPIO.add_event_detect(pwmB2Encoder, GPIO.RISING, callback=sumarFlancoB2)
+    GPIO.add_event_detect(pwmA2Encoder, GPIO.BOTH, callback=sumarFlancoA2)
+    GPIO.add_event_detect(pwmB2Encoder, GPIO.BOTH, callback=sumarFlancoB2)
 
 
 def controlBajoNivel():
@@ -110,8 +117,8 @@ def controlBajoNivel():
     pA1.ChangeDutyCycle(cicloADriver)
     pB1.ChangeDutyCycle(cicloBDriver)
     while not rospy.is_shutdown():
-        calcularVelocidadRuedas()
-        aplicarControlBajoNivel()
+        time = calcularVelocidadRuedas()
+        aplicarControlBajoNivel(time)
         print(contadorA)
         rate.sleep()
     apagar()
@@ -129,27 +136,34 @@ def calcularVelocidadRuedas():
     velActA = (flancosA/tiempo)*(math.pi/600)*radioRueda
     velActB = (flancosB/tiempo)*(math.pi/600)*radioRueda
     print("La velocidad actual de la rueda A:", velActA)
+    print("La velocidad actual de la rueda B:", velActB)
+    return tiempo
 
 
-def aplicarControlBajoNivel():
-    global integradorA, integradorB, pA1, pA2, pB1, pB2, refAccionControlA, refAccionControlB, pwmA, pwmB
-    errorA = velRefA - 0 # velActA
-    errorB = velRefB - 0 # velActB
+def aplicarControlBajoNivel(time):
+    global integradorA, integradorB, pA1, pA2, pB1, pB2, refAccionControlA, refAccionControlB, pwmA, pwmB, errorAnteriorA, errorAnteriorB
+    errorA = velRefA - velActA
+    errorB = velRefB - velActB
     integradorA.append(errorA)
     integradorA = integradorA[-10:]
     integradorB.append(errorB)
     integradorB = integradorB[-10:]
     integralA = sum(integradorA)
     integralB = sum(integradorB)
-    errorSignalA = kp * errorA + ki * integralA
-    errorSignalB = kp * errorB + ki * integralB
-    if abs(errorSignalA) < .5:
+    derivadaErrorA = (errorA-errorAnteriorA)/time
+    derivadaErrorB = (errorB-errorAnteriorB)/time
+    errorAnteriorA = errorA
+    errorAnteriorB = errorB
+    errorSignalA = kpA * errorA + kiA * integralA + kdA * derivadaErrorA
+    errorSignalB = kpB * errorB + kiB * integralB + kdB * derivadaErrorB
+    if abs(errorSignalA) < .1:
         errorSignalA = 0
-    if abs(errorSignalB) < .5:
+    if abs(errorSignalB) < .1:
         errorSignalB = 0
-    # pwmA = pwmA + errorSignalA
-    pwmA = velActA * (10/(math.pi*radioRueda))+errorSignalA
-    pwmB = velActB * (10/(math.pi*radioRueda))+errorSignalB
+    pwmA = pwmA + errorSignalA
+    pwmB = pwmB + errorSignalB
+    # pwmA = velActA * (10/(math.pi*radioRueda))+errorSignalA
+    # pwmB = velActB * (10/(math.pi*radioRueda))+errorSignalB
     if pwmA >= 0:
         print("Entro if rueda A")
         if pwmA > satCicloUtil:
