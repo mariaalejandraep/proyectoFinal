@@ -8,7 +8,7 @@ from std_msgs.msg import Float32MultiArray
 from master_msgs_iele3338.srv import StartService
 
 # Es la tasa en Hertz (Hz) del nodo.
-h = 50
+h = 10
 # Variable con el primer pin que va al driver para controlar el motor A.
 pwmA1Driver = 11
 # Variable con el segundo pin que va al driver para controlar el motor A.
@@ -162,9 +162,9 @@ def aplicarControlBajoNivel(time):
     errorA = velRefA - velActA
     errorB = velRefB - velActB
     integradorA.append(errorA)
-    integradorA = integradorA[-50:]
+    integradorA = integradorA[-10:]
     integradorB.append(errorB)
-    integradorB = integradorB[-50:]
+    integradorB = integradorB[-10:]
     integralA = sum(integradorA) * time
     integralB = sum(integradorB) * time
     derivadaErrorA = (errorA-errorAnteriorA)/time
