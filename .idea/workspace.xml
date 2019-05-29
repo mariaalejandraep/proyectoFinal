@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="00974ca6-b36f-4c4a-a2fd-40c4dc2b68b7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Scripts/nodoControlEncoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/nodoControlEncoder.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Scripts/nodoControl.py" beforeDir="false" afterPath="$PROJECT_DIR$/Scripts/nodoControl.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,11 +12,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Scripts/nodoControlEncoder.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="121" column="4" lean-forward="true" selection-start-line="121" selection-start-column="4" selection-end-line="121" selection-end-column="4" />
+            <state relative-caret-position="390">
+              <caret line="110" column="62" selection-start-line="110" selection-start-column="62" selection-end-line="110" selection-end-column="62" />
               <folding>
                 <element signature="e#22#34#0" expanded="true" />
               </folding>
@@ -31,11 +31,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Scripts/nodoControl.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="6" selection-start-line="6" selection-end-line="6" selection-end-column="49" />
+            <state relative-caret-position="-390">
+              <caret line="115" column="6" selection-start-line="115" selection-start-column="6" selection-end-line="115" selection-end-column="6" />
+              <folding>
+                <element signature="e#95#130#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -136,11 +139,11 @@
         <option value="$PROJECT_DIR$/Scripts/encoderController.py" />
         <option value="$PROJECT_DIR$/Scripts/nodoPruebaControlEncoder.py" />
         <option value="$USER_HOME$/Documents/Proyecto Robotica/intentoControlMale.py" />
-        <option value="$PROJECT_DIR$/Scripts/nodoControl.py" />
         <option value="$PROJECT_DIR$/Scripts/nodoPrincipal.py" />
         <option value="$PROJECT_DIR$/Scripts/nodoOdometria.py" />
         <option value="$PROJECT_DIR$/Scripts/nodoContrasena.py" />
         <option value="$PROJECT_DIR$/Scripts/nodoControlEncoder.py" />
+        <option value="$PROJECT_DIR$/Scripts/nodoControl.py" />
       </list>
     </option>
   </component>
@@ -356,19 +359,22 @@
         <state relative-caret-position="-315" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/nodoControl.py">
+    <entry file="file://$PROJECT_DIR$/Scripts/nodoControlEncoder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="6" selection-start-line="6" selection-end-line="6" selection-end-column="49" />
+        <state relative-caret-position="390">
+          <caret line="110" column="62" selection-start-line="110" selection-start-column="62" selection-end-line="110" selection-end-column="62" />
+          <folding>
+            <element signature="e#22#34#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Scripts/nodoControlEncoder.py">
+    <entry file="file://$PROJECT_DIR$/Scripts/nodoControl.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="121" column="4" lean-forward="true" selection-start-line="121" selection-start-column="4" selection-end-line="121" selection-end-column="4" />
+        <state relative-caret-position="-390">
+          <caret line="115" column="6" selection-start-line="115" selection-start-column="6" selection-end-line="115" selection-end-column="6" />
           <folding>
-            <element signature="e#22#34#0" expanded="true" />
+            <element signature="e#95#130#0" expanded="true" />
           </folding>
         </state>
       </provider>

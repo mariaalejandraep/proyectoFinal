@@ -113,7 +113,7 @@ def control():
     ruta = nx.astar_path(g, numCasillas(posicionActual.position.x, posicionActual.position.y),
                          numCasillas(posicionFinal.position.x, posicionFinal.position.y), heuristic=heuristic)
 
-    visualizacionPrevia(ruta)
+    # visualizacionPrevia(ruta)
     # pubEstado.publish(3)
     # En caso de que la ruta este compuesta por mas de un nodo calcula el teta adecuado para que la primera posicion
     # termine orientada a la siguiente casilla, de lo contrario, la orienta al punto final
