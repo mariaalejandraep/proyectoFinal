@@ -70,7 +70,9 @@ def leviathan():
         # data = solicitud_contrasena()
         pubEstado.publish(5)
         endService = rospy.ServiceProxy('end_service', EndService)
-        respFinal = endService(handle_contrasena())
+        password=handle_contrasena()
+        rospy.loginfo(password)
+        respFinal = endService(password)
 
         if respFinal == 1:
             print("Drop the mic, leave the room")
