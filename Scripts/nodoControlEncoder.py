@@ -58,7 +58,7 @@ r = (29.3/2)
 # Variables de control PI
 kpA = 0.08
 kiA = 0.00005
-kpB = 0
+kpB = 0.01
 kiB = 0
 # Acumulacion de error para integrador
 integradorA = []
@@ -147,7 +147,7 @@ def aplicarControlBajoNivel():
     errorSignalB = kpB * errorB + kiB * integralB
     if abs(errorSignalA) < .1:
         errorSignalA = 0
-    if abs(errorSignalB) < .5:
+    if abs(errorSignalB) < .1:
         errorSignalB = 0
     pwmA = pwmA + errorSignalA
     # pwmA = velActA * (10/(math.pi*radioRueda))+errorSignalA
