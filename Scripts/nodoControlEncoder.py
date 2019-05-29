@@ -181,6 +181,10 @@ def aplicarControlBajoNivel(time):
     pwmB = pwmB + errorSignalB
     # pwmA = velActA * (10/(math.pi*radioRueda))+errorSignalA
     # pwmB = velActB * (10/(math.pi*radioRueda))+errorSignalB
+    if velRefA == 0:
+        pwmA = 0
+    if velRefB == 0:
+        pwmB = 0
     if pwmA >= 0:
         print("Entro if rueda A")
         if pwmA > satCicloUtil:

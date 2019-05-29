@@ -186,6 +186,7 @@ def control():
     mot.data[1] = 0
     pubMot.publish(mot)
     rospy.wait_for_service('terminar_control')
+    rospy.loginfo("Despues de terminar control")
     terminar_control = rospy.ServiceProxy('terminar_control', TerminarRecorrido)
     terminar_control()
 
