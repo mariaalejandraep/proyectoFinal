@@ -143,7 +143,8 @@ def aplicarControlBajoNivel():
     errorSignalA = kp * errorA + ki * integralA
     if abs(errorSignalA) < 0.5:
         errorSignalA = 0
-    pwmA = pwmA + errorSignalA
+    #pwmA = pwmA + errorSignalA
+    pwmA = velActA * (10/(math.pi*radioRueda))+errorSignalA
     errorSignalB = kp * errorB + ki * integralB
     if pwmA >= 0:
         print("Entro if rueda A")
