@@ -127,6 +127,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>flancos</find>
+      <find>estado</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -148,7 +149,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="332" />
     <option name="y" value="-4" />
     <option name="width" value="614" />
