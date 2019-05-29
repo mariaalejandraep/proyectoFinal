@@ -1,6 +1,5 @@
 <launch>
   <node pkg="proyectoFinal" type="nodoControl.py" name="nodo_control"/>
-  <node pkg="proyectoFinal" type="nodoOdometria.py" name="nodo_odometria"/>
   <node pkg="proyectoFinal" type="nodoContrasena.py" name="nodo_contrasena"/>
   <node pkg="proyectoFinal" type="nodoControlEncoder.py" name="nodo_control_encoder"/>
   <node pkg="proyectoFinal" type="nodoLeds.py" name="nodo_estados"/>
