@@ -2,19 +2,19 @@
 import rospy
 import RPi.GPIO as GPIO
 from std_msgs.msg import Int32
-
+# LED A ES EL DE ARRIBA Y LED B ES EL DE ABAJO
 # Variable que controla color 1 del LED A
-LedA_1 = 33
+LedA_1 = 29
 # Variable que controla color 2 del LED A
-LedA_2 = 32
+LedA_2 = 24
 # Variable que controla color 3 del LED A
-LedA_3 = 31
+LedA_3 = 26
 # Variable que controla color 1 del LED B
-LedB_1 = 29
+LedB_1 = 32
 # Variable que controla color 2 del LED B
-LedB_2 = 26
+LedB_2 = 33
 # Variable que controla color 3 del LED B
-LedB_3 = 24
+LedB_3 = 31
 # Frecuencia Leds
 fLeds = 500
 
