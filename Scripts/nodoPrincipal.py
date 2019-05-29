@@ -34,8 +34,8 @@ esperarStartService = False
 def leviathan():
     global password
     rospy.init_node('nodoPrincipal', anonymous=True)  # inicializa el nodo
-    #pubEstado = rospy.Publisher('estado', Int32, queue_size=10)
-    #pubEstado.publish(0)  # Aca publica que esta esperando ack_service 0
+    pubEstado = rospy.Publisher('estado', Int32, queue_size=10)
+    pubEstado.publish(0)  # Aca publica que esta esperando ack_service 0
     rospy.loginfo("Llega.")
     rospy.wait_for_service('ack_service')  # Espera a que se cree el servicio
     rospy.loginfo("Esperando ack_service")
@@ -49,7 +49,7 @@ def leviathan():
             print(resp.state)
             time.sleep(1)
         rospy.loginfo("Enviando start_service")
-        #pubEstado.publish(1)
+        pubEstado.publish(1)
 
         s = rospy.Service('start_service', StartService,  handle_start_service)
 
@@ -79,10 +79,10 @@ def leviathan():
         while not esperarTerminarRecorrido:
             pass
 
-        #pubEstado.publish(4)
+        pubEstado.publish(4)
         solicitud_contrasena = rospy.ServiceProxy('iniciar_contrasena', Contrasena) # Crea el objeto referente al servicio
         data = solicitud_contrasena()
-        #pubEstado.publish(5)
+        pubEstado.publish(5)
 
         rospy.loginfo(password)
 

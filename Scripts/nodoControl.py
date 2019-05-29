@@ -102,7 +102,7 @@ def control():
     while not empezar:
         pass
 
-    # pubEstado.publish(2)
+    pubEstado.publish(2)
     # Se crean los vertices y casillas del grafo y arreglo respectivamente
     creadorVerticesCasillas()
     # Se crean los arcos del grafo
@@ -114,7 +114,7 @@ def control():
                          numCasillas(posicionFinal.position.x, posicionFinal.position.y), heuristic=heuristic)
 
     #visualizacionPrevia(ruta)
-    # pubEstado.publish(3)
+    pubEstado.publish(3)
     # En caso de que la ruta este compuesta por mas de un nodo calcula el teta adecuado para que la primera posicion
     # termine orientada a la siguiente casilla, de lo contrario, la orienta al punto final
     # Publica un 3 en topico estados
