@@ -100,7 +100,7 @@ def actualizar(msg):
     Fpt1trans = Fpt1.transpose()
     FdS = np.array([[(1.0/2.0)*cose-(1.0/(2.0*b))*dSsin, (1.0/2.0)*cose+(1.0/(2.0*b))*dSsin], [(1.0/2.0)*seno+(1.0/(2.0*b))*dScos, (1.0/2.0)*seno-(1.0/(2.0*b))*dScos], [1.0/b, -(1.0/b)]])
     FdStrans = FdS.transpose()
-    Covarianza = (Fpt1.dot(Covarianza)).dot(Fpt1trans) + (FdS.dot(CovarSrSl)).dot(FdStrans)
+    Covarianza = np.dot((np.dot(Fpt1, Covarianza)), Fpt1trans) + np.dot(np.dot(FdS, CovarSrSl), FdStrans)
     cov.sigma11 = Covarianza[0, 0]
     cov.sigma12 = Covarianza[0, 1]
     cov.sigma13 = Covarianza[0, 2]
