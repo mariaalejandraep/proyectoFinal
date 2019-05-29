@@ -58,8 +58,10 @@ r = (29.3/2)
 # Variables de control PI
 kpA = 0.08
 kiA = 0#0.00005
+kdA = 0.00001
 kpB = 0.08
 kiB = 0
+kdB = 0.00001
 # Acumulacion de error para integrador
 integradorA = []
 integradorB = []
@@ -72,6 +74,9 @@ velActA = 0
 velActB = 0
 # Variable de saturacion maxima de ciclo util
 satCicloUtil = 60
+
+errorAnteriorA = 0
+errorAnteriorB = 0
 
 
 def setPins():
@@ -112,8 +117,8 @@ def controlBajoNivel():
     pA1.ChangeDutyCycle(cicloADriver)
     pB1.ChangeDutyCycle(cicloBDriver)
     while not rospy.is_shutdown():
-        calcularVelocidadRuedas()
-        aplicarControlBajoNivel()
+        time = calcularVelocidadRuedas()
+        aplicarControlBajoNivel(time)
         print(contadorA)
         rate.sleep()
     apagar()
@@ -132,10 +137,11 @@ def calcularVelocidadRuedas():
     velActB = (flancosB/tiempo)*(math.pi/600)*radioRueda
     print("La velocidad actual de la rueda A:", velActA)
     print("La velocidad actual de la rueda B:", velActB)
+    return tiempo
 
 
-def aplicarControlBajoNivel():
-    global integradorA, integradorB, pA1, pA2, pB1, pB2, refAccionControlA, refAccionControlB, pwmA, pwmB
+def aplicarControlBajoNivel(time):
+    global integradorA, integradorB, pA1, pA2, pB1, pB2, refAccionControlA, refAccionControlB, pwmA, pwmB, errorAnteriorA, errorAnteriorB
     errorA = velRefA - velActA
     errorB = velRefB - velActB
     integradorA.append(errorA)
@@ -144,8 +150,12 @@ def aplicarControlBajoNivel():
     integradorB = integradorB[-10:]
     integralA = sum(integradorA)
     integralB = sum(integradorB)
-    errorSignalA = kpA * errorA + kiA * integralA
-    errorSignalB = kpB * errorB + kiB * integralB
+    derivadaErrorA = (errorA-errorAnteriorA)/time
+    derivadaErrorB = (errorB-errorAnteriorB)/time
+    errorAnteriorA = errorA
+    errorAnteriorB = errorB
+    errorSignalA = kpA * errorA + kiA * integralA + kdA * derivadaErrorA
+    errorSignalB = kpB * errorB + kiB * integralB + kdB * derivadaErrorB
     if abs(errorSignalA) < .1:
         errorSignalA = 0
     if abs(errorSignalB) < .1:
