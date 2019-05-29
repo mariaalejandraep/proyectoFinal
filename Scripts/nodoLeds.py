@@ -45,6 +45,8 @@ def iniciarLeds():
     while not rospy.is_shutdown():
         rate.sleep()
 
+    GPIO.cleanup()
+
 
 def handle_color(estado_act):
     if estado_act.data == 0:
