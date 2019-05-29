@@ -6,7 +6,7 @@ import rospy
 from proyectoFinal.srv import Contrasena
 
 def handle_contrasena(req):
-    os.chdir("/home/hero/catkin_ws/src/proyectoFinal/resources")
+    os.chdir("/home/pi/catkin_ws/src/proyectoFinal/resources")
     #os.system("sudo fswebcam -r 1280x720 --no-banner webcam/prueba.jpg")
 
 ################################Entrenamiento

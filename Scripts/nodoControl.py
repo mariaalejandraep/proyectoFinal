@@ -67,7 +67,7 @@ b = 0
 # Equivale al angulo que se forma en el triangulo formado por el punto actual y final.
 t = 0
 # Es la constante kp. Debe ser mayor que 0 para que el sistema sea localmente estable.
-kp = 0.4  #0.4 # mayor que 0, antes era 0.1
+kp = 0.3  #0.4 # mayor que 0, antes era 0.1
 # Es la constante ka. ka-kp debe ser mayor que 0 para que el sistema sea localmente estable.
 ka = 0.5  # 1 # ka-kp mayor que 0, antes era 0.5
 # Es la constante kb. Debe ser menor a 0 para que el sistema sea localmente estable.
@@ -79,7 +79,7 @@ mot.data = [0, 0]
 # Senal para saber si ya se ejecuto
 empezar = False
 
-umbralFin = 10
+umbralFin = math.pi/6
 
 # En este metodo se inicializa el nodo, se suscribe a los topicos necesarios, se crea la variable para publicar al
 # topico de motorsVel y tambien se lanza el nodo encargado de graficar. Ademas es el metodo encargado de realizar
@@ -113,7 +113,7 @@ def control():
     ruta = nx.astar_path(g, numCasillas(posicionActual.position.x, posicionActual.position.y),
                          numCasillas(posicionFinal.position.x, posicionFinal.position.y), heuristic=heuristic)
 
-    # visualizacionPrevia(ruta)
+    visualizacionPrevia(ruta)
     # pubEstado.publish(3)
     # En caso de que la ruta este compuesta por mas de un nodo calcula el teta adecuado para que la primera posicion
     # termine orientada a la siguiente casilla, de lo contrario, la orienta al punto final
@@ -146,7 +146,7 @@ def control():
                 arrivedP = False
                 posInter = posicionFinal
                 # Se modifica el umbral para que de igual forma llega mas cercano al punto final
-                umbralP = 30
+                umbralP = 400
             # Entra al siguiente condicional en caso de que halla llegado a un punto intermedio de la ruta
             elif iRuta < len(ruta)-1:
                 aux = Posicion(casillas[ruta[iRuta+1]].x, casillas[ruta[iRuta+1]].y, math.atan2(casillas[ruta[iRuta+1]].y-casillas[ruta[iRuta]].y, casillas[ruta[iRuta+1]].x-casillas[ruta[iRuta]].x))
@@ -160,7 +160,12 @@ def control():
             elif iRuta == len(ruta):
                 # Debido a que llega a la posicon final se modifica el Kb para que modifique su orientacion a la final
                 kb = -0.06
-                if abs(posicionFinal.orientation.w - posicionActual.orientation.w) < umbralFin:
+				dif = abs(posicionFinal.orientation.w - posicionActual.orientation.w)
+				while dif > math.pi:
+					dif = dif -math.pi*2
+				while dif < -math.pi:
+					dif = dif + math.pi*2
+				if  dif < umbralFin:
                     # En caso que la orientacion tenga un error menor a los 0.1 radianes en la poscion final termina
                     # procedimiento
                     fin = True
