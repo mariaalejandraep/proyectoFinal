@@ -100,8 +100,8 @@ def setPins():
     # Detectar flancos en otros metodos
     GPIO.add_event_detect(pwmA1Encoder, GPIO.BOTH, callback=sumarFlancoA1)
     GPIO.add_event_detect(pwmB1Encoder, GPIO.BOTH, callback=sumarFlancoB1)
-    GPIO.add_event_detect(pwmA2Encoder, GPIO.RISING, callback=sumarFlancoA2)
-    GPIO.add_event_detect(pwmB2Encoder, GPIO.RISING, callback=sumarFlancoB2)
+    GPIO.add_event_detect(pwmA2Encoder, GPIO.BOTH, callback=sumarFlancoA2)
+    GPIO.add_event_detect(pwmB2Encoder, GPIO.BOTH, callback=sumarFlancoB2)
 
 
 def controlBajoNivel():
@@ -130,8 +130,8 @@ def calcularVelocidadRuedas():
     refTiempo = tiempoNuevo
     velActA = (flancosA/tiempo)*(math.pi/600)*radioRueda
     velActB = (flancosB/tiempo)*(math.pi/600)*radioRueda
-    print("La velocidad actual de la rueda A:", contadorA)
-    print("La velocidad actual de la rueda B:", contadorB)
+    print("La velocidad actual de la rueda A:", velActA)
+    print("La velocidad actual de la rueda B:", velActB)
 
 
 def aplicarControlBajoNivel():
