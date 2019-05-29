@@ -72,12 +72,14 @@ velRefB = 0
 # Velocidades actual de las ruedas
 velActA = 0
 velActB = 0
+pubVelsAct = Float32MultiArray()
 # Variable de saturacion maxima de ciclo util
 satCicloUtil = 60
 
 errorAnteriorA = 0
 errorAnteriorB = 0
 
+empezar = False
 
 def setPins():
     global pA1, pA2, pB1, pB2
@@ -110,8 +112,16 @@ def setPins():
 
 
 def controlBajoNivel():
+    global pub, pubVelsAct
     rospy.init_node('controlEncoder', anonymous=True)
+
+    s = rospy.Service ('iniciar_encoders', StartService, handle_iniciar_encoders)
+
+    while not empezar:
+        pass
+
     rospy.Subscriber('velocidad_deseada', Float32MultiArray, handle_velocidad_deseada)
+    pub = rospy.Publisher('velocidad_actual', Float32MultiArray, queue_size = 10)
     rate = rospy.Rate(h)
     setPins()
     pA1.ChangeDutyCycle(cicloADriver)
@@ -119,9 +129,15 @@ def controlBajoNivel():
     while not rospy.is_shutdown():
         time = calcularVelocidadRuedas()
         aplicarControlBajoNivel(time)
+        pubVelsAct.data = [velActA, velActB]
+        pub.publish(pubVelsAct)
         print(contadorA)
         rate.sleep()
     apagar()
+
+def handle_iniciar_encoders(req):
+    global empezar
+    empezar = True
 
 
 def calcularVelocidadRuedas():
@@ -212,7 +228,6 @@ def handle_velocidad_deseada(vel):
     global velRefA, velRefB
     velRefA = vel.data[0]
     velRefB = vel.data[1]
-
 
 def apagar():
     global cicloADriver, cicloBDriver

@@ -58,6 +58,7 @@ def leviathan():
         rospy.loginfo("Enviando iniciar_recorrido e iniciar_odometria")
         rospy.wait_for_service('iniciar_recorrido')
         rospy.wait_for_service('iniciar_odometria')
+        rospy.wait_for_service('iniciar_encoders')
 
         while not esperarStartService:
             pass
@@ -67,6 +68,9 @@ def leviathan():
 
         iniciar_odometria = rospy.ServiceProxy('iniciar_odometria', StartService)
         iniciar_odometria(escenario)
+
+        iniciar_encoders = rospy.ServiceProxy('iniciar_encoders', StartService)
+        iniciar_encoders(escenario)
 
         rospy.Service('terminar_control', TerminarRecorrido, handle_terminar_recorrido)
 

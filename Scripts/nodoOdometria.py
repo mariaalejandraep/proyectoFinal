@@ -74,7 +74,7 @@ def inicializar():
     global pubPos, pubCov, t
     pubPos = rospy.Publisher('robot_position', Pose, queue_size = 10)
     pubCov = rospy.Publisher('robot_uncertainty', Covariance, queue_size = 10)
-    rospy.Subscriber('velocidad_deseada', Float32MultiArray, actualizar)
+    rospy.Subscriber('velocidad_actual', Float32MultiArray, actualizar)
     t = [time.time(), time.time()]
 
 def actualizar(msg):
@@ -92,8 +92,6 @@ def actualizar(msg):
     dO = (dSr-dSl)/b
 
     O = pos.orientation.w
-
-    rospy.loginfo("O: {}".format(O))
 
     cose=math.cos(O+dO/2.0)
     seno=math.sin(O+dO/2.0)
