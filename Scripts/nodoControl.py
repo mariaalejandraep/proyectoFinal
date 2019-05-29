@@ -142,7 +142,7 @@ def control():
                 arrivedP = False
                 posInter = posicionFinal
                 # Se modifica el umbral para que de igual forma llega mas cercano al punto final
-                umbralP = 400
+                umbralP = 250#400
             # Entra al siguiente condicional en caso de que halla llegado a un punto intermedio de la ruta
             elif iRuta < len(ruta)-1:
                 aux = Posicion(casillas[ruta[iRuta+1]].x, casillas[ruta[iRuta+1]].y, math.atan2(casillas[ruta[iRuta+1]].y-casillas[ruta[iRuta]].y, casillas[ruta[iRuta+1]].x-casillas[ruta[iRuta]].x))
@@ -264,7 +264,7 @@ def comparadorAngulos(angulo1, angulo2):
     while an2 < -math.pi:
         an2 = an2 + 2*math.pi
     dist = math.sqrt((math.cos(an1)-math.cos(an2))**2+(math.sin(an1)-math.sin(an2))**2)
-    return dist < 0.5
+    return dist < 0.25
 
 
 # Crea los arcos entre los vertices creados en el grafo, solo es necesario revisar los nodos que pueden ser vecinos, en

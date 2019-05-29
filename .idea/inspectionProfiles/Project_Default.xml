@@ -28,6 +28,9 @@
           <option value="Scripts.nodoControl.proyectoFinal" />
           <option value="Scripts.nodoControl.master_msgs_iele3338" />
           <option value="Scripts.nodoControlEncoder.master_msgs_iele3338" />
+          <option value="numpy" />
+          <option value="cv2" />
+          <option value="Scripts.nodoContrasena.proyectoFinal" />
         </list>
       </option>
     </inspection_tool>
