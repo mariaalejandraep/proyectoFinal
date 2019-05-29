@@ -5,6 +5,7 @@ import time
 import math
 import sys
 from std_msgs.msg import Float32MultiArray
+from master_msgs_iele3338.srv import StartService
 
 # Es la tasa en Hertz (Hz) del nodo.
 h = 50
