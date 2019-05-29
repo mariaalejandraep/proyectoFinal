@@ -187,10 +187,10 @@ def control():
     pubMot.publish(mot)
     # rospy.wait_for_service('terminar_control')
     rospy.loginfo("Despues de terminar control")
-    # terminar_control = rospy.ServiceProxy('terminar_control', TerminarRecorrido)
-    pubTermino = rospy.Publisher('termino_recorrido', Int32,  queue_size=10)
-    pubTermino.publish(1)
-    # terminar_control()
+    terminar_control = rospy.ServiceProxy('terminar_control', TerminarRecorrido)
+    # pubTermino = rospy.Publisher('termino_recorrido', Int32,  queue_size=10)
+    # pubTermino.publish(1)
+    terminar_control()
 
     rospy.spin()
 
