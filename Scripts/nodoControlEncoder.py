@@ -164,8 +164,8 @@ def aplicarControlBajoNivel(time):
     integradorA = integradorA[-50:]
     integradorB.append(errorB)
     integradorB = integradorB[-50:]
-    integralA = sum(integradorA)
-    integralB = sum(integradorB)
+    integralA = sum(integradorA) * time
+    integralB = sum(integradorB) * time
     derivadaErrorA = (errorA-errorAnteriorA)/time
     derivadaErrorB = (errorB-errorAnteriorB)/time
     errorAnteriorA = errorA
