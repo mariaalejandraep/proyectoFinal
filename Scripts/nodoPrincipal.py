@@ -75,7 +75,6 @@ def leviathan():
         # rospy.Subscriber ('termino_recorrido', Int32, handle_terminar_recorrido)
 
         s1=rospy.Service('terminar_control', TerminarRecorrido, handle_terminar_recorrido)
-        rospy.spin()
         rospy.loginfo("Esperando terminar control")
 
         while not esperarTerminarRecorrido:
